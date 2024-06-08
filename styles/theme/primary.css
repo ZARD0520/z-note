@@ -1,0 +1,15 @@
+:root[data-theme=primary] {
+  --primary-color: #409eff;
+  --primary-text-color: #fff;
+  --secondary-color: '';
+  --secondary-text-color: '';
+  --hover-color: #66b1ff;
+  --disabled-color: #98C4FA;
+  --background-base: #F5F7FA;
+  --background-white: #ffffff;
+  --border-color: #D9ECFF;
+}
+
+.dark[data-theme=primary] {
+  --primary-color: black
+}

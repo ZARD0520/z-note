@@ -1,0 +1,12 @@
+{
+    "home": "主页",
+    "title": "祥子日记",
+    "description": "您的AI躺平小助手",
+    "talkHistory":"会话历史",
+    "tools":"工具箱",
+    "donation":"赞赏",
+    "root-welcome":"您好，请问有什么可以帮到您?",
+    "input":{
+        "placeholder":"你想问点什么？"
+    }
+}
