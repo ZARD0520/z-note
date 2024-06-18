@@ -12,10 +12,13 @@
     - antd组件库引入
       - 通过ConfigProvide设定组件语言
       - i18n的字体文件合并antd的字体语言
+  - chatAI接入
+    - 讯飞模型
   - 数据状态管理
   - 基本布局
   - 页面
   - 组件
+    - input组件
     - drag组件
 
 * 踩坑

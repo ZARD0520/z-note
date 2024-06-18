@@ -17,7 +17,7 @@ const config: Config = {
           background:"var(--background-base)",
           border:"var(--border-color)"
         },
-      }
+      },
     },
   },
   plugins: [],

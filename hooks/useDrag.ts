@@ -42,11 +42,20 @@ const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
   }, [position])
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (e.target == null) {
+      return;
+    }
     e.preventDefault()
     if (dragging) {
+      let px = e.clientX - offset.x
+      let py = e.clientY - offset.y
+
+      if (px < 0 || py < 0) {
+        return;
+      }
       setPosition({
-        x: e.clientX - offset.x,
-        y: e.clientY - offset.y,
+        x: px,
+        y: py,
       });
     }
   }, [dragging, offset])
@@ -54,9 +63,14 @@ const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
   const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback((e) => {
     if (draggingMobile) {
       const touch = e.touches[0];
+      let px = touch.clientX - offset.x
+      let py = touch.clientY - offset.y
+      if (px < 0 || py < 0) {
+        return;
+      }
       setPosition({
-        x: touch.clientX - offset.x,
-        y: touch.clientY - offset.y,
+        x: px,
+        y: py,
       });
     }
   }, [draggingMobile, offset])

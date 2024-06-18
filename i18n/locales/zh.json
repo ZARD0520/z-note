@@ -8,5 +8,9 @@
     "root-welcome":"您好，请问有什么可以帮到您?",
     "input":{
         "placeholder":"你想问点什么？"
+    },
+    "base": {
+        "clear": "清空",
+        "back": "返回"
     }
 }

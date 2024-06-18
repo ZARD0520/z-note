@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 // 定义Props类型接口
 interface InputComponentProps {
@@ -7,6 +7,7 @@ interface InputComponentProps {
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch?: MouseEventHandler<HTMLDivElement>;
   className?: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
@@ -19,6 +20,7 @@ const zInput: React.FC<InputComponentProps> = ({
   placeholder = '',
   value = '',
   onChange,
+  onSearch,
   className = '',
   prefix,
   suffix,
@@ -36,7 +38,7 @@ const zInput: React.FC<InputComponentProps> = ({
         className='flex-1 ml-2 mr-2 outline-none'
         {...restProps}
       />
-      {suffix && <div className='pl-4 pr-4 m-2 mr-0 h-full rounded-sm cursor-pointer hover:bg-primary-background flex items-center'>{suffix}</div>}
+      {suffix && <div onClick={onSearch} className='pl-4 pr-4 m-2 mr-0 h-full rounded-sm cursor-pointer hover:bg-primary-background flex items-center'>{suffix}</div>}
     </div>
   );
 };

@@ -2,50 +2,6 @@
   font-size: 1.125rem !important
 }
 
-.typewriter {
-  font-size: 24px;
-  font-family: monospace;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid;
-  animation:
-    typing 3.5s steps(10) infinite,
-    blink-caret .5s step-end infinite;
-}
-
-.typewriter-once {
-  font-family: monospace;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 3px solid;
-  animation:
-    typing 3s steps(20),
-    blink-caret .85s step-end infinite;
-}
-
-/* 定义打字动画 */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-/* 定义光标闪烁动画 */
-@keyframes blink-caret {
-
-  from,to {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: black;
-  }
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

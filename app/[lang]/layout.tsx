@@ -44,13 +44,15 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
-        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_7hzfb92lawb.css"></link>
+        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_i6io7edr99c.css"></link>
       </head>
-      <body className={inter.className + ' bg-primary-background min-h-screen flex flex-col'}>
+      <body className={inter.className + ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'}>
         <ConfigProvider locale={dictionary}>
           <Header title={dictionary.title} popContent={popContent}>
             <Popover content={mineContent} trigger="click" placement="bottomRight">
-              <i className="iconfont icon-wode text-primary-text cursor-pointer"></i>
+              <div className="rounded-full bg-primary-background w-8 h-8 flex items-center justify-center">
+                <i className="text-primary iconfont icon-wode cursor-pointer"></i>
+              </div>
             </Popover>
           </Header>
           <div className="flex-1 flex flex-row h-full items-start overflow-auto">

@@ -1,7 +1,7 @@
 import { getDictionary } from "@/i18n";
 import { Locale } from "@/i18n/config";
-import ZInput from "@/components/common/z-input";
 import Link from "next/link";
+import SearchChat from "./chat/component/searchChat";
 
 export default async function Home({ params: { lang } }: {
   params: {
@@ -31,17 +31,15 @@ export default async function Home({ params: { lang } }: {
       href: '/tools'
     },
   ]
-  const suffixInput = (
-    <i className="iconfont icon-fasong text-primary-disabled"></i>
-  )
+
   return (
     <div className="h-full text-center flex flex-col justify-between">
       <div className="m-auto max-w-min flex-none">
         <p className="typewriter font-bold">{dict.description}__&nbsp;</p>
       </div>
-      <div className="flex-1 mt-8">
+      <div className="flex-1 mt-6">
         <p className="typewriter-once m-auto max-w-min">{dict["root-welcome"]}</p>
-        <div className="m-8 grid md:grid-cols-2 gap-4">
+        <div className="m-2 md:m-10 grid md:grid-cols-2 gap-5">
           {
             tools.map((tool, index) => {
               if (tool.href) {
@@ -65,9 +63,7 @@ export default async function Home({ params: { lang } }: {
           }
         </div>
       </div>
-      <div className="mt-8">
-        <ZInput type="text" placeholder={dict.input.placeholder} suffix={suffixInput} className="border-2 border-primary-border" />
-      </div>
+      <SearchChat placeholder={dict.input.placeholder}></SearchChat>
     </div>
   );
 }

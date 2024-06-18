@@ -2,11 +2,15 @@
     "home": "home",
     "title": "Freedown",
     "description": "Use AI With Freedown",
-    "talkHistory":"talkHistory",
-    "tools":"tools",
-    "donation":"donation",
-    "root-welcome":"Hello, How may I assist you?",
-    "input":{
-        "placeholder":"you can ask something"
+    "talkHistory": "talkHistory",
+    "tools": "tools",
+    "donation": "donation",
+    "root-welcome": "Hello, How may I assist you?",
+    "input": {
+        "placeholder": "you can ask something"
+    },
+    "base": {
+        "clear": "clear",
+        "back": "back"
     }
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "antd": "^5.18.0",
+    "crypto-js": "^4.2.0",
     "i18next": "^23.11.5",
     "i18next-resources-to-backend": "^1.2.1",
     "immer": "^10.1.1",
