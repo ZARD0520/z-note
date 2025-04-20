@@ -1,6 +1,6 @@
 'use client';
 
-import Monitor from 'lib/monitor';
+import Monitor from '../../lib/monitor';
 import { useEffect } from 'react';
 
 export default function ClientSideMonitor() {
