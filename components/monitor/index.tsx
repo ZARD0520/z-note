@@ -1,12 +1,13 @@
 'use client';
 
-import Monitor from '../../lib/monitor';
-import { useEffect } from 'react';
+import createMonitor from '../../lib/monitor';
+import React, { useEffect } from 'react';
 
 export default function ClientSideMonitor() {
   useEffect(() => {
-    const m = new Monitor({})
-    return () => m.destory()
+    createMonitor(React, { useHistory, useLocation })
+    // const m = new Monitor()
+    // return () => m.destory()
   })
   return null;
 }
