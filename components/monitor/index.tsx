@@ -7,7 +7,18 @@ import { useRouter } from 'next/router';
 
 export default function ClientSideMonitor() {
   useEffect(() => {
-    createMonitor(React, { useRouter, usePathname }, {}, {})
+    createMonitor(React, { useRouter, usePathname }, {
+      platform: 'react',
+      key: 'z-app',
+      trackList: ['ajax', 'userInfo']
+    }, {
+      ajax: {
+        excludeUrls: ['http://localhost:8001/api/monitor/add']
+      },
+      userInfo: {
+        getData: null
+      }
+    })
     // const m = new Monitor()
     // return () => m.destory()
   })
