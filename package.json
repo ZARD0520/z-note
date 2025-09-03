@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.1",
     "antd": "^5.18.0",
     "crypto-js": "^4.2.0",
     "i18next": "^23.11.5",
