@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3060",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.2",
     "@formatjs/intl-localematcher": "^0.6.1",
     "antd": "^5.18.0",
     "crypto-js": "^4.2.0",

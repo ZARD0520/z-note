@@ -9,7 +9,7 @@ import PageContent from "@/components/home/pageContent";
 import SideNav from "@/components/home/sidenav";
 import ZDrag from "@/components/common/z-drag";
 import img from "@/public/images/AI.png"
-import ClientSideMonitor from '@/components/monitor'
+// import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,7 +68,7 @@ export default async function RootLayout({
             <PageContent>{children}</PageContent>
           </div>
         </ConfigProvider>
-        <ClientSideMonitor />
+        {/* <ClientSideMonitor /> */}
       </body>
     </html>
   );
