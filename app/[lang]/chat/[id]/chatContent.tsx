@@ -2,72 +2,15 @@
 
 import Image from 'next/image'
 import { CaretDownOutlined } from '@ant-design/icons'
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import { useChat } from '@/hooks/useChat'
+import { ChatMessage } from '@/type/chat'
 
 interface chatContentProps {
-
+  messages: ChatMessage[]
 }
 
-const chatMessage = [
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'user',
-    content: '你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁你是谁'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-  {
-    role: 'assistant',
-    content: '我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X我是X'
-  },
-]
-
-const chatContent: React.FC<chatContentProps> = ({ }) => {
+const chatContent: React.FC<chatContentProps> = ({ messages }) => {
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -105,7 +48,7 @@ const chatContent: React.FC<chatContentProps> = ({ }) => {
     <>
       <div ref={scrollRef} className="max-h-full overflow-auto">
         <div ref={contentRef} className="w-full h-full">
-          {chatMessage.map((msg, mIndex) => chatDiv(msg, mIndex))}
+          {messages.map((msg, mIndex) => chatDiv(msg, mIndex))}
         </div>
       </div>
       <div className="mt-1 -mb-6 rounded-md pl-4 pr-4 border text-center cursor-pointer max-w-min m-auto">

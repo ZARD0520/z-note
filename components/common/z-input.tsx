@@ -11,6 +11,7 @@ interface InputComponentProps {
   className?: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
+  isLoading?: boolean
 }
 
 // 通用输入组件
@@ -24,6 +25,7 @@ const zInput: React.FC<InputComponentProps> = ({
   className = '',
   prefix,
   suffix,
+  isLoading,
   ...restProps
 }) => {
   return (

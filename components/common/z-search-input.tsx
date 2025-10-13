@@ -10,6 +10,7 @@ interface InputComponentProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch?: MouseEventHandler<HTMLDivElement>;
   className?: string;
+  isLoading?: boolean
 }
 
 const suffixInput = (
@@ -25,10 +26,11 @@ const zSearchInput: React.FC<InputComponentProps> = ({
   onChange,
   onSearch,
   className = '',
+  isLoading,
   ...restProps
 }) => {
   return (
-    <ZInput type={type} onChange={onChange} value={value} onSearch={onSearch} placeholder={placeholder} suffix={suffixInput} className={"border-2 border-primary-border " + className} {...restProps} />
+    <ZInput type={type} onChange={onChange} value={value} isLoading={isLoading} onSearch={onSearch} placeholder={placeholder} suffix={suffixInput} className={"border-2 border-primary-border " + className} {...restProps} />
   );
 };
 
