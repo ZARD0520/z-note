@@ -30,11 +30,10 @@ const searchChat: React.FC<searchChatProps> = ({
     if (!hasRouterParams) {
       router.push(`/chat?id=${123456}`)
     }
-    console.log(e.target.value)
-    // setInput && setInput(e.target.value)
+    setInput && setInput(e.target.value)
   }
 
-  const handleChat = (e: React.FormEvent) => {
+  const handleChat = (e?: React.FormEvent) => {
     // 判断当前是否为首页，是则路由跳转，不是则发送消息
     if (!hasRouterParams) {
       // 路由跳转,uid由用户id决定

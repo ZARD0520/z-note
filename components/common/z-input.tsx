@@ -7,7 +7,7 @@ interface InputComponentProps {
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearch?: MouseEventHandler<HTMLDivElement>;
+  onSearch?: (e?: React.FormEvent) => void;
   className?: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
@@ -28,6 +28,11 @@ const zInput: React.FC<InputComponentProps> = ({
   isLoading,
   ...restProps
 }) => {
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter') {
+      onSearch && onSearch()
+    }
+  }
   return (
     <div className={`w-full h-10 flex flex-row items-center justify-center rounded-md ${className}`}>
       {prefix && <div>{prefix}</div>}
@@ -36,6 +41,7 @@ const zInput: React.FC<InputComponentProps> = ({
         name={name}
         placeholder={placeholder}
         value={value}
+        onKeyDown={handleEnter}
         onChange={onChange}
         className='flex-1 ml-2 mr-2 outline-none'
         {...restProps}

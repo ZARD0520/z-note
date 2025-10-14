@@ -7,8 +7,8 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e && e.preventDefault()
     if (!input.trim() || isLoading) return
 
     const userMessage: ChatMessage = {
@@ -41,7 +41,7 @@ export function useChat() {
         content: input,
         history: JSON.stringify([...messages, userMessage])
       })
-      const response = await fetch((process.env.SERVER_URL as string) + '?' + query, {
+      const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '?' + query, {
         method: 'GET',
         headers: {
           'Accept': 'text/event-stream'
@@ -63,8 +63,10 @@ export function useChat() {
       try {
         while (true) {
           const { done, value } = await reader.read()
+          console.log(done)
           if (done) break
           const chunk = decoder.decode(value, { stream: true })
+          console.log(chunk)
           processStreamChunk(chunk, assistantMessageId)
         }
       } finally {

@@ -8,7 +8,7 @@ interface InputComponentProps {
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearch?: MouseEventHandler<HTMLDivElement>;
+  onSearch?: (e?: React.FormEvent) => void;
   className?: string;
   isLoading?: boolean
 }

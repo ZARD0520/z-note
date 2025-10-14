@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { CaretDownOutlined } from '@ant-design/icons'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useChat } from '@/hooks/useChat'
 import { ChatMessage } from '@/type/chat'
 
@@ -14,6 +14,7 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const [showScroll, setShowScroll] = useState(false)
 
   const scrollBottom = useCallback(() => {
     if (scrollRef.current && contentRef.current) {
@@ -23,6 +24,16 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
       })
     }
   }, [])
+
+  useEffect(() => {
+    if(scrollRef.current && contentRef.current) {
+      const scrollHeight = scrollRef.current.offsetHeight
+      const contentHeight = contentRef.current.offsetHeight
+
+      setShowScroll(scrollHeight < contentHeight)
+      scrollBottom()
+    }
+  }, [messages])
 
   const chatDiv = (msg: any, mIndex: number) => {
     if (msg.role !== 'user') {
@@ -51,9 +62,11 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
           {messages.map((msg, mIndex) => chatDiv(msg, mIndex))}
         </div>
       </div>
-      <div className="mt-1 -mb-6 rounded-md pl-4 pr-4 border text-center cursor-pointer max-w-min m-auto">
-        <CaretDownOutlined className="h-6" onClick={scrollBottom} />
-      </div>
+      {
+        showScroll && <div onClick={scrollBottom} className="mt-1 -mb-6 rounded-md pl-4 pr-4 border text-center cursor-pointer max-w-min m-auto">
+          <CaretDownOutlined className="h-6" />
+        </div>
+      }
     </>
   )
 }
