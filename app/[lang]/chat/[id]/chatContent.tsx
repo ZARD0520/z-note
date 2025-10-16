@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { CaretDownOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useChat } from '@/hooks/useChat'
 import { ChatMessage } from '@/type/chat'
 
 interface chatContentProps {
@@ -26,7 +25,7 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
   }, [])
 
   useEffect(() => {
-    if(scrollRef.current && contentRef.current) {
+    if (scrollRef.current && contentRef.current) {
       const scrollHeight = scrollRef.current.offsetHeight
       const contentHeight = contentRef.current.offsetHeight
 
@@ -41,7 +40,9 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
         (
           <div className='flex flex-row mb-4 w-full' key={mIndex}>
             <i className='mr-2 rounded-md iconfont icon-jiqiren'></i>
-            <div className='bg-primary-border rounded-md p-2 text-left'>{msg.content}</div>
+            <div className='bg-primary-border rounded-md p-2 text-left'>
+              {msg.content}
+            </div>
           </div>
         )
       )

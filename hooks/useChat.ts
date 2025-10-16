@@ -1,7 +1,7 @@
-import { ChatMessage } from "@/type/chat";
+import { ChatMessage, rolePresetType } from "@/type/chat";
 import React, { useRef, useState } from "react";
 
-export function useChat() {
+export function useChat(model: string, rolePreset: rolePresetType = 'programmer') {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -38,6 +38,8 @@ export function useChat() {
 
     try {
       const query = new URLSearchParams({
+        model,
+        rolePreset,
         content: input,
         history: JSON.stringify([...messages, userMessage])
       })
@@ -63,7 +65,6 @@ export function useChat() {
       try {
         while (true) {
           const { done, value } = await reader.read()
-          console.log(done)
           if (done) break
           const chunk = decoder.decode(value, { stream: true })
           console.log(chunk)
@@ -95,39 +96,44 @@ export function useChat() {
   }
 
   const processStreamChunk = (chunk: string, messageId: string) => {
-    const lines = chunk.split('\n');
-
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const dataStr = line.slice(6);
-
-        if (dataStr === '[DONE]') {
-          return;
-        }
-
-        try {
-          const data = JSON.parse(dataStr);
-
-          if (data.content) {
-            setMessages(prev =>
-              prev.map(msg =>
-                msg.id === messageId
-                  ? { ...msg, content: msg.content + data.content }
-                  : msg
-              )
-            );
-          }
-        } catch (error) {
-          console.error('解析 JSON 失败:', error);
-          // 如果不是 JSON，直接作为文本显示
+    const dataArr = chunk.split('\n')
+    const idStr = dataArr?.[0]?.split('id: ')?.[1]
+    const dataStr = dataArr?.[1]?.split('data: ')?.[1]
+    if (dataStr) {
+      const data = JSON.parse(dataStr);
+      if (data.f && data.f === 'finished') {
+        if (idStr === '1') {
           setMessages(prev =>
             prev.map(msg =>
               msg.id === messageId
-                ? { ...msg, content: msg.content + dataStr }
+                ? { ...msg, content: '无法回答您的问题，请重新提问' }
                 : msg
             )
           );
         }
+        return;
+      }
+
+      try {
+        if (data.d) {
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === messageId
+                ? { ...msg, content: msg.content + data.d }
+                : msg
+            )
+          );
+        }
+      } catch (error) {
+        console.error('解析 JSON 失败:', error);
+        // 如果不是 JSON，直接作为文本显示
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === messageId
+              ? { ...msg, content: msg.content + dataStr }
+              : msg
+          )
+        );
       }
     }
   }
@@ -139,10 +145,15 @@ export function useChat() {
     setIsLoading(false)
   }
 
+  const clearAllMessages = () => {
+    setMessages([])
+  }
+
   return {
     handleSubmit,
     stopGeneration,
     setInput,
+    clearAllMessages,
     messages,
     input,
     isLoading
