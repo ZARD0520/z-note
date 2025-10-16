@@ -1,7 +1,7 @@
-import { ChatMessage, rolePresetType } from "@/type/chat";
+import { ChatMessage, roleType } from "@/type/chat";
 import React, { useRef, useState } from "react";
 
-export function useChat(model: string, rolePreset: rolePresetType = 'programmer') {
+export function useChat(model: string, role: roleType = 'programmer') {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -39,7 +39,7 @@ export function useChat(model: string, rolePreset: rolePresetType = 'programmer'
     try {
       const query = new URLSearchParams({
         model,
-        rolePreset,
+        role,
         content: input,
         history: JSON.stringify([...messages, userMessage])
       })

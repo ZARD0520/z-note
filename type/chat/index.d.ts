@@ -4,7 +4,7 @@ export interface ChatMessage {
   content: string;
 }
 
-export type rolePresetType = 'zard' | 'programmer' | 'cat'
+export type roleType = 'zard' | 'programmer' | 'cat'
 
 export interface SelectItem {
   key: number | string;
