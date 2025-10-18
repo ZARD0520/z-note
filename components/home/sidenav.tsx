@@ -4,16 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { StaticImageData } from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Tooltip } from "antd"
+import { Popover, Tooltip } from "antd"
 
 interface SideNavProps {
-  className:string
+  className: string
   img: StaticImageData | HTMLImageElement
   lang: string
   children: Array<any>
 }
 
-const SideNav: React.FC<SideNavProps> = ({ className,img, lang, children }) => {
+const SideNav: React.FC<SideNavProps> = ({ className, img, lang, children }) => {
   const pathname = usePathname().replace('/' + lang, '/')
 
   const handleNav: (e: any) => void = (event) => {
@@ -32,6 +32,7 @@ const SideNav: React.FC<SideNavProps> = ({ className,img, lang, children }) => {
         <div id="sideNavContent" className="transition-all duration-300 ease-out overflow-hidden text-primary-text">
           {children.map((child, index) => {
             let href = child?.props?.['data-href']
+            let content = child?.props?.['data-content']
 
             if (href) {
               return (<Link href={href} key={index}>
@@ -39,12 +40,13 @@ const SideNav: React.FC<SideNavProps> = ({ className,img, lang, children }) => {
                   <div className={`p-4 cursor-pointer rounded-md hover:bg-primary-hover` + (pathname === href ? ' bg-primary-hover' : '')}>{child}</div>
                 </Tooltip>
               </Link>)
+            } else if (content) {
+              return (
+                <Popover key={index} content={content} placement="right">
+                  <div className="p-4 cursor-pointer rounded-md hover:bg-primary-hover">{child}</div>
+                </Popover>
+              )
             }
-            return (
-              <Tooltip key={index} placement="right" arrow={false} title={child?.props?.['data-title']}>
-                <div className="p-4 cursor-pointer rounded-md hover:bg-primary-hover">{child}</div>
-              </Tooltip>
-            )
           }
           )}
         </div>

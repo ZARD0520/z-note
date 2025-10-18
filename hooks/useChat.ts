@@ -1,7 +1,7 @@
-import { ChatMessage, roleType } from "@/type/chat";
+import { ChatMessage } from "@/type/chat";
 import React, { useEffect, useRef, useState } from "react";
 
-export function useChat(model: string, role: roleType = 'programmer', defaultInput = '', defaultActions?: any) {
+export function useChat(model: string, role: string = '1', defaultInput = '', defaultActions?: any) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -52,8 +52,7 @@ export function useChat(model: string, role: roleType = 'programmer', defaultInp
       const query = new URLSearchParams({
         model,
         role,
-        content: inputValue,
-        history: JSON.stringify([...messages, userMessage])
+        content: inputValue
       })
       const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '?' + query, {
         method: 'GET',
@@ -107,13 +106,48 @@ export function useChat(model: string, role: roleType = 'programmer', defaultInp
   }
 
   const processStreamChunk = (chunk: string, messageId: string) => {
-    const dataArr = chunk.split('\n')
-    const idStr = dataArr?.[0]?.split('id: ')?.[1]
-    const dataStr = dataArr?.[1]?.split('data: ')?.[1]
-    if (dataStr) {
-      const data = JSON.parse(dataStr);
-      if (data.f && data.f === 'finished') {
-        if (idStr === '1') {
+    const lines = chunk.split('\n')
+    const events = []
+    let currentData = {
+      id: '',
+      data: '',
+      finished: false
+    }
+
+    try {
+      for (const line of lines) {
+        const trimLine = line.trim()
+        if (trimLine === '') {
+          if (currentData.id || currentData.data) {
+            events.push({ ...currentData })
+          }
+          currentData = { id: '', data: '', finished: false }
+          continue
+        }
+
+        const index = trimLine.indexOf(':')
+        if (index === -1) {
+          continue
+        }
+
+        const field = trimLine.slice(0, index).trim()
+        const value = trimLine.slice(index + 1).trim()
+
+        if (field === 'id') {
+          currentData.id = value
+        } else if (field === 'data') {
+          const data = JSON.parse(value).d || ''
+          const finished = !!JSON.parse(value).f
+          if (data) {
+            currentData.data = data
+          }
+          if (finished) {
+            currentData.finished = !!finished
+          }
+        }
+      }
+      events.forEach(data => {
+        if (data.id === '1' && !data.data && data.finished) {
           setMessages(prev =>
             prev.map(msg =>
               msg.id === messageId
@@ -121,31 +155,29 @@ export function useChat(model: string, role: roleType = 'programmer', defaultInp
                 : msg
             )
           );
-        }
-        return;
-      }
-
-      try {
-        if (data.d) {
+          return
+        } else if (!data.finished && data.data) {
           setMessages(prev =>
             prev.map(msg =>
               msg.id === messageId
-                ? { ...msg, content: msg.content + data.d }
+                ? { ...msg, content: msg.content + data.data }
                 : msg
             )
           );
+        } else if(data.finished) {
+          return
         }
-      } catch (error) {
-        console.error('解析 JSON 失败:', error);
-        // 如果不是 JSON，直接作为文本显示
-        setMessages(prev =>
-          prev.map(msg =>
-            msg.id === messageId
-              ? { ...msg, content: msg.content + dataStr }
-              : msg
-          )
-        );
-      }
+      })
+    } catch (error) {
+      console.error('解析 JSON 失败:', error);
+      // 如果不是 JSON，直接作为文本显示
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === messageId
+            ? { ...msg, content: '出错了，请稍后重新提问' }
+            : msg
+        )
+      );
     }
   }
 

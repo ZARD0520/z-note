@@ -4,10 +4,6 @@ export interface ChatMessage {
   content: string;
 }
 
-export type roleType = 'zard' | 'programmer' | 'cat'
+export type onSearchType = (e?: React.FormEvent) => void
 
-export interface SelectItem {
-  key: number | string;
-  label: string;
-  disabled?: boolean;
-}
+export type onSelectRoleType = ({ key }: { key: string; }) => void

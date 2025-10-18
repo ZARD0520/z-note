@@ -40,7 +40,7 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
           <div className='flex flex-row mb-4 w-full' key={mIndex}>
             <i className='mr-2 rounded-md iconfont icon-jiqiren'></i>
             <div className='bg-primary-border rounded-md p-2 text-left'>
-              {msg.content}
+              {msg.content ? msg.content: '思考中...'}
             </div>
           </div>
         )

@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title, popContent, children }) => {
   return (
-    <header className="h-12 bg-primary flex flex-row items-center">
+    <header className="h-14 bg-primary flex flex-row items-center">
       <Popover title={popContent} trigger="click">
         <h1 className="text-lg text-white text-500 mx-auto cursor-pointer">{title}</h1>
       </Popover>

@@ -1,16 +1,19 @@
 'use client'
 
-import ZSearchInput from "@/components/common/z-search-input"
+import ZSearchInput from "@/app/[lang]/chat/component/searchInput"
 import { SetStateAction, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useChatActions, useChatInput, useChatStore } from "@/store/useChatStore";
+import { useChatActions, useChatInput } from "@/store/useChatStore";
+import { onSelectRoleType } from "@/type/chat";
 
 interface searchChatProps {
   placeholder?: string
   isLoading?: boolean
   input?: string
   setInput?: Function
+  roleKey?: string
+  handleSelectRole?: onSelectRoleType
   handleSubmit?: Function
   className?: string
 }
@@ -20,13 +23,15 @@ const searchChat: React.FC<searchChatProps> = ({
   input,
   isLoading,
   setInput,
+  roleKey,
+  handleSelectRole,
   handleSubmit,
   className
 }) => {
 
   const router = useRouter()
   const hasRouterParams = useSearchParams().size
-  
+
   const tempInput = useChatInput()
   const chatActions = useChatActions()
 
@@ -53,7 +58,7 @@ const searchChat: React.FC<searchChatProps> = ({
 
   return (
     <div className={className}>
-      <ZSearchInput type="text" rows={1} onChange={handleInput} value={getValue()} onSearch={handleChat} placeholder={placeholder} isLoading={isLoading} />
+      <ZSearchInput type="text" rows={1} roleKey={roleKey} onSelectRole={handleSelectRole} onChange={handleInput} value={getValue()} onSearch={handleChat} placeholder={placeholder} isLoading={isLoading} />
     </div>
   )
 }

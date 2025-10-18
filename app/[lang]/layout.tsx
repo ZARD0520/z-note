@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from 'next/image'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import i18n, { Locale } from "@/i18n/config";
@@ -9,6 +10,7 @@ import PageContent from "@/components/home/pageContent";
 import SideNav from "@/components/home/sidenav";
 import ZDrag from "@/components/common/z-drag";
 import img from "@/public/images/AI.png"
+import payImg from "@/public/images/alipay.jpg"
 // import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -42,6 +44,13 @@ export default async function RootLayout({
     </>
   )
 
+  const payContent = (
+    <div className="text-center">
+      <Image className="h-36 w-36" src={payImg} alt="LikeAuthor" />
+      <p>感谢支持</p>
+    </div>
+  )
+
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
@@ -62,7 +71,7 @@ export default async function RootLayout({
                 <i className="iconfont icon-zhuye1" data-title={dictionary.home} data-href="/"></i>
                 <i className="iconfont icon-huihua" data-title={dictionary.talkHistory} data-href="/talkHistory"></i>
                 <i className="iconfont icon-gongju" data-title={dictionary.tools} data-href="/tools"></i>
-                <i className="iconfont icon-zanshang" data-title={dictionary.donation}></i>
+                <i className="iconfont icon-zanshang" data-title={dictionary.donation} data-content={payContent}></i>
               </SideNav>
             </ZDrag>
             <PageContent>{children}</PageContent>
