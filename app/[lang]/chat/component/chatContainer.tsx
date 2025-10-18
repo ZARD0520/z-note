@@ -5,11 +5,14 @@ import ChatHeader from "./chatHeader"
 import ChatContent from "../[id]/chatContent";
 import { useCallback, useState } from "react";
 import { modelList } from "@/constants/chat";
+import { useSearchParams } from "next/navigation";
+import { useChatActions, useChatInput } from "@/store/useChatStore";
 
 export default function ChatContainer({ dict }: { dict: any }) {
   const [menuValue, setMenuValue] = useState(modelList[0].key)
-  const { messages, isLoading, input, setInput, handleSubmit, clearAllMessages } = useChat(menuValue as string)
-
+  const defaultInput = useChatInput()
+  const chatActions = useChatActions()
+  const { messages, isLoading, input, setInput, handleSubmit, clearAllMessages } = useChat(menuValue as string, 'programmer', defaultInput ?? '', chatActions)
 
   const clickModelItem = useCallback(({ key }: { key: string }) => {
     setMenuValue(key)

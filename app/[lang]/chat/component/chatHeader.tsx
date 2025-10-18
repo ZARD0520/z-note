@@ -38,7 +38,7 @@ const chatHeader: React.FC<chatHeaderProps> = ({ clearText, backText, handleClea
       </Dropdown>
       <div className="absolute right-0">
         <Tooltip placement="bottom" arrow={false} title={clearText}>
-          <ClearOutlined className="mr-4 cursor-pointer" onClick={handleClear} />
+          <ClearOutlined className="mr-8 cursor-pointer" onClick={handleClear} />
         </Tooltip>
         <Tooltip placement="bottom" arrow={false} title={backText}>
           <ArrowLeftOutlined className="cursor-pointer" onClick={backHome}/>

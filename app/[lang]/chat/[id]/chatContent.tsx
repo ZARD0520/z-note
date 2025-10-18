@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { CaretDownOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChatMessage } from '@/type/chat'

@@ -1,9 +1,10 @@
 'use client'
 
 import ZSearchInput from "@/components/common/z-search-input"
-import { SetStateAction } from "react"
+import { SetStateAction, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useChatActions, useChatInput, useChatStore } from "@/store/useChatStore";
 
 interface searchChatProps {
   placeholder?: string
@@ -25,10 +26,13 @@ const searchChat: React.FC<searchChatProps> = ({
 
   const router = useRouter()
   const hasRouterParams = useSearchParams().size
+  
+  const tempInput = useChatInput()
+  const chatActions = useChatActions()
 
   const handleInput = (e: { target: { value: SetStateAction<string> } }) => {
     if (!hasRouterParams) {
-      router.push(`/chat?id=${123456}`)
+      chatActions.setInput(e.target.value as string)
     }
     setInput && setInput(e.target.value)
   }
@@ -37,15 +41,19 @@ const searchChat: React.FC<searchChatProps> = ({
     // 判断当前是否为首页，是则路由跳转，不是则发送消息
     if (!hasRouterParams) {
       // 路由跳转,uid由用户id决定
-      router.push(`/chat?id=${123456}`)
+      router.push(`/chat?id=${123}`)
     }
     // 调用ai，发送消息
     handleSubmit && handleSubmit(e)
   }
 
+  const getValue = () => {
+    return hasRouterParams ? input : tempInput
+  }
+
   return (
     <div className={className}>
-      <ZSearchInput type="text" onChange={handleInput} value={input} onSearch={handleChat} placeholder={placeholder} isLoading={isLoading} />
+      <ZSearchInput type="text" rows={1} onChange={handleInput} value={getValue()} onSearch={handleChat} placeholder={placeholder} isLoading={isLoading} />
     </div>
   )
 }

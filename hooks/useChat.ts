@@ -1,20 +1,32 @@
 import { ChatMessage, roleType } from "@/type/chat";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export function useChat(model: string, role: roleType = 'programmer') {
+export function useChat(model: string, role: roleType = 'programmer', defaultInput = '', defaultActions?: any) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const hasExecutedRef = useRef(false)
 
-  const handleSubmit = async (e?: React.FormEvent) => {
+  useEffect(() => {
+    if (defaultInput && !hasExecutedRef.current) {
+      hasExecutedRef.current = true
+      handleSubmit(undefined, defaultInput)
+    }
+    return () => {
+      defaultActions.setInput('')
+    }
+  }, [])
+
+  const handleSubmit = async (e?: React.FormEvent, defaultInput?: string) => {
     e && e.preventDefault()
-    if (!input.trim() || isLoading) return
+    const inputValue = defaultInput || input
+    if (!inputValue.trim() || isLoading) return
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',
-      content: input
+      content: inputValue
     }
 
     setMessages(prev => [...prev, userMessage])
@@ -40,7 +52,7 @@ export function useChat(model: string, role: roleType = 'programmer') {
       const query = new URLSearchParams({
         model,
         role,
-        content: input,
+        content: inputValue,
         history: JSON.stringify([...messages, userMessage])
       })
       const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '?' + query, {
@@ -67,7 +79,6 @@ export function useChat(model: string, role: roleType = 'programmer') {
           const { done, value } = await reader.read()
           if (done) break
           const chunk = decoder.decode(value, { stream: true })
-          console.log(chunk)
           processStreamChunk(chunk, assistantMessageId)
         }
       } finally {
@@ -148,6 +159,10 @@ export function useChat(model: string, role: roleType = 'programmer') {
   const clearAllMessages = () => {
     setMessages([])
   }
+
+  /* if (defaultInput) {
+    handleSubmit(undefined, defaultInput)
+  } */
 
   return {
     handleSubmit,

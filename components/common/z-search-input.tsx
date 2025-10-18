@@ -1,9 +1,10 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import ZInput from './z-input';
 
 // 定义Props类型接口
 interface InputComponentProps {
   type: 'text' | 'email' | 'password' | 'number' | 'search';
+  rows?: number;
   name?: string;
   placeholder?: string;
   value?: string | number;
@@ -20,6 +21,7 @@ const suffixInput = (
 // 通用输入组件
 const zSearchInput: React.FC<InputComponentProps> = ({
   type = 'text',
+  rows,
   name,
   placeholder = '',
   value = '',
@@ -30,7 +32,7 @@ const zSearchInput: React.FC<InputComponentProps> = ({
   ...restProps
 }) => {
   return (
-    <ZInput type={type} onChange={onChange} value={value} isLoading={isLoading} onSearch={onSearch} placeholder={placeholder} suffix={suffixInput} className={"border-2 border-primary-border " + className} {...restProps} />
+    <ZInput type={type} rows={rows} onChange={onChange} value={value} isLoading={isLoading} onSearch={onSearch} placeholder={placeholder} suffix={suffixInput} className={"border-2 border-primary-border " + className} {...restProps} />
   );
 };
 

@@ -14,7 +14,7 @@ import img from "@/public/images/AI.png"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "祥子日记",
+  title: "小Z助手",
   description: "躺平小助手",
 };
 
