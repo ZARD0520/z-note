@@ -19,3 +19,9 @@ export interface SelectItem {
   icon?: React.ReactNode
   disabled?: boolean;
 }
+
+// Markdown
+export interface MarkdownRenderProps {
+  content: string;
+  className?: string;
+}

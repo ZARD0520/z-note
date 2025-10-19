@@ -164,7 +164,7 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
                 : msg
             )
           );
-        } else if(data.finished) {
+        } else if (data.finished) {
           return
         }
       })
@@ -184,8 +184,19 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
   const stopGeneration = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
+      setMessages(prev =>
+        prev.map((msg, msgIndex) =>
+          msgIndex === prev.length - 1
+            ? {
+              ...msg,
+              content: msg.content || '已停止生成，请重新提问'
+            }
+            : msg
+        )
+      )
     }
     setIsLoading(false)
+    abortControllerRef.current = null
   }
 
   const clearAllMessages = () => {

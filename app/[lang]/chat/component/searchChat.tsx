@@ -14,7 +14,8 @@ interface searchChatProps {
   setInput?: Function
   roleKey?: string
   handleSelectRole?: onSelectRoleType
-  handleSubmit?: Function
+  handleStop?: () => void
+  handleSubmit?: (e?: React.FormEvent) => void
   className?: string
 }
 
@@ -26,6 +27,7 @@ const searchChat: React.FC<searchChatProps> = ({
   roleKey,
   handleSelectRole,
   handleSubmit,
+  handleStop,
   className
 }) => {
 
@@ -49,7 +51,7 @@ const searchChat: React.FC<searchChatProps> = ({
       router.push(`/chat?id=${123}`)
     }
     // 调用ai，发送消息
-    handleSubmit && handleSubmit(e)
+    isLoading ? handleStop?.() : handleSubmit?.(e)
   }
 
   const getValue = () => {

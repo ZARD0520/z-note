@@ -54,7 +54,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
-        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_i6io7edr99c.css"></link>
+        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_ivmqs9cpfh.css"></link>
       </head>
       <body className={inter.className + ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'}>
         <ConfigProvider locale={dictionary}>

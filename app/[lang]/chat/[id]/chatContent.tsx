@@ -3,12 +3,14 @@
 import { CaretDownOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChatMessage } from '@/type/chat'
+import ZMarkdown from '@/components/common/z-mark-down'
 
 interface chatContentProps {
+  loading: boolean
   messages: ChatMessage[]
 }
 
-const chatContent: React.FC<chatContentProps> = ({ messages }) => {
+const chatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -38,9 +40,9 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
       return (
         (
           <div className='flex flex-row mb-4 w-full' key={mIndex}>
-            <i className='mr-2 rounded-md iconfont icon-jiqiren'></i>
-            <div className='bg-primary-border rounded-md p-2 text-left'>
-              {msg.content ? msg.content: '思考中...'}
+            <i className='w-6 h-6 flex-shrink-0 mr-2 rounded-md iconfont icon-jiqiren'></i>
+            <div className='min-w-0 bg-primary-border rounded-md p-2 text-left'>
+              {msg.content ? <ZMarkdown className='max-w-full' content={msg.content} /> : (loading ? '思考中...' : '请重新提问')}
             </div>
           </div>
         )
@@ -48,8 +50,10 @@ const chatContent: React.FC<chatContentProps> = ({ messages }) => {
     } else {
       return (
         <div className='flex flex-row mb-4 w-full justify-end' key={mIndex}>
-          <div className='bg-primary rounded-md mr-2 p-2 text-left'>{msg.content}</div>
-          <i className='rounded-md iconfont icon-gerentouxiang'></i>
+          <div className='min-w-0 bg-primary rounded-md mr-2 p-2 text-left'>
+            <ZMarkdown className='max-w-full overflow-x-auto' content={msg.content} />
+          </div>
+          <i className='w-6 h-6 flex-shrink-0 rounded-md iconfont icon-gerentouxiang'></i>
         </div>
       )
     }

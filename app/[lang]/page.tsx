@@ -39,7 +39,7 @@ export default async function Home({ params: { lang } }: {
       </div>
       <div className="flex-1 mt-6">
         <p className="typewriter-once m-auto max-w-min">{dict["root-welcome"]}</p>
-        <div className="m-2 md:m-10 grid md:grid-cols-2 gap-5">
+        <div className="m-2 mt-6 md:m-10 grid grid-cols-2 md:grid-cols-4 gap-5">
           {
             tools.map((tool, index) => {
               if (tool.href) {
@@ -63,7 +63,9 @@ export default async function Home({ params: { lang } }: {
           }
         </div>
       </div>
-      <SearchChat placeholder={dict.input.placeholder}></SearchChat>
+      <div className="pb-2">
+        <SearchChat placeholder={dict.input.placeholder}></SearchChat>
+      </div>
     </div>
   );
 }
