@@ -12,6 +12,7 @@ const DraggableComponent: React.FC<any> = ({ children }) => {
     top: position.y,
     left: position.x,
     cursor: dragging || draggingMobile ? 'grabbing' : 'grab',
+    zIndex: 9999
   };
 
   return (

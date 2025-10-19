@@ -11,6 +11,7 @@ import SideNav from "@/components/home/sidenav";
 import ZDrag from "@/components/common/z-drag";
 import img from "@/public/images/AI.png"
 import payImg from "@/public/images/alipay.jpg"
+import zardImg from "@/public/images/zard.jpg"
 // import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,6 +19,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "小Z助手",
   description: "躺平小助手",
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export async function generateStaticParams() {
@@ -34,7 +38,10 @@ export default async function RootLayout({
 
   const dictionary = await getDictionary(params.lang)
   const popContent = (
-    <div>记账本</div>
+    <div className='flex flex-row items-center justify-center cursor-pointer'>
+      <Image className="w-8 h-8 mr-2" src={zardImg} alt="zard-logo"/>
+      <p>点击进入ZARD空间</p>
+    </div>
   )
   const mineContent = (
     <>
@@ -67,7 +74,7 @@ export default async function RootLayout({
           </Header>
           <div className="flex-1 flex flex-row h-full items-start overflow-auto">
             <ZDrag>
-              <SideNav className="" img={img} lang={params.lang}>
+              <SideNav img={img} lang={params.lang}>
                 <i className="iconfont icon-zhuye1" data-title={dictionary.home} data-href="/"></i>
                 <i className="iconfont icon-huihua" data-title={dictionary.talkHistory} data-href="/talkHistory"></i>
                 <i className="iconfont icon-gongju" data-title={dictionary.tools} data-href="/tools"></i>

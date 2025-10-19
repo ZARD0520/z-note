@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { Popover, Tooltip } from "antd"
 
 interface SideNavProps {
-  className: string
+  className?: string
   img: StaticImageData | HTMLImageElement
   lang: string
   children: Array<any>
@@ -26,7 +26,7 @@ const SideNav: React.FC<SideNavProps> = ({ className, img, lang, children }) => 
   return (
     <nav className={"min-h-0 w-16 bg-primary rounded-md text-center " + className}>
       <div className="m-auto pt-2 pb-2 rounded-full text-primary-text w-10 flex justify-center items-center cursor-pointer" onClick={handleNav}>
-        <Image src={img} alt="Image" className='transition duration-300 ease-in-out hover:rotate-180'></Image>
+        <Image src={img} alt="Image" className={'transition duration-300 ease-in-out'}></Image>
       </div>
       {children ?
         <div id="sideNavContent" className="transition-all duration-300 ease-out overflow-hidden text-primary-text">
