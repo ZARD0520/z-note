@@ -1,6 +1,6 @@
 'use client'
 
-import ZSearchInput from "@/app/[lang]/chat/component/searchInput"
+import ZSearchInput from "./searchInput"
 import { SetStateAction, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { useChatActions, useChatInput } from "@/store/useChatStore";
 import { onSelectRoleType } from "@/type/chat";
 
 interface searchChatProps {
+  lang?: string
   placeholder?: string
   isLoading?: boolean
   input?: string
@@ -20,6 +21,7 @@ interface searchChatProps {
 }
 
 const searchChat: React.FC<searchChatProps> = ({
+  lang,
   placeholder = '',
   input,
   isLoading,
@@ -48,7 +50,7 @@ const searchChat: React.FC<searchChatProps> = ({
     // 判断当前是否为首页，是则路由跳转，不是则发送消息
     if (!hasRouterParams) {
       // 路由跳转,uid由用户id决定
-      router.push(`/chat?id=${123}`)
+      router.replace(`/${lang}/chat/chatInfo?id=${123}`)
     }
     // 调用ai，发送消息
     isLoading ? handleStop?.() : handleSubmit?.(e)

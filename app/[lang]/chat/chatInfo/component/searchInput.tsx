@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Space } from "antd";
-import ZInput from '../../../../components/common/z-input';
+import ZInput from '../../../../../components/common/z-input';
 import { onSearchType, onSelectRoleType } from '@/type/chat';
 import { InputComponentProps } from '@/type/common/component';
 import { roleList } from '@/constants/chat';

@@ -23,7 +23,7 @@ const chatHeader: React.FC<chatHeaderProps> = ({ clearText, backText, handleClea
   }, [])
 
   const backHome = useCallback(()=>{
-    router.back()
+    router.replace('/chat')
   },[])
 
   return (

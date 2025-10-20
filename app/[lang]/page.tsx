@@ -1,7 +1,10 @@
 import { getDictionary } from "@/i18n";
 import { Locale } from "@/i18n/config";
-import Link from "next/link";
-import SearchChat from "./chat/component/searchChat";
+import Router from "next/router";
+import Link from 'next/link'
+import Image from "next/image";
+import aiImg from "@/public/images/AI.png"
+import zardImg from "@/public/images/zard.jpg"
 
 export default async function Home({ params: { lang } }: {
   params: {
@@ -9,63 +12,17 @@ export default async function Home({ params: { lang } }: {
   }
 }) {
   const dict = await getDictionary(lang)
-  const tools = [
-    {
-      title: '制定退休计划',
-      img: 'icon-jihua',
-      href: ''
-    },
-    {
-      title: '五险一金计算器',
-      img: 'icon-jisuanqi_o',
-      href: ''
-    },
-    {
-      title: '简历制作',
-      img: 'icon-zhizuo',
-      href: ''
-    },
-    {
-      title: '更多功能',
-      img: 'icon-gengduo',
-      href: '/tools'
-    },
-  ]
 
   return (
-    <div className="h-full text-center flex flex-col justify-between">
-      <div className="m-auto max-w-min flex-none">
-        <p className="typewriter font-bold">{dict.description}__&nbsp;</p>
-      </div>
-      <div className="flex-1 mt-6">
-        <p className="typewriter-once m-auto max-w-min">{dict["root-welcome"]}</p>
-        <div className="m-2 mt-6 md:m-10 grid grid-cols-2 md:grid-cols-4 gap-5">
-          {
-            tools.map((tool, index) => {
-              if (tool.href) {
-                return (
-                  <Link key={index} href={tool.href}>
-                    <div className="hover:text-white pt-4 pb-4 bg-primary-background rounded-md hover:bg-primary-disabled cursor-pointer">
-                      <i className={'iconfont ' + tool.img}></i>
-                      <p>{tool.title}</p>
-                    </div>
-                  </Link>
-                )
-              } else {
-                return (
-                  <div key={index} className="hover:text-white pt-4 pb-4 bg-primary-background rounded-md hover:bg-primary-disabled cursor-pointer">
-                    <i className={'iconfont ' + tool.img}></i>
-                    <p>{tool.title}</p>
-                  </div>
-                )
-              }
-            })
-          }
-        </div>
-      </div>
-      <div className="pb-2">
-        <SearchChat placeholder={dict.input.placeholder}></SearchChat>
-      </div>
+    <div className="h-screen flex flex-col items-center justify-center">
+      <Link href="/chat" className="rounded-lg w-80 pt-4 pb-4 pl-4 flex flex-row items-center border mb-8">
+        <Image className="w-20 mr-4" src={aiImg} alt="AI" />
+        <p className="font-bold text-3xl" >{dict.title}</p>
+      </Link>
+      <Link href="/wezard" className="rounded-lg w-80 pt-4 pb-4 pl-4 flex flex-row items-center border">
+        <Image className="w-20 mr-4" src={zardImg} alt="ZARD" />
+        <p className="font-bold text-3xl">{dict.titleZ}</p>
+      </Link>
     </div>
   );
 }
