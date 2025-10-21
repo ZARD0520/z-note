@@ -7,10 +7,10 @@ import i18n, { Locale } from "@/i18n/config";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "小Z助手",
-  description: "躺平小助手",
+  title: "Z",
+  description: "wezard && ai assitant",
   icons: {
-    icon: '/favicon.ico'
+    icon: '/images/zard.jpg'
   }
 };
 

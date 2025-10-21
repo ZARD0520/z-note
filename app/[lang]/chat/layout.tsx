@@ -9,6 +9,16 @@ import payImg from "@/public/images/alipay.jpg"
 import zardImg from "@/public/images/zard.jpg"
 import { Locale } from "@/i18n/config";
 import Image from 'next/image'
+import { Metadata } from "next/types";
+
+
+export const metadata: Metadata = {
+  title: "小Z助手",
+  description: "躺平小助手",
+  icons: {
+    icon: '/favicon.ico'
+  }
+};
 
 export default async function ChatLayout({
   children,

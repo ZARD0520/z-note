@@ -16,10 +16,10 @@
     },
     "zard": {
         "nav": {
-            "introduce": "ZARD",
+            "introduce": "Introduce",
             "album": "ALBUM",
             "photo": "PHOTO",
-            "mv": "MUSIC VIDEO"
+            "mv": "MV"
         }
     }
 }

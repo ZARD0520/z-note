@@ -5,8 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export function usePageScroll({
   totalPages,
   initialPage = 0,
-  scrollThreshold = 50,
-  swipeThreshold = 50,
+  scrollThreshold = 20,
+  swipeThreshold = 20,
   enableKeyboard = true,
   enableWheel = true,
   enableSwipe = true,

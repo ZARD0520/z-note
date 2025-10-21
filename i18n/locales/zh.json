@@ -16,10 +16,10 @@
     },
     "zard": {
         "nav": {
-            "introduce": "ZARD",
-            "album": "ALBUM",
-            "photo": "PHOTO",
-            "mv": "MUSIC VIDEO"
+            "introduce": "介绍",
+            "album": "专辑",
+            "photo": "写真",
+            "mv": "MV"
         }
     }
 }
