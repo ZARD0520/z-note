@@ -40,11 +40,11 @@ const WezardHome: React.FC<WezardHomeProps> = ({dict}) => {
   const currentContent = useMemo(() => contentList.find((item, index) => index === currentPage), [currentPage, contentList])
 
   return (
-    <div className="bg-cover bg-center" style={{backgroundImage: `url(${currentContent?.background})`}}>
-      <div>
+    <div className="min-h-screen bg-cover bg-center flex flex-row" style={{backgroundImage: `url(${currentContent?.background})`}}>
+      <div className="flex-1">
         {currentContent?.title}
       </div>
-      <SideNav contentList={contentList} isMobile={isMobile}/>
+      <SideNav contentList={contentList} isMobile={isMobile} />
     </div>
   )
 }
