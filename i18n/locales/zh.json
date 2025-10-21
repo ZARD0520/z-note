@@ -13,5 +13,13 @@
     "base": {
         "clear": "清空",
         "back": "返回"
+    },
+    "zard": {
+        "nav": {
+            "introduce": "ZARD",
+            "album": "ALBUM",
+            "photo": "PHOTO",
+            "mv": "MUSIC VIDEO"
+        }
     }
 }

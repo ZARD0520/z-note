@@ -14,7 +14,7 @@ interface chatHeaderProps {
   handleClear: () => void
 }
 
-const chatHeader: React.FC<chatHeaderProps> = ({ clearText, backText, handleClear, menuValue, handleClickModelItem }) => {
+const ChatHeader: React.FC<chatHeaderProps> = ({ clearText, backText, handleClear, menuValue, handleClickModelItem }) => {
 
   const router = useRouter()
 
@@ -48,4 +48,4 @@ const chatHeader: React.FC<chatHeaderProps> = ({ clearText, backText, handleClea
   )
 }
 
-export default chatHeader
+export default ChatHeader

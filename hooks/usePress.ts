@@ -1,9 +1,9 @@
 'use client'
 
-import { usePressType } from "@/type/common/hooks"
+import { UsePressType } from "@/type/common/hooks"
 import { useCallback, useRef } from "react"
 
-const usePress = ({ onPress, options }: usePressType.usePressParams) => {
+const usePress = ({ onPress, options }: UsePressType.usePressParams) => {
   const { duration = 3000, onStart, onEnd } = options
   const pressTimerRef = useRef<NodeJS.Timeout | null>(null)
 

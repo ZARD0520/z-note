@@ -20,7 +20,7 @@ interface searchChatProps {
   className?: string
 }
 
-const searchChat: React.FC<searchChatProps> = ({
+const SearchChat: React.FC<searchChatProps> = ({
   lang,
   placeholder = '',
   input,
@@ -67,4 +67,4 @@ const searchChat: React.FC<searchChatProps> = ({
   )
 }
 
-export default searchChat
+export default SearchChat

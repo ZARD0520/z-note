@@ -1,7 +1,7 @@
-import Header from "@/components/home/header";
+import Header from "@/components/chat/header";
 import { ConfigProvider, Popover } from "antd";
-import PageContent from "@/components/home/pageContent";
-import SideNav from "@/components/home/sidenav";
+import PageContent from "@/components/chat/pageContent";
+import SideNav from "@/components/chat/sidenav";
 import ZDrag from "@/components/common/z-drag";
 import img from "@/public/images/AI.png"
 import { getDictionary } from "@/i18n";

@@ -10,7 +10,7 @@ interface chatContentProps {
   messages: ChatMessage[]
 }
 
-const chatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
+const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -75,4 +75,4 @@ const chatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
   )
 }
 
-export default chatContent
+export default ChatContent

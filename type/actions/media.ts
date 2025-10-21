@@ -10,4 +10,5 @@ export interface MediaFile {
   type: 'image' | 'audio' | 'video'
   album?: string
   releaseDate?: string
+  location?: string
 }

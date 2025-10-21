@@ -13,5 +13,13 @@
     "base": {
         "clear": "clear",
         "back": "back"
+    },
+    "zard": {
+        "nav": {
+            "introduce": "ZARD",
+            "album": "ALBUM",
+            "photo": "PHOTO",
+            "mv": "MUSIC VIDEO"
+        }
     }
 }
