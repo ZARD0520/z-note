@@ -11,9 +11,9 @@ export default async function WezardIntroduce(params: any) {
   return (
     <div className="h-full bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
       <FloatingBackButton />
-      <Header />
-      <MainContent />
-      <Footer />
+      <Header dict={dict}/>
+      <MainContent dict={dict}/>
+      <Footer dict={dict}/>
     </div>
   )
 }

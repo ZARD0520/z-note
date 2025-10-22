@@ -47,7 +47,7 @@ const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, currentP
         {isOpen &&
           (<div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 z-40">
             <div className="w-full">
-              <nav className="pt-4 mr-4 pl-4 h-full flex flex-col border-l-2">
+              <nav className="pt-4 mr-4 pl-4 h-full flex flex-col">
                 {
                   contentList.map((item, index) => (
                     <p onClick={() => handleMobileGo(index)} className="mb-8 text-gray-200 cursor-pointer" key={item.title}>

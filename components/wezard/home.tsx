@@ -12,12 +12,12 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   const contentList = useMemo(() => [
     {
       title: dict.zard.nav.introduce,
-      background: "/media/images/zard12.jpg",
+      background: "/media/images/1.jpg",
       href: '/wezard/introduce'
     },
     {
       title: dict.zard.nav.album,
-      background: "/media/images/1.jpg",
+      background: "/media/images/zard002.jpg",
       href: '/wezard/music'
     },
     {
@@ -27,7 +27,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
     },
     {
       title: dict.zard.nav.mv,
-      background: "/media/images/zard002.jpg",
+      background: "/media/images/7.jpg",
       href: '/wezard/video'
     }
   ], [dict])
@@ -110,7 +110,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
           animate="center"
           exit="exit"
           transition={{ 
-            duration: 1,
+            duration: 0.8,
             ease: "easeInOut"
           }}
         />

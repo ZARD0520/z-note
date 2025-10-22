@@ -1,0 +1,58 @@
+{
+  "home": "home",
+  "title": "assistant Z",
+  "titleZ": "ZARD ZOOM",
+  "description": "Use AI With Freedown",
+  "talkHistory": "talkHistory",
+  "tools": "tools",
+  "donation": "donation",
+  "root-welcome": "Hello, How may I assist you?",
+  "input": {
+      "placeholder": "you can ask something"
+  },
+  "base": {
+      "clear": "clear",
+      "back": "back"
+  },
+  "zard": {
+      "nav": {
+          "introduce": "Introduce",
+          "album": "ALBUM",
+          "photo": "PHOTO",
+          "mv": "MV"
+      },
+      "header": {
+          "description": "IZUMI SAKAI - 色あせない音楽の伝説"
+      },
+      "content": {
+          "cardTitle1": "永遠の声",
+          "cardTitle2": "音楽の伝説",
+          "cardTitle3": "文化の刻印",
+          "cardContent1": [
+              "ZARDは、日本音楽史上最も成功したバンドの一つであり、ボーカル坂井泉水の透き通るような澄んだ声と情感豊かな歌唱スタイルで、1990年代の日本楽壇を代表する声となった。",
+              "1991年のデビューから2007年まで、ZARDは連続9作のミリオンシングルという驚異的な記録を達成し、総売上は3700万枚を超え、かつてオリコンチャート史上女性歌手の売上記録を保持していた。"
+          ],
+          "cardContent2": [
+              "坂井泉水は卓越した歌手であるだけでなく、才能溢れる作詞家でもあった。彼女はZARDのほとんど全ての楽曲の作詞を手がけ、詩的で哲学的な歌詞は数多くの人々に勇気と希望を与えた。",
+              "『負けないで』、『揺れる想い』、『マイ フレンド』などの名曲は、今日でも日本のカラオケリクエストランキングで上位に入り続け、国民的なヒットソングとなっている。"
+          ],
+          "cardContent3": [
+              "ZARDの音楽はアジアの音楽界全体に深い影響を与え、多くの楽曲が『名探偵コナン』、『スラムダンク』、『ドラゴンボールGT』などのクラシックアニメの主題歌として使用され、一代の青春の記憶となった。",
+              "彼女の逝去から多年経った今でも、ZARDの音楽は主要な音楽プラットフォームで高い再生回数を維持しており、新旧のファンたちが様々な方法で彼女の音楽的生命を継承し続けている。"
+          ],
+          "stateTitle": "輝かしい成果",
+          "stateDesc": "数字で綴る伝説",
+          "singleState": "枚のシングルを発売",
+          "albumState": "枚のオリジナルアルバム",
+          "mSingleState": "連続ミリオンシングル",
+          "totalRecordState": "総売上記録",
+          "legacyTitle": "永遠の精神",
+          "legacyDesc": "時が流れても、あなたの歌声は風の中で響き続け、諦めないすべての人に前進する勇気を与えています",
+          "legacyContent": "坂井泉水の音楽は時代の境界を超え、彼女の歌詞に込められた勇気、希望、そして人生への愛は、今も世界中の人々の心を動かし続けています。このサイトでは、私たちとともに彼女の音楽の旅を振り返り、あの名場面を再体験し、ZARDの精神を永遠に継承していきましょう"
+      },
+      "footer": {
+          "copyright": "© 1991 ZARDメモリアルサイト | 永遠の坂井泉水に敬意を込めて",
+          "description": "音楽は永遠に、伝説は不滅に"
+      }
+  }
+}
