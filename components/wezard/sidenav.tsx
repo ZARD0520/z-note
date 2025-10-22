@@ -17,7 +17,7 @@ const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, goToPage
   }
 
   const showContent = !isMobile ?
-    (<nav className="mt-16 mr-4 pl-4 h-full flex flex-col border-l-2">
+    (<nav className="absolute right-2 top-2 z-50 mt-16 mr-4 pl-4 flex flex-col border-l-2">
       {
         contentList.map((item, index) => (
           <p onClick={() => goToPage(index)} className="mb-8 text-gray-200 cursor-pointer" key={item.title}>
@@ -30,12 +30,12 @@ const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, goToPage
       <div className="absolute right-2 top-2" aria-label="菜单">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-8 h-8 focus:outline-none z-50"
+          className="relative w-9 h-9 focus:outline-none z-50"
         >
           <div className={`cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}>
-            <div className="w-6 h-0.5 bg-gray-200 mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-gray-200 mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-gray-200"></div>
+            <div className="w-8 h-0.5 bg-gray-200 mb-2"></div>
+            <div className="w-8 h-0.5 bg-gray-200 mb-2"></div>
+            <div className="w-8 h-0.5 bg-gray-200"></div>
           </div>
           <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'
             }`}>

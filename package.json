@@ -13,6 +13,7 @@
     "@formatjs/intl-localematcher": "^0.6.1",
     "antd": "^5.18.0",
     "crypto-js": "^4.2.0",
+    "framer-motion": "^12.23.24",
     "highlight.js": "^11.11.1",
     "i18next": "^23.11.5",
     "i18next-resources-to-backend": "^1.2.1",

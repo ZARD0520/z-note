@@ -10,7 +10,7 @@ export function usePageScroll({
   enableKeyboard = true,
   enableWheel = true,
   enableSwipe = true,
-  throttleDelay = 800
+  throttleDelay = 400
 }:UseScrollType.useScrollProps):UseScrollType.useScrollReturn {
   const [[currentPage, direction], setPageState] = useState<[number, number]>([initialPage, 0])
   const touchStartRef = useRef<UseScrollType.touchPosition | null>(null)
