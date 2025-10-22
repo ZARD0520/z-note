@@ -12,8 +12,8 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   const contentList = useMemo(() => [
     {
       title: dict.zard.nav.introduce,
-      background: "/media/images/2.jpg",
-      href: '/wezard'
+      background: "/media/images/zard12.jpg",
+      href: '/wezard/introduce'
     },
     {
       title: dict.zard.nav.album,
@@ -103,7 +103,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={currentPage}
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-[position:60%_50%]"
           style={{ backgroundImage: `url('${currentContent?.background}')` }}
           variants={blurVariants}
           initial="enter"

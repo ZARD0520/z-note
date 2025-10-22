@@ -25,7 +25,7 @@ export function middleware(request: NextRequest) {
   if (pathnameNoLocale) {
     const locale = getLocale(request)
     return NextResponse.redirect(
-      new URL(`${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}${search}`, request.url)
+      new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}${search}`, request.url)
     )
   }
 

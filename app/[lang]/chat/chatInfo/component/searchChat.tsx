@@ -21,7 +21,6 @@ interface searchChatProps {
 }
 
 const SearchChat: React.FC<searchChatProps> = ({
-  lang,
   placeholder = '',
   input,
   isLoading,
@@ -50,7 +49,7 @@ const SearchChat: React.FC<searchChatProps> = ({
     // 判断当前是否为首页，是则路由跳转，不是则发送消息
     if (!hasRouterParams) {
       // 路由跳转,uid由用户id决定
-      router.replace(`/${lang}/chat/chatInfo?id=${123}`)
+      router.replace(`/chat/chatInfo?id=${123}`)
     }
     // 调用ai，发送消息
     isLoading ? handleStop?.() : handleSubmit?.(e)

@@ -10,6 +10,7 @@ import zardImg from "@/public/images/zard.jpg"
 import { Locale } from "@/i18n/config";
 import Image from 'next/image'
 import { Metadata } from "next/types";
+import Link from "next/link";
 
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default async function ChatLayout({
   const popContent = (
     <div className='flex flex-row items-center justify-center cursor-pointer'>
       <Image className="w-8 h-8 mr-2" src={zardImg} alt="zard-logo" />
-      <p>点击进入ZARD空间</p>
+      <Link href="/wezard">点击进入ZARD空间</Link>
     </div>
   )
   const mineContent = (
