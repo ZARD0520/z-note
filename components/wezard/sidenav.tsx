@@ -3,7 +3,7 @@
 import { WezardSideNavProps } from "@/type/wezard/home";
 import { useEffect, useState } from "react";
 
-const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, goToPage }) => {
+const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, currentPage, goToPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     if (!isMobile) {
@@ -17,10 +17,10 @@ const SideNav: React.FC<WezardSideNavProps> = ({ contentList, isMobile, goToPage
   }
 
   const showContent = !isMobile ?
-    (<nav className="absolute right-2 top-2 z-50 mt-16 mr-4 pl-4 flex flex-col border-l-2">
+    (<nav className="absolute w-20 right-2 top-2 z-50 mt-16 mr-12 flex flex-col border-l-2">
       {
         contentList.map((item, index) => (
-          <p onClick={() => goToPage(index)} className="mb-8 text-gray-200 cursor-pointer" key={item.title}>
+          <p onClick={() => goToPage(index)} className={`w-full pl-8 mb-8 text-gray-200 cursor-pointer ${currentPage === index ? 'border-l-4': ''}`} key={item.title}>
             {item.title}
           </p>
         ))

@@ -143,7 +143,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
         </AnimatePresence>
       </div>
       
-      <SideNav goToPage={goToPage} contentList={contentList} isMobile={isMobile} />
+      <SideNav currentPage={currentPage} goToPage={goToPage} contentList={contentList} isMobile={isMobile} />
     </div>
   )
 }

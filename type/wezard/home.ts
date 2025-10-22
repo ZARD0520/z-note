@@ -13,5 +13,6 @@ export interface HomeContentListProps {
 export interface WezardSideNavProps {
   contentList: Array<HomeContentListProps>
   isMobile: boolean
+  currentPage: number
   goToPage: (page: number) => void
 }
