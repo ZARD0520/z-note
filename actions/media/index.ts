@@ -8,9 +8,9 @@ const MEDIA_BASE_PATH = path.join(process.cwd(), 'public', 'media');
 const METADATA_FILE = path.join(MEDIA_BASE_PATH, 'metadata.json');
 
 const MEDIA_CONFIG = {
-  image: ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'],
-  audio: ['.mp3', '.wav', '.ogg', '.m4a', '.flac'],
-  video: ['.mp4', '.avi', '.mov', '.mkv', '.webm']
+  Photos: ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'],
+  Albums: ['.mp3', '.wav', '.ogg', '.m4a', '.flac'],
+  Videos: ['.mp4', '.avi', '.mov', '.mkv', '.webm']
 };
 
 export async function getMediaList(params: getListParams) {

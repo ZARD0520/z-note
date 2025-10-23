@@ -1,6 +1,5 @@
 import { getDictionary } from "@/i18n";
 import { Locale } from "@/i18n/config";
-import Router from "next/router";
 import Link from 'next/link'
 import Image from "next/image";
 import aiImg from "@/public/images/AI.png"
