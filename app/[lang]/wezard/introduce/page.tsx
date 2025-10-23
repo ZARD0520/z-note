@@ -2,7 +2,7 @@ import { getDictionary } from "@/i18n";
 import { Header } from "./component/header";
 import { MainContent } from "./component/mainContent";
 import { Footer } from "./component/footer";
-import { FloatingBackButton } from "./component/back";
+import { FloatingBackButton } from "../../../../components/wezard/back";
 import { Locale } from "@/i18n/config";
 
 export default async function WezardIntroduce({ params: { lang } }: {
