@@ -5,63 +5,280 @@ import { Album, Song } from "@/type/wezard/albums"
 import AlbumBox from "./albumBox"
 import LyricsModal from "./lyticsModal"
 import { useState } from "react"
+import Image from "next/image";
 
 const mockAlbums: Album[] = [
   {
     id: '1',
-    title: 'Midnight Dreams',
-    artist: 'The Dreamers',
-    cover: '/api/placeholder/300/300',
+    name: 'Midnight Dreams',
+    cover: '/media/images/1.jpg',
     type: 'album',
     releaseDate: '2024',
     songs: [
       {
         id: '1-1',
-        title: 'Midnight Sky',
+        name: 'Midnight Sky',
         duration: '3:45',
+        url: '',
         lyrics: '在午夜的天空下...\n星光闪烁...\n我们相遇在此时\n心跳的声音如此清晰'
       },
       {
         id: '1-2',
-        title: 'Dream Walker',
+        name: 'Dream Walker',
         duration: '4:20',
+        url: '',
         lyrics: '漫步在梦境中...\n寻找真实...\n穿越时空的界限\n找到属于我们的答案'
       }
     ]
   },
   {
-    id: '2',
-    title: 'Summer Breeze',
-    artist: 'Ocean Blue',
-    cover: '/api/placeholder/300/150',
-    type: 'single',
-    releaseDate: '2024',
-    songs: [
-      {
-        id: '2-1',
-        title: 'Summer Breeze',
-        duration: '3:15',
-        lyrics: '夏日的微风...\n轻轻吹过...\n带来海的味道\n和我们的回忆'
-      }
-    ]
-  },
-  {
     id: '3',
-    title: 'Electric Love',
-    artist: 'Neon Lights',
-    cover: '/api/placeholder/300/300',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
     type: 'album',
     releaseDate: '2024',
     songs: [
       {
         id: '3-1',
-        title: 'Electric Love',
+        url: '',
+        name: 'Electric Love',
         duration: '3:30',
         lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
       },
       {
         id: '3-2',
-        title: 'Neon Nights',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
+        duration: '4:05',
+        lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Electric Love',
+    cover: '/media/images/3.jpg',
+    type: 'album',
+    releaseDate: '2024',
+    songs: [
+      {
+        id: '3-1',
+        url: '',
+        name: 'Electric Love',
+        duration: '3:30',
+        lyrics: '电流穿过心脏...\n爱的火花...\n在霓虹中闪烁\n永不停息'
+      },
+      {
+        id: '3-2',
+        url: '',
+        name: 'Neon Nights',
         duration: '4:05',
         lyrics: '霓虹灯下...\n夜晚刚刚开始...\n城市的脉搏\n随着音乐跳动'
       }
@@ -87,7 +304,7 @@ export default function AlbumGrid({ dict }: { dict: any }) {
   const handleSongPlay = (song: Song) => {
     setCurrentSong(song);
     // 这里可以添加实际的播放逻辑
-    console.log('播放歌曲:', song.title);
+    console.log('播放歌曲:', song.name);
   };
 
   const handleShowLyrics = (song: Song) => {
@@ -101,27 +318,27 @@ export default function AlbumGrid({ dict }: { dict: any }) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-row flex-wrap gap-6 mb-8">
+      <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 mb-8">
         {mockAlbums.map((album) => (
           <div
             key={album.id}
             className={`
             bg-gray-800 rounded-lg shadow-lg cursor-pointer transform transition-all duration-300 
-            hover:scale-105 hover:shadow-2xl overflow-hidden h-60 
-            ${album.type === 'album' ? 'w-60' : 'w-30'}
+            hover:scale-105 hover:shadow-2xl overflow-hidden aspect-square
           `}
             onClick={() => handleAlbumClick(album)}
           >
             <div className="relative w-full h-full">
-              <img
+              <Image
+                fill
                 src={album.cover}
-                alt={album.title}
+                alt={album.name}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="font-bold text-lg">{album.title}</h3>
-                  <p className="text-sm text-gray-300">{album.artist}</p>
+                  <h3 className="font-bold text-lg">{album.name}</h3>
                 </div>
               </div>
             </div>
@@ -141,7 +358,6 @@ export default function AlbumGrid({ dict }: { dict: any }) {
       {showLyrics && currentSong && selectedAlbum && (
         <LyricsModal
           song={currentSong}
-          artist={selectedAlbum.artist}
           onClose={handleCloseLyrics}
           onPlay={handleSongPlay}
         />

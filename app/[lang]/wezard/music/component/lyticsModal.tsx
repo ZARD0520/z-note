@@ -2,15 +2,14 @@
 
 import { LyricsModalProps } from "@/type/wezard/albums";
 
-export default function LyricsModal({ song, artist, onClose, onPlay }: LyricsModalProps) {
+export default function LyricsModal({ song, onClose, onPlay }: LyricsModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
       <div className="bg-gray-900 rounded-2xl max-w-md w-full max-h-[80vh] overflow-hidden">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-xl font-bold">{song.title}</h3>
-              <p className="text-gray-400">{artist}</p>
+              <h3 className="text-xl font-bold">{song.name}</h3>
             </div>
             <button
               onClick={onClose}

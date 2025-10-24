@@ -2,6 +2,7 @@
 
 import { AlbumBoxProps, Song } from "@/type/wezard/albums";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function AlbumBox({ 
   album, 
@@ -27,33 +28,34 @@ export default function AlbumBox({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
-      <div className=" overflow-y-auto bg-gray-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-        <div className="flex flex-col lg:flex-row">
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className=" overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
+        <div className="flex flex-col xl:flex-row">
           {/* CD 展示区域 */}
-          <div className="lg:w-2/5 p-4 flex flex-col items-center justify-center bg-gradient-to-br from-purple-800 to-slate-800">
+          <div className="xl:w-1/2 p-4 pt-16 flex flex-col items-center justify-center bg-gradient-to-br from-purple-800 to-slate-800">
             <div className="relative">
               {/* CD 圆盘 */}
-              <div className="w-60 h-60 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 border-8 border-gray-700 flex items-center justify-center shadow-2xl animate-spin-slow">
+              <div className="w-80 h-80 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 border-8 border-gray-700 flex items-center justify-center shadow-2xl animate-spin-slow">
                 <div className="w-16 h-16 rounded-full bg-gray-900 border-4 border-gray-700"></div>
               </div>
               
               {/* 专辑封面 */}
-              <img
+              <Image
+                fill
                 src={album.cover}
-                alt={album.title}
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg"
+                alt={album.name}
+                className="absolute top-1/2 left-1/2 transform w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg"
               />
             </div>
             
-            <div className="mt-4 text-center">
-              <h2 className="text-2xl font-bold">{album.title}</h2>
-              <p className="text-sm text-gray-400 mt-1">{album.releaseDate}</p>
+            <div className="mt-16 text-center">
+              <h2 className="text-2xl font-bold">{album.name}</h2>
+              <p className="text-sm text-gray-400 mt-4">{album.releaseDate}</p>
             </div>
           </div>
 
           {/* 歌曲列表区域 */}
-          <div className="lg:w-3/5 p-6 flex flex-col">
+          <div className="xl:w-1/2 p-6 flex flex-col">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold">歌曲列表</h3>
               <button
@@ -82,9 +84,9 @@ export default function AlbumBox({
                       {index + 1}
                     </div>
                     <div>
-                      <div className="font-medium">{song.title}</div>
+                      <div className="font-medium">{song.name}</div>
                       <div className="text-sm text-gray-400">
-                        {album.artist} • {song.duration}
+                        {song.duration}
                       </div>
                     </div>
                   </div>

@@ -1,14 +1,14 @@
 export interface Song {
   id: string;
-  title: string;
+  name: string;
+  url: string;
   duration: string;
   lyrics: string;
 }
 
 export interface Album {
   id: string;
-  title: string;
-  artist: string;
+  name: string;
   cover: string;
   type: 'album' | 'single';
   songs: Song[];
@@ -30,7 +30,6 @@ export interface AlbumBoxProps {
 
 export interface LyricsModalProps {
   song: Song;
-  artist: string;
   onClose: () => void;
   onPlay: (song: Song) => void;
 }
