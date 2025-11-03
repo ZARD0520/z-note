@@ -67,7 +67,7 @@ export default function AlbumBox({
             </div>
 
             <div className="flex-1 overflow-y-auto">
-              {album.songs.map((song, index) => (
+              {album?.songs?.map((song, index) => (
                 <div
                   key={song.id}
                   className="flex items-center justify-between p-4 rounded-lg mb-2 cursor-pointer transition-all duration-200 bg-gray-800 hover:bg-gray-700"

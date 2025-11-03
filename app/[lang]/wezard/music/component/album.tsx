@@ -43,7 +43,7 @@ export default function AlbumGrid({ dict, initialData, initialPage }: any) {
     <div className="container mx-auto px-4 py-8">
       <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 mb-8">
-        {albumsData.map((album) => (
+        {albumsData?.length && albumsData?.map((album) => (
           <div
             key={album.id}
             className={`
