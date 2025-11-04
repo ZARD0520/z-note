@@ -70,3 +70,13 @@ export namespace UseWindowSizeType {
     isDesktop: boolean;
   }
 }
+
+export namespace UseInfiniteScroll {
+  export interface UseInfiniteScrollProps {
+    onLoadMore: () => void;
+    hasMore: boolean;
+    loading?: boolean;
+    threshold?: number;
+    children: React.ReactNode;
+  }
+}
