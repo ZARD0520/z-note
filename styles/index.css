@@ -42,6 +42,34 @@
   }
 }
 
+/* antd样式覆盖 */
+.dark-mode {
+  .ant-pagination-prev, .ant-pagination-next  {
+    .ant-pagination-item-link {
+      @apply text-white !important;
+    }
+  }
+  .ant-pagination-item {
+    @apply border-none rounded-md min-w-8 h-8 flex items-center justify-center !important;
+  }
+
+  .ant-pagination-item a {
+    @apply text-gray-700 no-underline w-full h-full flex items-center justify-center;
+  }
+
+  .ant-pagination-item:not(.ant-pagination-item-active):hover {
+    @apply bg-slate-300 !important;
+  }
+
+  .ant-pagination-item-active {
+    @apply bg-slate-500 !important;
+  }
+
+  .ant-pagination-item-active a {
+    @apply text-white !important;
+  }
+}
+
 
 ::-webkit-scrollbar {
   width: 0;

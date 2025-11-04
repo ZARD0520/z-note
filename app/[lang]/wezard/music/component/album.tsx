@@ -1,20 +1,25 @@
 'use client'
 
-import { AlbumGridProps } from "@/type/wezard/albums";
-import { Album, Song } from "@/type/wezard/albums"
+import { AlbumGridProps, AlbumType } from "@/type/wezard/albums";
+import { Album, AlbumItem } from "@/type/wezard/albums"
 import AlbumBox from "./albumBox"
 import LyricsModal from "./lyticsModal"
 import { useState } from "react"
 import Image from "next/image";
+import { Pagination } from "antd";
+import { useWindowSize } from "@/hooks/useWindowSize";
+import { getAlbumList } from "@/api";
 
-export default function AlbumGrid({ dict, initialData, initialPage }: any) {
+export default function AlbumGrid({ dict, initialData, initialPagination }: AlbumGridProps) {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [currentSong, setCurrentSong] = useState<AlbumItem | null>(null);
   const [showLyrics, setShowLyrics] = useState(false);
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [currentPagination, setCurrentPagination] = useState(initialPagination);
   const [albumsData, setAlbumsData] = useState<Album[]>(initialData);
 
-  const handleAlbumClick = (album: Album) => {
+  const { isMobile } = useWindowSize()
+
+  const handleAlbumClick = async (album: Album) => {
     setSelectedAlbum(album);
     setCurrentSong(null);
     setShowLyrics(false);
@@ -24,13 +29,13 @@ export default function AlbumGrid({ dict, initialData, initialPage }: any) {
     setSelectedAlbum(null);
   };
 
-  const handleSongPlay = (song: Song) => {
+  const handleSongPlay = (song: AlbumItem) => {
     setCurrentSong(song);
     // 这里可以添加实际的播放逻辑
     console.log('播放歌曲:', song.name);
   };
 
-  const handleShowLyrics = (song: Song) => {
+  const handleShowLyrics = (song: AlbumItem) => {
     setCurrentSong(song);
     setShowLyrics(true);
   };
@@ -38,6 +43,18 @@ export default function AlbumGrid({ dict, initialData, initialPage }: any) {
   const handleCloseLyrics = () => {
     setShowLyrics(false);
   };
+
+  const handlePageChange = async (page: number, newPageSize: number) => {
+    let currentPage = newPageSize !== currentPagination.limit ? 1 : page;
+
+    try {
+      const res = await getAlbumList({ type: AlbumType.MUSIC, current: currentPage, limit: currentPagination.limit })
+      setAlbumsData(res?.data?.map((item)=>({ ...item, items:[] })) || [])
+      setCurrentPagination({...currentPagination, current: currentPage })
+    } catch (error) {
+      console.error('获取专辑列表失败:', error);
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -69,7 +86,14 @@ export default function AlbumGrid({ dict, initialData, initialPage }: any) {
         ))}
       </div>
 
-      {/* 分页 */}
+      {/* 分页-PC */}
+      {
+        !isMobile && (<div className="flex items-center justify-center">
+        <Pagination className="dark-mode" onChange={handlePageChange} current={currentPagination.current} pageSize={currentPagination.limit} total={currentPagination.total} />
+        </div>)
+      }
+      
+      {/* 详情 */}
       {selectedAlbum && (
         <AlbumBox
           album={selectedAlbum}

@@ -1,8 +1,9 @@
 'use client'
 
-import { AlbumBoxProps, Song } from "@/type/wezard/albums";
-import { useState } from "react";
+import { AlbumBoxProps, AlbumItem, AlbumType } from "@/type/wezard/albums";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { getAlbumDetail } from "@/api";
 
 export default function AlbumBox({
   album,
@@ -11,18 +12,26 @@ export default function AlbumBox({
   onShowLyrics,
   currentSong
 }: AlbumBoxProps) {
-  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+  const [selectedSong, setSelectedSong] = useState<AlbumItem | null>(null);
+  const [songs, setSongs] = useState<AlbumItem[]>([])
+  useEffect(()=>{
+    getAlbumDetail({ type: AlbumType.MUSIC, id: album.id }).then((res)=>{
+      setSongs(res)
+    }).catch((error) => {
+      console.error(error)
+    })
+  },[album.id])
 
-  const handleSongClick = (song: Song) => {
+  const handleSongClick = (song: AlbumItem) => {
     setSelectedSong(song);
   };
 
-  const handlePlaySong = (song: Song, e: React.MouseEvent) => {
+  const handlePlaySong = (song: AlbumItem, e: React.MouseEvent) => {
     e.stopPropagation();
     onSongPlay(song);
   };
 
-  const handleShowLyrics = (song: Song, e: React.MouseEvent) => {
+  const handleShowLyrics = (song: AlbumItem, e: React.MouseEvent) => {
     e.stopPropagation();
     onShowLyrics(song);
   };
@@ -67,7 +76,7 @@ export default function AlbumBox({
             </div>
 
             <div className="flex-1 overflow-y-auto">
-              {album?.songs?.map((song, index) => (
+              {songs?.map((song, index) => (
                 <div
                   key={song.id}
                   className="flex items-center justify-between p-4 rounded-lg mb-2 cursor-pointer transition-all duration-200 bg-gray-800 hover:bg-gray-700"
