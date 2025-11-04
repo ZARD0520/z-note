@@ -4,6 +4,7 @@ import { AlbumBoxProps, AlbumItem, AlbumType } from "@/type/wezard/albums";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getAlbumDetail } from "@/api";
+import { timestampToUTCString } from "@/utils/date";
 
 export default function AlbumBox({
   album,
@@ -59,7 +60,7 @@ export default function AlbumBox({
 
             <div className="mt-12 text-center">
               <h2 className="text-2xl font-bold">{album.name}</h2>
-              <p className="text-sm text-gray-400 mt-4">{album.releaseDate}</p>
+              <p className="text-sm text-gray-400 mt-4">{timestampToUTCString(album.releaseDate, 'date')}</p>
             </div>
           </div>
 
