@@ -54,7 +54,7 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
         role,
         content: inputValue
       })
-      const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '?' + query, {
+      const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '/chat/stream?' + query, {
         method: 'GET',
         headers: {
           'Accept': 'text/event-stream'

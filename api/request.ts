@@ -38,7 +38,14 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
       signal: controller.signal
     }).finally(() => clearTimeout(id))
 
-    if (!res.ok) throw new Error(res.statusText || `Request failed with ${res.status}`)
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`API Error [${res.status}]: ${url}`, errorText);
+      
+      throw new Error(
+        `Request failed: ${res.status} ${res.statusText}\nURL: ${url}\nResponse: ${errorText}`
+      );
+    }
 
     const resData = await res.json()
 

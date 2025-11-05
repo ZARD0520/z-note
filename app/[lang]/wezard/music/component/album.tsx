@@ -88,9 +88,9 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   }
 
   return (
-    <div className="h-full flex flex-col justify-between container mx-auto px-4 py-8">
+    <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
       <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 mb-8">
+      <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 mb-8">
         {albumsData?.length ? albumsData?.map((album) => (
           <div
             key={album.id}
@@ -105,7 +105,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
                 fill
                 src={album.cover}
                 alt={album.name}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <div className="text-center">
@@ -119,7 +119,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
 
       {/* 分页-PC */}
       {
-        isClient && !isMobile && (<div className="flex items-center justify-center">
+        isClient && !isMobile && (<div className="p-4 flex items-center justify-center">
         <Pagination className="dark-mode" onChange={handlePageChange} current={currentPagination.current} pageSize={currentPagination.limit} total={currentPagination.total} />
         </div>)
       }
