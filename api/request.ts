@@ -40,13 +40,12 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
 
     if (!res.ok) throw new Error(res.statusText || `Request failed with ${res.status}`)
 
-    if (res.headers.get('Content-Length') === '0') return undefined as T
-
     const resData = await res.json()
 
     return resData.data
   } catch (error) {
     console.error(error)
+    throw error
   }
 }
 

@@ -28,7 +28,7 @@ const useInfiniteScroll = ({ onLoadMore, hasMore, threshold = 100 }: UseInfinite
     if (entry.isIntersecting && hasMore && !loading) {
       handleLoadMore();
     }
-  }, [hasMore, loading, onLoadMore]);
+  }, [handleLoadMore, hasMore, loading]);
 
   const triggerRef = useCallback((node: Element | null) => {
     if (observerRef.current) {

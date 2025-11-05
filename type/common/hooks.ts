@@ -75,8 +75,20 @@ export namespace UseInfiniteScroll {
   export interface UseInfiniteScrollProps {
     onLoadMore: () => void;
     hasMore: boolean;
-    loading?: boolean;
     threshold?: number;
-    children: React.ReactNode;
+  }
+}
+
+export namespace UseVirtualScroll {
+  export interface UseVirtualScrollProps<T> {
+    items: T[];
+    itemHeight: number;
+    containerHeight: number;
+    overscan?: number;
+  }
+  export interface UseVirtualScrollReturn<T> {
+    visibleItems: Array<{ data: T; index: number; offset: number }>;
+    totalHeight: number;
+    handleScroll: (e: React.UIEvent<HTMLDivElement>) => void;
   }
 }

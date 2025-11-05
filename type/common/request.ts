@@ -12,5 +12,5 @@ export interface RequestOptions {
 
 export interface RequestList<T> {
   data: T,
-  pagination?: PaginationType
+  pagination: PaginationType
 }

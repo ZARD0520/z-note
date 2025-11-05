@@ -4,11 +4,12 @@ import { AlbumGridProps, AlbumType } from "@/type/wezard/albums";
 import { Album, AlbumItem } from "@/type/wezard/albums"
 import AlbumBox from "./albumBox"
 import LyricsModal from "./lyticsModal"
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Image from "next/image";
 import { Pagination } from "antd";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { getAlbumList } from "@/api";
+import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
 export default function AlbumGrid({ dict, initialData, initialPagination }: AlbumGridProps) {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
@@ -16,8 +17,38 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   const [showLyrics, setShowLyrics] = useState(false);
   const [currentPagination, setCurrentPagination] = useState(initialPagination);
   const [albumsData, setAlbumsData] = useState<Album[]>(initialData);
+  const [hasMore, setHasMore] = useState(true)
+  const [isClient, setIsClient] = useState(false);
 
   const { isMobile } = useWindowSize()
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const handleLoadMore = useCallback(async () => {
+    try {
+      const res = await getAlbumList({ type: AlbumType.MUSIC, current: currentPagination.current + 1, limit: currentPagination.limit })
+
+      if (res.data?.length) {
+        setAlbumsData(prev => [...prev, ...(res?.data?.map((item)=>({ ...item, items:[] })) || [])])
+      }
+      const hasMore = res?.pagination?.current < res?.pagination?.pages
+
+      setHasMore(hasMore)
+      if (hasMore) {
+        setCurrentPagination(prev => ({...prev, current: prev.current + 1}))
+      }
+    } catch (error) {
+      console.error('获取专辑列表失败:', error);
+    }
+  }, [currentPagination])
+
+  const { loading, error, triggerRef, reset } = useInfiniteScroll({
+    onLoadMore: handleLoadMore,
+    hasMore,
+    threshold: 50
+  })
 
   const handleAlbumClick = async (album: Album) => {
     setSelectedAlbum(album);
@@ -88,9 +119,35 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
 
       {/* 分页-PC */}
       {
-        !isMobile && (<div className="flex items-center justify-center">
+        isClient && !isMobile && (<div className="flex items-center justify-center">
         <Pagination className="dark-mode" onChange={handlePageChange} current={currentPagination.current} pageSize={currentPagination.limit} total={currentPagination.total} />
         </div>)
+      }
+
+      {/* 分页-Mobile */}
+      {
+        isClient && isMobile && (
+          <div className="text-center p-4" ref={triggerRef}>
+            {loading && (
+              <div className="loading-indicator">
+                加载中...
+              </div>
+            )}
+            {error && (
+              <div className="error-message">
+                {error}
+                <button onClick={handleLoadMore}>重试</button>
+              </div>
+            )}
+            {!hasMore && albumsData.length > 0 && (
+              <div className="no-more">没有更多数据了</div>
+            )}
+            
+            {!hasMore && albumsData.length === 0 && (
+              <div className="empty-state">暂无数据</div>
+            )}
+          </div>
+        )
       }
       
       {/* 详情 */}
