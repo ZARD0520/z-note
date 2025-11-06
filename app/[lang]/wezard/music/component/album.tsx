@@ -188,16 +188,6 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
           onPlay={handleSongPlay}
         />
       )}
-      {/* 自定义动画样式 */}
-      <style jsx global>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }

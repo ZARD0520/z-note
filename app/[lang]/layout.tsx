@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
-        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_ivmqs9cpfh.css"></link>
+        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_v54wb08x59b.css"></link>
       </head>
       <body className={inter.className + ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'}>
         {children}

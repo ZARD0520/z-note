@@ -4,7 +4,7 @@ import { AlbumBoxProps, AlbumItem, AlbumType } from "@/type/wezard/albums";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getAlbumDetail } from "@/api";
-import { timestampToUTCString } from "@/utils/date";
+import { formatSeconds, timestampToUTCString } from "@/utils/date";
 
 export default function AlbumBox({
   album,
@@ -67,7 +67,12 @@ export default function AlbumBox({
           {/* 歌曲列表区域 */}
           <div className="lg:w-1/2 p-6 flex flex-col">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold">歌曲列表</h3>
+              <div className="cursor-pointer flex items-center">
+                <i className="iconfont icon-bofang mr-4 !text-2xl"></i>
+                <h3 className="text-xl font-bold">
+                  全部播放{`(${songs.length})`}
+                </h3>
+              </div>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-white transition-colors text-2xl"
@@ -87,21 +92,26 @@ export default function AlbumBox({
                     <div className="w-8 text-center text-gray-400">
                       {index + 1}
                     </div>
+                    <div className="flex items-end space-x-1 h-5">
+                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0s'}}></div>
+                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0.1s'}}></div>
+                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0.3s'}}></div>
+                    </div>
                     <div>
                       <div className="font-medium">{song.name}</div>
-                      <div className="text-sm text-gray-400">
-                        {song.duration}
-                      </div>
                     </div>
                   </div>
 
                   <div onClick={(e) => handlePlaySong(song, e)} className="flex items-center space-x-2">
-                    <button
+                    <div className="text-sm text-gray-400">
+                      {formatSeconds(song.duration)}
+                    </div>
+                    {/* <button
                       onClick={(e) => handleShowLyrics(song, e)}
                       className="bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
                     >
                       歌词
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               ))}
