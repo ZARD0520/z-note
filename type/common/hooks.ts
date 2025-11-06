@@ -1,3 +1,5 @@
+import { RefObject } from "react"
+
 export namespace UsePressType {
   interface usePressOptions {
     duration?: number
@@ -90,5 +92,31 @@ export namespace UseVirtualScroll {
     visibleItems: Array<{ data: T; index: number; offset: number }>;
     totalHeight: number;
     handleScroll: (e: React.UIEvent<HTMLDivElement>) => void;
+  }
+}
+
+export namespace UseWaterfallFlow {
+  export interface WaterfallItem {
+    id: string | number;
+    estimatedHeight: number;
+    actualHeight?: number;
+    [key: string]: any;
+  }
+  
+  export interface WaterfallOptions {
+    minColumnWidth?: number;
+    gap?: number;
+    responsive?: boolean;
+    lazyLoad?: boolean;
+    debounceWait?: number;
+  }
+  
+  export interface WaterfallReturn {
+    columns: number;
+    columnData: WaterfallItem[][];
+    containerRef: RefObject<HTMLDivElement>;
+    observeElement: (element: Element | null, itemId: string | number) => void;
+    isItemVisible: (itemId: string | number) => boolean;
+    recalculateLayout: () => void;
   }
 }
