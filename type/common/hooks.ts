@@ -96,27 +96,13 @@ export namespace UseVirtualScroll {
 }
 
 export namespace UseWaterfallFlow {
-  export interface WaterfallItem {
+  export interface BaseWaterfallItem {
     id: string | number;
-    estimatedHeight: number;
-    actualHeight?: number;
-    [key: string]: any;
   }
   
   export interface WaterfallOptions {
     minColumnWidth?: number;
     gap?: number;
     responsive?: boolean;
-    lazyLoad?: boolean;
-    debounceWait?: number;
-  }
-  
-  export interface WaterfallReturn {
-    columns: number;
-    columnData: WaterfallItem[][];
-    containerRef: RefObject<HTMLDivElement>;
-    observeElement: (element: Element | null, itemId: string | number) => void;
-    isItemVisible: (itemId: string | number) => boolean;
-    recalculateLayout: () => void;
   }
 }

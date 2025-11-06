@@ -1,147 +1,85 @@
 import { UseWaterfallFlow } from '@/type/common/hooks';
-import { useState, useEffect, useRef, useCallback, RefObject } from 'react';
+import { throttle } from '@/utils/utils';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
-// 类型定义
-
-const useWaterfallFlow = (
-  data: UseWaterfallFlow.WaterfallItem[],
+const useWaterfallFlow = <T extends UseWaterfallFlow.BaseWaterfallItem>(
+  data: T[],
   options: UseWaterfallFlow.WaterfallOptions = {}
-): UseWaterfallFlow.WaterfallReturn => {
-  const {
-    minColumnWidth = 300,
-    gap = 20,
-    responsive = true,
-    lazyLoad = true,
-    debounceWait = 250
-  } = options;
+) => {
+  const { minColumnWidth = 280, gap = 16, responsive = true } = options;
 
-  const [columns, setColumns] = useState<number>(1);
-  const [columnData, setColumnData] = useState<UseWaterfallFlow.WaterfallItem[][]>([]);
-  const [visibleItems, setVisibleItems] = useState<Set<string | number>>(new Set());
+  const [columns, setColumns] = useState(1);
+  const [columnData, setColumnData] = useState<T[][]>([]);
+  const [itemHeights, setItemHeights] = useState<Map<string | number, number>>(new Map());
   const containerRef = useRef<HTMLDivElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  // 防抖函数
-  const debounce = useCallback(<T extends (...args: any[]) => void>(
-    func: T,
-    wait: number
-  ): ((...args: Parameters<T>) => void) => {
-    let timeout: NodeJS.Timeout;
-    return (...args: Parameters<T>) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  }, []);
 
   // 计算列数
-  const calculateColumns = useCallback((): number => {
+  const calculateColumns = useCallback(() => {
     if (!containerRef.current) return 1;
-    
     const containerWidth = containerRef.current.offsetWidth;
-    const calculatedColumns = Math.max(
-      1, 
-      Math.floor((containerWidth + gap) / (minColumnWidth + gap))
-    );
-    setColumns(calculatedColumns);
-    return calculatedColumns;
-  }, [minColumnWidth, gap]);
+    return Math.max(1, Math.floor(containerWidth / minColumnWidth));
+  }, [minColumnWidth]);
 
-  // 分配数据到各列
-  const distributeData = useCallback((
-    data: UseWaterfallFlow.WaterfallItem[], 
-    columns: number
-  ): UseWaterfallFlow.WaterfallItem[][] => {
-    if (!data || data.length === 0 || columns === 0) {
-      return [];
-    }
-
-    const newColumnData: UseWaterfallFlow.WaterfallItem[][] = Array.from({ length: columns }, () => []);
-    const columnHeights: number[] = Array(columns).fill(0);
-
-    data.forEach(item => {
-      const minHeightIndex = columnHeights.indexOf(Math.min(...columnHeights));
-      newColumnData[minHeightIndex].push(item);
-      columnHeights[minHeightIndex] += item.actualHeight || item.estimatedHeight;
-    });
-
-    return newColumnData;
-  }, []);
-
-  // 初始化懒加载观察器
-  useEffect(() => {
-    if (!lazyLoad) return;
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const itemId = entry.target.getAttribute('data-id');
-            if (itemId) {
-              setVisibleItems(prev => {
-                const newSet = new Set(prev);
-                // 处理数字和字符串ID
-                const id = isNaN(Number(itemId)) ? itemId : Number(itemId);
-                newSet.add(id);
-                return newSet;
-              });
-              observerRef.current?.unobserve(entry.target);
-            }
-          }
-        });
-      },
-      { rootMargin: '100px 0px' }
-    );
-
-    return () => observerRef.current?.disconnect();
-  }, [lazyLoad]);
-
-  // 响应式列数计算
+  // 响应式处理
   useEffect(() => {
     if (!responsive) return;
 
-    const handleResize = debounce(() => {
-      calculateColumns();
-    }, debounceWait);
+    const handleResize = () => {
+      const newColumns = calculateColumns();
+      setColumns(newColumns);
+    };
 
-    // 初始计算
-    calculateColumns();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [responsive, calculateColumns, debounce, debounceWait]);
-
-  // 数据分配到列
-  useEffect(() => {
-    const distributedData = distributeData(data, columns);
-    setColumnData(distributedData);
-  }, [data, columns, distributeData]);
-
-  // 观察元素实现懒加载
-  const observeElement = useCallback((element: Element | null, itemId: string | number) => {
-    if (!lazyLoad || !observerRef.current || !element) return;
+    const debouncedResize = throttle(handleResize, 250);
+    handleResize();
     
-    observerRef.current.observe(element);
-  }, [lazyLoad]);
+    window.addEventListener('resize', debouncedResize);
+    return () => window.removeEventListener('resize', debouncedResize);
+  }, [responsive, calculateColumns]);
 
-  // 判断元素是否可见
-  const isItemVisible = useCallback((itemId: string | number): boolean => {
-    return visibleItems.has(itemId);
-  }, [visibleItems]);
+  // 分配数据到列
+  useEffect(() => {
+    if (data.length === 0 || columns === 0) {
+      setColumnData([]);
+      return;
+    }
 
-  // 重新计算布局
-  const recalculateLayout = useCallback(() => {
-    const newColumns = calculateColumns();
-    const newColumnData = distributeData(data, newColumns);
+    const newColumnData: T[][] = Array.from({ length: columns }, () => []);
+    const columnHeights: number[] = Array(columns).fill(0);
+
+    data.forEach(item => {
+      // 找到高度最小的列
+      const minHeightIndex = columnHeights.indexOf(Math.min(...columnHeights));
+      newColumnData[minHeightIndex].push(item);
+      
+      // 使用已知高度或默认高度
+      const itemHeight = itemHeights.get(item.id) || 400;
+      columnHeights[minHeightIndex] += itemHeight + gap;
+    });
+
     setColumnData(newColumnData);
-  }, [data, calculateColumns, distributeData]);
+  }, [data, columns, itemHeights, gap]);
+
+  // 注册项目高度
+  const registerItemHeight = useCallback((itemId: string | number, height: number) => {
+    setItemHeights(prev => {
+      const newHeights = new Map(prev);
+      if (newHeights.get(itemId) !== height) {
+        newHeights.set(itemId, height);
+        return newHeights;
+      }
+      return prev;
+    });
+  }, []);
+
+  const columnWidth = containerRef.current ? 
+    (containerRef.current.offsetWidth - gap * (columns - 1)) / columns : minColumnWidth;
 
   return {
     columns,
     columnData,
     containerRef,
-    observeElement,
-    isItemVisible,
-    recalculateLayout
+    columnWidth,
+    registerItemHeight
   };
 };
 
