@@ -15,6 +15,8 @@ export interface AlbumItem {
   id: number;
   name: string;
   url: string;
+  artist: string;
+  cover: string;
   duration: number;
   lyrics: string;
   type: AlbumType;

@@ -41,6 +41,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
       }
     } catch (error) {
       console.error('获取专辑列表失败:', error);
+      throw error;
     }
   }, [currentPagination])
 
