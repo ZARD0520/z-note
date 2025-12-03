@@ -56,6 +56,7 @@ export interface AlbumBoxProps {
   onClose: () => void;
   onSongPlay: (song: AlbumItem) => void;
   onShowLyrics: (song: AlbumItem) => void;
+  onSetPlayList: (songs: AlbumItem[]) => void;
   currentSong?: AlbumItem | null;
 }
 

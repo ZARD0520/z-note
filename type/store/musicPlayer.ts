@@ -13,6 +13,7 @@ export interface MusicPlayerState {
 
 export interface MusicPlayerActions {
   setPlaylist: (songs: AlbumItem[]) => void;
+  setCurrentPlay: (song: AlbumItem) => void;
   play: () => void;
   pause: () => void;
   togglePlay: () => void;

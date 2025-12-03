@@ -13,14 +13,14 @@ export default async function WezardAlbums({ params: { lang } }: {
   const dict = await getDictionary(lang)
   let initialAlbumData: Album[] = []
   let initialPagination = {
-    current: 1,
+    current: 0,
     limit: 10,
     total: 0,
     pages: 1
   }
 
   try {
-    const res = await getAlbumList({ type: AlbumType.MUSIC, current:1, limit:10 })
+    const res = await getAlbumList({ type: AlbumType.MUSIC, current: 1, limit: 10 })
     if(res) {
       initialAlbumData = res.data
       initialPagination = res.pagination

@@ -8,28 +8,27 @@ import { formatSeconds, timestampToUTCString } from "@/utils/date";
 
 export default function AlbumBox({
   album,
+  onSetPlayList,
   onClose,
   onSongPlay,
   onShowLyrics,
   currentSong
 }: AlbumBoxProps) {
-  const [selectedSong, setSelectedSong] = useState<AlbumItem | null>(null);
   const [songs, setSongs] = useState<AlbumItem[]>([])
   useEffect(()=>{
     getAlbumDetail({ type: AlbumType.MUSIC, id: album.id }).then((res)=>{
       setSongs(res)
+      onSetPlayList(res)
     }).catch((error) => {
       console.error(error)
     })
-  },[album.id])
-
-  const handleSongClick = (song: AlbumItem) => {
-    setSelectedSong(song);
-  };
+  },[album.id, onSetPlayList])
 
   const handlePlaySong = (song: AlbumItem, e: React.MouseEvent) => {
     e.stopPropagation();
-    onSongPlay(song);
+    if(currentSong?.id !== song.id) {
+      onSongPlay(song);
+    }
   };
 
   const handleShowLyrics = (song: AlbumItem, e: React.MouseEvent) => {
@@ -38,7 +37,7 @@ export default function AlbumBox({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-49">
       <div className=" overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
         <div className="flex flex-col lg:flex-row">
           {/* CD 展示区域 */}
@@ -86,17 +85,18 @@ export default function AlbumBox({
                 <div
                   key={song.id}
                   className="flex items-center justify-between p-4 rounded-lg mb-2 cursor-pointer transition-all duration-200 bg-gray-800 hover:bg-gray-700"
-                  onClick={() => handleSongClick(song)}
+                  onClick={(e) => handlePlaySong(song, e)}
                 >
                   <div className="flex items-center space-x-4">
                     <div className="w-8 text-center text-gray-400">
                       {index + 1}
                     </div>
-                    <div className="flex items-end space-x-1 h-5">
+                    {currentSong?.id === song.id ? 
+                    (<div className="flex items-end space-x-1 h-5">
                       <div className="w-1 bg-white waveBar" style={{animationDelay: '0s'}}></div>
                       <div className="w-1 bg-white waveBar" style={{animationDelay: '0.1s'}}></div>
                       <div className="w-1 bg-white waveBar" style={{animationDelay: '0.3s'}}></div>
-                    </div>
+                    </div>) : ''}
                     <div>
                       <div className="font-medium">{song.name}</div>
                     </div>

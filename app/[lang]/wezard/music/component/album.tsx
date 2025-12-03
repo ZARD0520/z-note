@@ -6,12 +6,12 @@ import AlbumBox from "./albumBox"
 import LyricsModal from "./lyticsModal"
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image";
-import { useWindowSize } from "@/hooks/useWindowSize";
 import { getAlbumList } from "@/api";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useWaterfallFlow from "@/hooks/useWaterfallFlow";
 import AudioElement from './audioElement';
 import MusicPlayer from "./musicPlayer";
+import { useMusicPlayerStore } from "@/store/useMusicPlayerStore";
 
 export default function AlbumGrid({ dict, initialData, initialPagination }: AlbumGridProps) {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
@@ -22,7 +22,10 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   const [hasMore, setHasMore] = useState(true)
   const [isClient, setIsClient] = useState(false);
 
-  const { isMobile } = useWindowSize()
+  const {
+    setCurrentPlay,
+    setPlaylist
+  } = useMusicPlayerStore();
 
   useEffect(() => {
     setIsClient(true)
@@ -68,7 +71,6 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
 
   const handleAlbumClick = async (album: Album) => {
     setSelectedAlbum(album);
-    setCurrentSong(null);
     setShowLyrics(false);
   };
 
@@ -78,12 +80,10 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
 
   const handleSongPlay = (song: AlbumItem) => {
     setCurrentSong(song);
-    // 这里可以添加实际的播放逻辑
-    console.log('播放歌曲:', song.name);
+    setCurrentPlay(song);
   };
 
-  const handleShowLyrics = (song: AlbumItem) => {
-    setCurrentSong(song);
+  const handleShowLyrics = () => {
     setShowLyrics(true);
   };
 
@@ -183,6 +183,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
       {selectedAlbum && (
         <AlbumBox
           album={selectedAlbum}
+          onSetPlayList={setPlaylist}
           onClose={handleCloseAlbum}
           onSongPlay={handleSongPlay}
           onShowLyrics={handleShowLyrics}

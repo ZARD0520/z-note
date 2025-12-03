@@ -20,21 +20,19 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
       ...initialState,
       audioElement: null,
       setPlaylist: (songs: AlbumItem[]) => {
-        const audioElement = get().audioElement;
         set({
           playlist: songs,
-          currentIndex: songs.length > 0 ? 0 : -1,
-          currentSong: songs.length > 0 ? songs[0] : null,
-          isPlaying: songs.length > 0,
-          progress: 0,
-          isExpanded: songs.length > 0, // 有歌曲时自动展开
         });
-        
-        if (songs.length > 0 && audioElement) {
-          setTimeout(() => {
-            audioElement.play().catch(console.error);
-          }, 0);
-        }
+      },
+      setCurrentPlay: (song: AlbumItem) => {
+        set({
+          currentSong: song,
+          currentIndex: 0,
+          isPlaying: true,
+          progress: 0,
+        })
+        const audioElement = get().audioElement;
+        audioElement?.play().catch(console.error);
       },
       play: () => {
         const { audioElement, currentSong } = get();
