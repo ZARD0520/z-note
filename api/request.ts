@@ -3,15 +3,17 @@ import { RequestMethodType, RequestOptions } from "@/type/common/request"
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000/api'
 
 const requestClient = async <T = any>(method: RequestMethodType, url: string, options: RequestOptions): Promise<T> => {
-  try {
-    const {
-      params,
-      data,
-      headers = {},
-      timeout = 10000,
-      withCredentials = false
-    } = options
+  const {
+    params,
+    data,
+    headers = {},
+    timeout = 10000,
+    withCredentials = false
+  } = options
 
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeout)
+  try {
     const fullUrl = params
       ? `${url}?${new URLSearchParams(params)}`
       : url
@@ -27,16 +29,13 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
       body = data
     }
 
-    const controller = new AbortController()
-    const id = setTimeout(() => controller.abort(), timeout)
-
     const res = await fetch(fullUrl, {
       method,
       headers,
       body,
       credentials: withCredentials ? 'include' : 'same-origin',
       signal: controller.signal
-    }).finally(() => clearTimeout(id))
+    })
 
     if (!res.ok) {
       const errorText = await res.text();
@@ -53,6 +52,8 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
   } catch (error) {
     console.error(error)
     throw error
+  } finally {
+    clearTimeout(id)
   }
 }
 

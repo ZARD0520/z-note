@@ -3,7 +3,7 @@ import { Locale } from "@/i18n/config"
 import AlbumGrid from './component/album'
 import { FloatingBackButton } from "@/components/wezard/back"
 import { getAlbumList } from "@/api"
-import { AlbumType } from "@/type/wezard/albums"
+import { Album, AlbumType } from "@/type/wezard/albums"
 
 export default async function WezardAlbums({ params: { lang } }: {
   params: {
@@ -11,13 +11,22 @@ export default async function WezardAlbums({ params: { lang } }: {
   }
 }) {
   const dict = await getDictionary(lang)
-  const res = await getAlbumList({ type: AlbumType.MUSIC, current:1, limit:10 })
-  const initialAlbumData = res?.data || []
-  const initialPagination = res?.pagination || {
+  let initialAlbumData: Album[] = []
+  let initialPagination = {
     current: 1,
     limit: 10,
     total: 0,
     pages: 1
+  }
+
+  try {
+    const res = await getAlbumList({ type: AlbumType.MUSIC, current:1, limit:10 })
+    if(res) {
+      initialAlbumData = res.data
+      initialPagination = res.pagination
+    }
+  } catch(e) {
+    console.error(e)
   }
 
   return (

@@ -78,6 +78,7 @@ export namespace UseInfiniteScroll {
     onLoadMore: () => void;
     hasMore: boolean;
     threshold?: number;
+    retryCount?: number;
   }
 }
 

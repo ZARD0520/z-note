@@ -53,6 +53,10 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
     threshold: 50
   })
 
+  const handleRetry = useCallback(()=>{
+    reset()
+  },[reset])
+
   const { columnData,
     containerRef,
     columnWidth,
@@ -163,7 +167,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
         {error && (
           <div className="error-message">
             {error}
-            <button onClick={handleLoadMore}>重试</button>
+            <button className="ml-2" onClick={handleRetry}>点击重试</button>
           </div>
         )}
         {!hasMore && albumsData.length > 0 && (

@@ -1,14 +1,15 @@
 import { UseInfiniteScroll } from "@/type/common/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const useInfiniteScroll = ({ onLoadMore, hasMore, threshold = 100 }: UseInfiniteScroll.UseInfiniteScrollProps) => {
+const useInfiniteScroll = ({ onLoadMore, hasMore, threshold = 100, retryCount = 3 }: UseInfiniteScroll.UseInfiniteScrollProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [failCount, setFailCount] = useState(0)
   const observerRef = useRef<IntersectionObserver>();
   const elementRef = useRef<Element | null>(null);
 
   const handleLoadMore = useCallback(async () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore || failCount >= retryCount) return;
     
     setLoading(true);
     setError(null);
@@ -17,11 +18,12 @@ const useInfiniteScroll = ({ onLoadMore, hasMore, threshold = 100 }: UseInfinite
       await onLoadMore();
     } catch (err) {
       setError(err instanceof Error ? err.message : '加载失败');
+      setFailCount(failCount + 1)
       console.error('无限滚动加载错误:', err);
     } finally {
       setLoading(false);
     }
-  }, [onLoadMore, hasMore, loading]);
+  }, [loading, hasMore, failCount, retryCount, onLoadMore]);
 
   const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
@@ -60,6 +62,7 @@ const useInfiniteScroll = ({ onLoadMore, hasMore, threshold = 100 }: UseInfinite
   const reset = useCallback(() => {
     setLoading(false);
     setError(null);
+    setFailCount(0);
   }, []);
 
   return {
