@@ -144,7 +144,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
       <MusicPlayer />
       <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
-        {columnData2?.length ? columnData?.map((column, columnIndex) => (
+        {columnData?.length ? columnData?.map((column, columnIndex) => (
           <div
             key={columnIndex}
             className="flex flex-col gap-4"
