@@ -84,15 +84,15 @@ class ChatAI {
     if ('WebSocket' in window) {
       ttsWS = new WebSocket(url)
     } else if ('MozWebSocket' in window) {
-      ttsWS = new MozWebSocket(url)
+      ttsWS = new window.MozWebSocket(url)
     } else {
       alert('浏览器不支持WebSocket')
       return
     }
     this.ttsWS = ttsWS
 
-    ttsWS.onopen = (e) => {
-      setStatus('connecting')
+    ttsWS.onopen = () => {
+      this.setStatus('connecting')
       this.send(initMsg)
     }
     ttsWS.onmessage = (e) => {

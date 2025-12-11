@@ -138,7 +138,7 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
     {
       name: STORAGE_KEYS.MUSIC_PLAYER_STORE,
       partialize: (state) => ({
-        volume: state1.volume,
+        volume: state.volume,
         isExpanded: state.isExpanded,
       }),
     }
