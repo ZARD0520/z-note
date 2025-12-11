@@ -11,7 +11,6 @@ interface chatContentProps {
 }
 
 const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
-
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [showScroll, setShowScroll] = useState(false)
@@ -20,7 +19,7 @@ const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
     if (scrollRef.current && contentRef.current) {
       scrollRef.current.scrollTo({
         top: contentRef.current.offsetHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     }
   }, [])
@@ -38,22 +37,26 @@ const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
   const chatDiv = (msg: any, mIndex: number) => {
     if (msg.role !== 'user') {
       return (
-        (
-          <div className='flex flex-row mb-4 w-full' key={mIndex}>
-            <i className='w-6 h-6 flex-shrink-0 mr-2 rounded-md iconfont icon-jiqiren'></i>
-            <div className='min-w-0 bg-primary-border rounded-md p-2 text-left'>
-              {msg.content ? <ZMarkdown className='max-w-full' content={msg.content} /> : (loading ? '思考中...' : '请重新提问')}
-            </div>
+        <div className="flex flex-row mb-4 w-full" key={mIndex}>
+          <i className="w-6 h-6 flex-shrink-0 mr-2 rounded-md iconfont icon-jiqiren"></i>
+          <div className="min-w-0 bg-primary-border rounded-md p-2 text-left">
+            {msg.content ? (
+              <ZMarkdown className="max-w-full" content={msg.content} />
+            ) : loading ? (
+              '思考中...'
+            ) : (
+              '请重新提问'
+            )}
           </div>
-        )
+        </div>
       )
     } else {
       return (
-        <div className='flex flex-row mb-4 w-full justify-end' key={mIndex}>
-          <div className='min-w-0 bg-primary rounded-md mr-2 p-2 text-left'>
-            <ZMarkdown className='max-w-full overflow-x-auto' content={msg.content} />
+        <div className="flex flex-row mb-4 w-full justify-end" key={mIndex}>
+          <div className="min-w-0 bg-primary rounded-md mr-2 p-2 text-left">
+            <ZMarkdown className="max-w-full overflow-x-auto" content={msg.content} />
           </div>
-          <i className='w-6 h-6 flex-shrink-0 rounded-md iconfont icon-gerentouxiang'></i>
+          <i className="w-6 h-6 flex-shrink-0 rounded-md iconfont icon-gerentouxiang"></i>
         </div>
       )
     }
@@ -66,11 +69,14 @@ const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
           {messages.map((msg, mIndex) => chatDiv(msg, mIndex))}
         </div>
       </div>
-      {
-        showScroll && <div onClick={scrollBottom} className="mt-1 -mb-6 rounded-md pl-4 pr-4 border text-center cursor-pointer max-w-min m-auto">
+      {showScroll && (
+        <div
+          onClick={scrollBottom}
+          className="mt-1 -mb-6 rounded-md pl-4 pr-4 border text-center cursor-pointer max-w-min m-auto"
+        >
           <CaretDownOutlined className="h-6" />
         </div>
-      }
+      )}
     </>
   )
 }

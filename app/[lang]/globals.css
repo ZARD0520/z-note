@@ -1,9 +1,9 @@
 .iconfont {
-  font-size: 1.125rem !important
+  font-size: 1.125rem !important;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import '@/styles/index.css'
+@import '@/styles/index.css';

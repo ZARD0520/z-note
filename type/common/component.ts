@@ -1,27 +1,27 @@
-import { TextareaHTMLAttributes } from "react";
-import { onSearchType, onSelectRoleType } from "../chat";
+import { TextareaHTMLAttributes } from 'react'
+import { onSearchType, onSelectRoleType } from '../chat'
 
 // 输入框
 export interface InputComponentProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  type: 'text' | 'email' | 'password' | 'number' | 'search';
+  type: 'text' | 'email' | 'password' | 'number' | 'search'
   roleKey?: string
-  onSearch?: onSearchType;
+  onSearch?: onSearchType
   onSelectRole?: onSelectRoleType
-  className?: string;
-  suffix?: (onSearch?: onSearchType) => React.ReactNode;
+  className?: string
+  suffix?: (onSearch?: onSearchType) => React.ReactNode
   isLoading?: boolean
 }
 
 // 下拉选择框
 export interface SelectItem {
-  label: string;
-  key: number | string;
+  label: string
+  key: number | string
   icon?: React.ReactNode
-  disabled?: boolean;
+  disabled?: boolean
 }
 
 // Markdown
 export interface MarkdownRenderProps {
-  content: string;
-  className?: string;
+  content: string
+  className?: string
 }

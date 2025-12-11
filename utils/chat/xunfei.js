@@ -47,12 +47,7 @@ function getModelDomain(httpUrl) {
 }
 
 class ChatAI {
-  constructor({ 
-    userId,
-    beforeStatusChange,
-    onMessage,
-    onClose
-  }) {
+  constructor({ userId, beforeStatusChange, onMessage, onClose }) {
     try {
       this.appId = ''
       this.userId = userId
@@ -68,7 +63,7 @@ class ChatAI {
       this.onMessage = onMessage
       this.onWsClose = onClose
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
   }
 
@@ -172,7 +167,6 @@ class ChatAI {
   close() {
     this.ttsWS?.close?.()
   }
-
 }
 
 export default ChatAI

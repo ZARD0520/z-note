@@ -1,37 +1,35 @@
-import Header from "@/components/chat/header";
-import { ConfigProvider, Popover } from "antd";
-import PageContent from "@/components/chat/pageContent";
-import SideNav from "@/components/chat/sidenav";
-import ZDrag from "@/components/common/z-drag";
-import img from "@/public/images/AI.png"
-import { getDictionary } from "@/i18n";
-import payImg from "@/public/images/alipay.jpg"
-import zardImg from "@/public/images/zard.jpg"
-import { Locale } from "@/i18n/config";
+import Header from '@/components/chat/header'
+import { ConfigProvider, Popover } from 'antd'
+import PageContent from '@/components/chat/pageContent'
+import SideNav from '@/components/chat/sidenav'
+import ZDrag from '@/components/common/z-drag'
+import img from '@/public/images/AI.png'
+import { getDictionary } from '@/i18n'
+import payImg from '@/public/images/alipay.jpg'
+import zardImg from '@/public/images/zard.jpg'
+import { Locale } from '@/i18n/config'
 import Image from 'next/image'
-import { Metadata } from "next/types";
-import Link from "next/link";
-
+import { Metadata } from 'next/types'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: "小Z助手",
-  description: "躺平小助手",
+  title: '小Z助手',
+  description: '躺平小助手',
   icons: {
-    icon: '/favicon.ico'
-  }
-};
+    icon: '/favicon.ico',
+  },
+}
 
 export default async function ChatLayout({
   children,
-  params
+  params,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
   params: { lang: Locale }
 }>) {
-
   const dictionary = await getDictionary(params.lang)
   const popContent = (
-    <div className='flex flex-row items-center justify-center cursor-pointer'>
+    <div className="flex flex-row items-center justify-center cursor-pointer">
       <Image className="w-8 h-8 mr-2" src={zardImg} alt="zard-logo" />
       <Link href="/wezard">点击进入ZARD空间</Link>
     </div>
@@ -63,13 +61,25 @@ export default async function ChatLayout({
         <ZDrag>
           <SideNav img={img} lang={params.lang}>
             <i className="iconfont icon-zhuye1" data-title={dictionary.home} data-href="/"></i>
-            <i className="iconfont icon-huihua" data-title={dictionary.talkHistory} data-href="/talkHistory"></i>
-            <i className="iconfont icon-gongju" data-title={dictionary.tools} data-href="/tools"></i>
-            <i className="iconfont icon-zanshang" data-title={dictionary.donation} data-content={payContent}></i>
+            <i
+              className="iconfont icon-huihua"
+              data-title={dictionary.talkHistory}
+              data-href="/talkHistory"
+            ></i>
+            <i
+              className="iconfont icon-gongju"
+              data-title={dictionary.tools}
+              data-href="/tools"
+            ></i>
+            <i
+              className="iconfont icon-zanshang"
+              data-title={dictionary.donation}
+              data-content={payContent}
+            ></i>
           </SideNav>
         </ZDrag>
         <PageContent>{children}</PageContent>
       </div>
     </ConfigProvider>
-  );
+  )
 }

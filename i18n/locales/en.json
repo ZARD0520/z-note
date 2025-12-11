@@ -1,58 +1,58 @@
 {
-    "home": "home",
-    "title": "assistant Z",
-    "titleZ": "ZARD ZOOM",
-    "description": "Use AI With Freedown",
-    "talkHistory": "talkHistory",
-    "tools": "tools",
-    "donation": "donation",
-    "root-welcome": "Hello, How may I assist you?",
-    "input": {
-        "placeholder": "you can ask something"
+  "home": "home",
+  "title": "assistant Z",
+  "titleZ": "ZARD ZOOM",
+  "description": "Use AI With Freedown",
+  "talkHistory": "talkHistory",
+  "tools": "tools",
+  "donation": "donation",
+  "root-welcome": "Hello, How may I assist you?",
+  "input": {
+    "placeholder": "you can ask something"
+  },
+  "base": {
+    "clear": "clear",
+    "back": "back"
+  },
+  "zard": {
+    "nav": {
+      "introduce": "Introduce",
+      "album": "ALBUM",
+      "photo": "PHOTO",
+      "mv": "MV"
     },
-    "base": {
-        "clear": "clear",
-        "back": "back"
+    "header": {
+      "description": "IZUMI SAKAI - The Undying Music Legend"
     },
-    "zard": {
-        "nav": {
-            "introduce": "Introduce",
-            "album": "ALBUM",
-            "photo": "PHOTO",
-            "mv": "MV"
-        },
-        "header": {
-            "description": "IZUMI SAKAI - The Undying Music Legend"
-        },
-        "content": {
-            "cardTitle1": "Eternal Voice",
-            "cardTitle2": "Music Legend",
-            "cardTitle3": "Cultural Imprint",
-            "cardContent1": [
-                "ZARD, one of the most successful bands in Japanese music history, became the representative voice of the 1990s Japanese music scene with lead vocalist Izumi Sakai's crystal clear voice and emotional singing style.",
-                "From their debut in 1991 until 2007, ZARD achieved the remarkable record of 9 consecutive million-selling singles, with total sales exceeding 37 million copies, once holding the title of best-selling female artist in the history of Japan's Oricon Charts."
-            ],
-            "cardContent2": [
-                "Izumi Sakai was not only an outstanding singer but also a talented lyricist. She wrote lyrics for almost all of ZARD's songs, filled with poetry and philosophy, giving countless people courage and hope.",
-                "Classic songs such as 'Makenaide', 'Yureru Omoi', and 'My Friend' continue to rank high on Japanese karaoke request charts to this day, becoming national hit songs."
-            ],
-            "cardContent3": [
-                "ZARD's music deeply influenced the entire Asian music industry, with many songs used as theme songs for classic anime such as 'Detective Conan', 'Slam Dunk', and 'Dragon Ball GT', becoming the youth memory of a generation.",
-                "Even years after her passing, ZARD's music continues to have high streaming numbers on major music platforms, with both new and old fans extending her musical legacy in various ways."
-            ],
-            "stateTitle": "Glorious Achievements",
-            "stateDesc": "Witnessing the Legend Through Numbers",
-            "singleState": "Singles Released",
-            "albumState": "Original Albums",
-            "mSingleState": "Consecutive Million-Selling Singles",
-            "totalRecordState": "Total Sales Record",
-            "legacyTitle": "Eternal Spirit",
-            "legacyDesc": "Even as time passes, your voice still echoes in the wind, inspiring everyone who refuses to give up to keep moving forward.",
-            "legacyContent": "Izumi Sakai's music transcends the boundaries of time. The courage, hope, and love for life contained in her lyrics continue to touch people's hearts around the world. On this website, we will revisit her musical journey together, relive those classic moments, and ensure that the spirit of ZARD is forever passed down."
-        },
-        "footer": {
-            "copyright": "© 1991 ZARD Memorial Website | Honoring the Eternal Izumi Sakai",
-            "description": "Music Eternal, Legend Immortal"
-        }
+    "content": {
+      "cardTitle1": "Eternal Voice",
+      "cardTitle2": "Music Legend",
+      "cardTitle3": "Cultural Imprint",
+      "cardContent1": [
+        "ZARD, one of the most successful bands in Japanese music history, became the representative voice of the 1990s Japanese music scene with lead vocalist Izumi Sakai's crystal clear voice and emotional singing style.",
+        "From their debut in 1991 until 2007, ZARD achieved the remarkable record of 9 consecutive million-selling singles, with total sales exceeding 37 million copies, once holding the title of best-selling female artist in the history of Japan's Oricon Charts."
+      ],
+      "cardContent2": [
+        "Izumi Sakai was not only an outstanding singer but also a talented lyricist. She wrote lyrics for almost all of ZARD's songs, filled with poetry and philosophy, giving countless people courage and hope.",
+        "Classic songs such as 'Makenaide', 'Yureru Omoi', and 'My Friend' continue to rank high on Japanese karaoke request charts to this day, becoming national hit songs."
+      ],
+      "cardContent3": [
+        "ZARD's music deeply influenced the entire Asian music industry, with many songs used as theme songs for classic anime such as 'Detective Conan', 'Slam Dunk', and 'Dragon Ball GT', becoming the youth memory of a generation.",
+        "Even years after her passing, ZARD's music continues to have high streaming numbers on major music platforms, with both new and old fans extending her musical legacy in various ways."
+      ],
+      "stateTitle": "Glorious Achievements",
+      "stateDesc": "Witnessing the Legend Through Numbers",
+      "singleState": "Singles Released",
+      "albumState": "Original Albums",
+      "mSingleState": "Consecutive Million-Selling Singles",
+      "totalRecordState": "Total Sales Record",
+      "legacyTitle": "Eternal Spirit",
+      "legacyDesc": "Even as time passes, your voice still echoes in the wind, inspiring everyone who refuses to give up to keep moving forward.",
+      "legacyContent": "Izumi Sakai's music transcends the boundaries of time. The courage, hope, and love for life contained in her lyrics continue to touch people's hearts around the world. On this website, we will revisit her musical journey together, relive those classic moments, and ensure that the spirit of ZARD is forever passed down."
+    },
+    "footer": {
+      "copyright": "© 1991 ZARD Memorial Website | Honoring the Eternal Izumi Sakai",
+      "description": "Music Eternal, Legend Immortal"
     }
+  }
 }

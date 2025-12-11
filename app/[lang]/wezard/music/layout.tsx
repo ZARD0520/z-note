@@ -1,10 +1,7 @@
 export default async function WezardAlbumsLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
 }>) {
-
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>
 }

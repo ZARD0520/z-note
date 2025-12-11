@@ -1,20 +1,27 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback, TouchEventHandler, MouseEventHandler } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  TouchEventHandler,
+  MouseEventHandler,
+} from 'react'
 
 interface DragState {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 interface Draggable {
-  position: DragState;
-  dragging: boolean;
-  draggingMobile: boolean;
-  handleMouseDown: MouseEventHandler<HTMLDivElement>;
-  handleTouchStart: TouchEventHandler<HTMLDivElement>;
-  handleTouchEnd: TouchEventHandler<HTMLDivElement>;
-  handleTouchMove: TouchEventHandler<HTMLDivElement>;
+  position: DragState
+  dragging: boolean
+  draggingMobile: boolean
+  handleMouseDown: MouseEventHandler<HTMLDivElement>
+  handleTouchStart: TouchEventHandler<HTMLDivElement>
+  handleTouchEnd: TouchEventHandler<HTMLDivElement>
+  handleTouchMove: TouchEventHandler<HTMLDivElement>
 }
 
 const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
@@ -23,57 +30,69 @@ const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
   const [draggingMobile, setDraggingMobile] = useState<boolean>(false)
   const [offset, setOffset] = useState<DragState>({ x: 0, y: 0 })
 
-  const handleMouseDown: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
-    e.preventDefault()
-    setDragging(true)
-    setOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    })
-  }, [position])
+  const handleMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      e.preventDefault()
+      setDragging(true)
+      setOffset({
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
+      })
+    },
+    [position]
+  )
 
-  const handleTouchStart: TouchEventHandler<HTMLDivElement> = useCallback((e) => {
-    setDraggingMobile(true);
-    const touch = e.touches[0];
-    setOffset({
-      x: touch.clientX - position.x,
-      y: touch.clientY - position.y,
-    });
-  }, [position])
+  const handleTouchStart: TouchEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      setDraggingMobile(true)
+      const touch = e.touches[0]
+      setOffset({
+        x: touch.clientX - position.x,
+        y: touch.clientY - position.y,
+      })
+    },
+    [position]
+  )
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (e.target == null) {
-      return;
-    }
-    e.preventDefault()
-    if (dragging) {
-      let px = e.clientX - offset.x
-      let py = e.clientY - offset.y
-
-      if (px < 0 || py < 0) {
-        return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (e.target == null) {
+        return
       }
-      setPosition({
-        x: px,
-        y: py,
-      });
-    }
-  }, [dragging, offset])
+      e.preventDefault()
+      if (dragging) {
+        let px = e.clientX - offset.x
+        let py = e.clientY - offset.y
 
-  const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback((e) => {
-    if (draggingMobile) {
-      const touch = e.touches[0];
-      let px = touch.clientX - offset.x
-      let py = touch.clientY - offset.y
-      if (px < 0 || py < 0) {
-        return;
+        if (px < 0 || py < 0) {
+          return
+        }
+        setPosition({
+          x: px,
+          y: py,
+        })
       }
-      setPosition({
-        x: px,
-        y: py,
-      });
-    }
-  }, [draggingMobile, offset])
+    },
+    [dragging, offset]
+  )
+
+  const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (draggingMobile) {
+        const touch = e.touches[0]
+        let px = touch.clientX - offset.x
+        let py = touch.clientY - offset.y
+        if (px < 0 || py < 0) {
+          return
+        }
+        setPosition({
+          x: px,
+          y: py,
+        })
+      }
+    },
+    [draggingMobile, offset]
+  )
 
   const handleMouseUp = useCallback((e: MouseEvent) => {
     e.preventDefault()
@@ -81,27 +100,27 @@ const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
   }, [])
 
   const handleTouchEnd: TouchEventHandler<HTMLDivElement> = useCallback(() => {
-    setDraggingMobile(false);
+    setDraggingMobile(false)
   }, [])
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
-      handleMouseMove(e);
-    };
+      handleMouseMove(e)
+    }
 
     const handleGlobalMouseUp = (e: MouseEvent) => {
-      handleMouseUp(e);
-    };
+      handleMouseUp(e)
+    }
 
     if (dragging) {
-      document.addEventListener('mousemove', handleGlobalMouseMove);
-      document.addEventListener('mouseup', handleGlobalMouseUp);
+      document.addEventListener('mousemove', handleGlobalMouseMove)
+      document.addEventListener('mouseup', handleGlobalMouseUp)
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleGlobalMouseMove);
-      document.removeEventListener('mouseup', handleGlobalMouseUp);
-    };
+      document.removeEventListener('mousemove', handleGlobalMouseMove)
+      document.removeEventListener('mouseup', handleGlobalMouseUp)
+    }
   }, [dragging, handleMouseMove, handleMouseUp])
 
   return {
@@ -113,6 +132,6 @@ const useDrag = (initialPosition: DragState = { x: 0, y: 0 }): Draggable => {
     handleTouchEnd,
     handleTouchMove,
   }
-};
+}
 
-export default useDrag;
+export default useDrag

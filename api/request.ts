@@ -1,22 +1,18 @@
-import { RequestMethodType, RequestOptions } from "@/type/common/request"
+import { RequestMethodType, RequestOptions } from '@/type/common/request'
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000/api'
 
-const requestClient = async <T = any>(method: RequestMethodType, url: string, options: RequestOptions): Promise<T> => {
-  const {
-    params,
-    data,
-    headers = {},
-    timeout = 10000,
-    withCredentials = false
-  } = options
+const requestClient = async <T = any>(
+  method: RequestMethodType,
+  url: string,
+  options: RequestOptions
+): Promise<T> => {
+  const { params, data, headers = {}, timeout = 10000, withCredentials = false } = options
 
   const controller = new AbortController()
   const id = setTimeout(() => controller.abort(), timeout)
   try {
-    const fullUrl = params
-      ? `${url}?${new URLSearchParams(params)}`
-      : url
+    const fullUrl = params ? `${url}?${new URLSearchParams(params)}` : url
 
     let body: BodyInit | undefined
 
@@ -24,7 +20,7 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
       body = data
     } else if (typeof data === 'object' && data !== null) {
       body = JSON.stringify(data)
-        ; (headers as Record<string, string>)['Content-Type'] ||= 'application/json'
+      ;(headers as Record<string, string>)['Content-Type'] ||= 'application/json'
     } else {
       body = data
     }
@@ -34,16 +30,16 @@ const requestClient = async <T = any>(method: RequestMethodType, url: string, op
       headers,
       body,
       credentials: withCredentials ? 'include' : 'same-origin',
-      signal: controller.signal
+      signal: controller.signal,
     })
 
     if (!res.ok) {
-      const errorText = await res.text();
-      console.error(`API Error [${res.status}]: ${url}`, errorText);
-      
+      const errorText = await res.text()
+      console.error(`API Error [${res.status}]: ${url}`, errorText)
+
       throw new Error(
         `Request failed: ${res.status} ${res.statusText}\nURL: ${url}\nResponse: ${errorText}`
-      );
+      )
     }
 
     const resData = await res.json()
@@ -72,7 +68,7 @@ const quickAction = {
   },
   upload<T>(url: string, formData: FormData, opts?: Omit<RequestOptions, 'data'>) {
     return requestClient<T>('POST', baseUrl + url, { ...opts, data: formData })
-  }
+  },
 }
 
 export default quickAction

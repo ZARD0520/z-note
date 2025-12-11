@@ -1,6 +1,6 @@
 'use client'
 
-import { LyricsModalProps } from "@/type/wezard/albums";
+import { LyricsModalProps } from '@/type/wezard/albums'
 
 export default function LyricsModal({ song, onClose, onPlay }: LyricsModalProps) {
   return (
@@ -18,13 +18,11 @@ export default function LyricsModal({ song, onClose, onPlay }: LyricsModalProps)
               ✕
             </button>
           </div>
-          
+
           <div className="bg-gray-800 rounded-lg p-6 max-h-96 overflow-y-auto">
-            <pre className="text-lg leading-8 text-center whitespace-pre-wrap">
-              {song.lyrics}
-            </pre>
+            <pre className="text-lg leading-8 text-center whitespace-pre-wrap">{song.lyrics}</pre>
           </div>
-          
+
           <div className="mt-6 flex justify-center">
             <button
               onClick={() => onPlay(song)}
@@ -36,5 +34,5 @@ export default function LyricsModal({ song, onClose, onPlay }: LyricsModalProps)
         </div>
       </div>
     </div>
-  );
+  )
 }

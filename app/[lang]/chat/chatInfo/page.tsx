@@ -1,10 +1,8 @@
-import { getDictionary } from "@/i18n";
-import ChatContainer from "./component/chatContainer";
+import { getDictionary } from '@/i18n'
+import ChatContainer from './component/chatContainer'
 
 export default async function ChatInfo(params: any) {
   const dict = await getDictionary(params.lang)
 
-  return (
-    <ChatContainer dict={dict}></ChatContainer>
-  )
+  return <ChatContainer dict={dict}></ChatContainer>
 }

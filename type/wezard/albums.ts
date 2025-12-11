@@ -1,4 +1,4 @@
-import { PaginationParams, PaginationType } from "../common/pagination";
+import { PaginationParams, PaginationType } from '../common/pagination'
 
 export enum AlbumType {
   IMAGE = 'image',
@@ -8,33 +8,33 @@ export enum AlbumType {
 
 export enum AlbumSubType {
   ALBUM = 'album',
-  SINGLE = 'single'
+  SINGLE = 'single',
 }
 
 export interface AlbumItem {
-  id: number;
-  name: string;
-  url: string;
-  artist: string;
-  cover: string;
-  duration: number;
-  lyrics: string;
-  type: AlbumType;
-  album: number;
+  id: number
+  name: string
+  url: string
+  artist: string
+  cover: string
+  duration: number
+  lyrics: string
+  type: AlbumType
+  album: number
 }
 
 export interface Album {
-  id: number;
-  name: string;
-  cover: string;
-  type: AlbumType;
-  subType: AlbumSubType;
-  mediaCount: number;
-  description: string;
-  releaseDate: number;
+  id: number
+  name: string
+  cover: string
+  type: AlbumType
+  subType: AlbumSubType
+  mediaCount: number
+  description: string
+  releaseDate: number
 }
 
-export interface AlbumListParams extends PaginationParams{
+export interface AlbumListParams extends PaginationParams {
   type: AlbumType
   albumName?: string
 }
@@ -52,16 +52,16 @@ export interface AlbumGridProps {
 }
 
 export interface AlbumBoxProps {
-  album: Album;
-  onClose: () => void;
-  onSongPlay: (song: AlbumItem) => void;
-  onShowLyrics: (song: AlbumItem) => void;
-  onSetPlayList: (songs: AlbumItem[]) => void;
-  currentSong?: AlbumItem | null;
+  album: Album
+  onClose: () => void
+  onSongPlay: (song: AlbumItem) => void
+  onShowLyrics: (song: AlbumItem) => void
+  onSetPlayList: (songs: AlbumItem[]) => void
+  currentSong?: AlbumItem | null
 }
 
 export interface LyricsModalProps {
-  song: AlbumItem;
-  onClose: () => void;
-  onPlay: (song: AlbumItem) => void;
+  song: AlbumItem
+  onClose: () => void
+  onPlay: (song: AlbumItem) => void
 }

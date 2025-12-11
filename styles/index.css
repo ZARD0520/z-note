@@ -6,7 +6,7 @@
   border-right: 3px solid;
   animation:
     typing 3.5s steps(10) infinite,
-    blink-caret .5s step-end infinite;
+    blink-caret 0.5s step-end infinite;
 }
 
 .typewriter-once {
@@ -16,7 +16,7 @@
   border-right: 3px solid;
   animation:
     typing 3s steps(20),
-    blink-caret .85s step-end infinite;
+    blink-caret 0.85s step-end infinite;
 }
 
 .waveBar {
@@ -27,11 +27,12 @@
 }
 
 @keyframes heightWave {
-  0%, 100% { 
-    height: 25%; 
+  0%,
+  100% {
+    height: 25%;
   }
-  50% { 
-    height: 95%; 
+  50% {
+    height: 95%;
   }
 }
 
@@ -48,8 +49,8 @@
 
 /* 定义光标闪烁动画 */
 @keyframes blink-caret {
-
-  from,to {
+  from,
+  to {
     border-color: transparent;
   }
 
@@ -60,7 +61,8 @@
 
 /* antd样式覆盖 */
 .dark-mode {
-  .ant-pagination-prev, .ant-pagination-next  {
+  .ant-pagination-prev,
+  .ant-pagination-next {
     .ant-pagination-item-link {
       @apply text-white !important;
     }
@@ -86,7 +88,6 @@
   }
 }
 
-
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -104,5 +105,4 @@ body {
 
 @import './theme/primary.css';
 @import './theme/hot.css';
-@import './theme/cool.css'
-
+@import './theme/cool.css';

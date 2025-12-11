@@ -1,10 +1,18 @@
 'use client'
 
-import React from 'react';
-import useDrag from '@/hooks/useDrag';
+import React from 'react'
+import useDrag from '@/hooks/useDrag'
 
 const DraggableComponent: React.FC<any> = ({ children }) => {
-  const { position, dragging, draggingMobile, handleMouseDown, handleTouchStart,handleTouchEnd,handleTouchMove } = useDrag();
+  const {
+    position,
+    dragging,
+    draggingMobile,
+    handleMouseDown,
+    handleTouchStart,
+    handleTouchEnd,
+    handleTouchMove,
+  } = useDrag()
 
   const style: React.CSSProperties = {
     position: 'absolute',
@@ -12,11 +20,12 @@ const DraggableComponent: React.FC<any> = ({ children }) => {
     top: position.y,
     left: position.x,
     cursor: dragging || draggingMobile ? 'grabbing' : 'grab',
-    zIndex: 9999
-  };
+    zIndex: 9999,
+  }
 
   return (
-    <div style={style}
+    <div
+      style={style}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -24,7 +33,7 @@ const DraggableComponent: React.FC<any> = ({ children }) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default DraggableComponent;
+export default DraggableComponent

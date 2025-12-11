@@ -1,4 +1,4 @@
-import { PaginationType } from "./pagination"
+import { PaginationType } from './pagination'
 
 export type RequestMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
@@ -7,10 +7,10 @@ export interface RequestOptions {
   data?: BodyInit | Record<string, any>
   headers?: HeadersInit
   timeout?: number
-  withCredentials?: boolean 
+  withCredentials?: boolean
 }
 
 export interface RequestList<T> {
-  data: T,
+  data: T
   pagination: PaginationType
 }

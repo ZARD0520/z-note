@@ -1,7 +1,12 @@
-import { ChatMessage } from "@/type/chat";
-import React, { useEffect, useRef, useState } from "react";
+import { ChatMessage } from '@/type/chat'
+import React, { useEffect, useRef, useState } from 'react'
 
-export function useChat(model: string, role: string = '1', defaultInput = '', defaultActions?: any) {
+export function useChat(
+  model: string,
+  role: string = '1',
+  defaultInput = '',
+  defaultActions?: any
+) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -26,10 +31,10 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',
-      content: inputValue
+      content: inputValue,
     }
 
-    setMessages(prev => [...prev, userMessage])
+    setMessages((prev) => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
 
@@ -37,10 +42,10 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
     const assistantMessage: ChatMessage = {
       id: assistantMessageId,
       role: 'assistant',
-      content: ''
+      content: '',
     }
 
-    setMessages(prev => [...prev, assistantMessage])
+    setMessages((prev) => [...prev, assistantMessage])
 
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
@@ -52,15 +57,18 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
       const query = new URLSearchParams({
         model,
         role,
-        content: inputValue
+        content: inputValue,
       })
-      const response = await fetch((process.env.NEXT_PUBLIC_SERVER_URL as string) + '/chat/stream?' + query, {
-        method: 'GET',
-        headers: {
-          'Accept': 'text/event-stream'
-        },
-        signal: abortControllerRef.current.signal
-      })
+      const response = await fetch(
+        (process.env.NEXT_PUBLIC_SERVER_URL as string) + '/chat/stream?' + query,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'text/event-stream',
+          },
+          signal: abortControllerRef.current.signal,
+        }
+      )
 
       if (!response.ok) {
         throw new Error(`HTTP ERROR：${response.status}`)
@@ -88,20 +96,20 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
         console.warn('请求中止')
       } else {
         console.error('请求失败：', e)
-        setMessages(prev =>
-          prev.map(msg =>
+        setMessages((prev) =>
+          prev.map((msg) =>
             msg.id === assistantMessageId
               ? {
-                ...msg,
-                content: '抱歉，发生了错误，请稍后重试。'
-              }
+                  ...msg,
+                  content: '抱歉，发生了错误，请稍后重试。',
+                }
               : msg
           )
         )
       }
     } finally {
       setIsLoading(false)
-      abortControllerRef.current = null;
+      abortControllerRef.current = null
     }
   }
 
@@ -111,7 +119,7 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
     let currentData = {
       id: '',
       data: '',
-      finished: false
+      finished: false,
     }
 
     try {
@@ -146,51 +154,45 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
           }
         }
       }
-      events.forEach(data => {
+      events.forEach((data) => {
         if (data.id === '1' && !data.data && data.finished) {
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === messageId
-                ? { ...msg, content: '无法回答您的问题，请重新提问' }
-                : msg
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === messageId ? { ...msg, content: '无法回答您的问题，请重新提问' } : msg
             )
-          );
+          )
           return
         } else if (!data.finished && data.data) {
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === messageId
-                ? { ...msg, content: msg.content + data.data }
-                : msg
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === messageId ? { ...msg, content: msg.content + data.data } : msg
             )
-          );
+          )
         } else if (data.finished) {
           return
         }
       })
     } catch (error) {
-      console.error('解析 JSON 失败:', error);
+      console.error('解析 JSON 失败:', error)
       // 如果不是 JSON，直接作为文本显示
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === messageId
-            ? { ...msg, content: '出错了，请稍后重新提问' }
-            : msg
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId ? { ...msg, content: '出错了，请稍后重新提问' } : msg
         )
-      );
+      )
     }
   }
 
   const stopGeneration = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
-      setMessages(prev =>
+      setMessages((prev) =>
         prev.map((msg, msgIndex) =>
           msgIndex === prev.length - 1
             ? {
-              ...msg,
-              content: msg.content || '已停止生成，请重新提问'
-            }
+                ...msg,
+                content: msg.content || '已停止生成，请重新提问',
+              }
             : msg
         )
       )
@@ -214,6 +216,6 @@ export function useChat(model: string, role: string = '1', defaultInput = '', de
     clearAllMessages,
     messages,
     input,
-    isLoading
+    isLoading,
   }
 }

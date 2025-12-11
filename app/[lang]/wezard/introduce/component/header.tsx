@@ -11,5 +11,5 @@ export const Header = ({ dict }: any) => {
         <div className="w-40 h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent mx-auto mt-8"></div>
       </div>
     </header>
-  );
-};
+  )
+}

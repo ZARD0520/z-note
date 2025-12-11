@@ -1,53 +1,60 @@
 'use client'
 
-import { WezardHomeProps } from "@/type/wezard/home"
-import { useMemo, useRef } from "react"
-import { usePageScroll } from "@/hooks/useScroll"
-import { useWindowSize } from "@/hooks/useWindowSize"
-import Link from "next/link"
-import dynamic from "next/dynamic"
+import { WezardHomeProps } from '@/type/wezard/home'
+import { useMemo, useRef } from 'react'
+import { usePageScroll } from '@/hooks/useScroll'
+import { useWindowSize } from '@/hooks/useWindowSize'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
-  const contentList = useMemo(() => [
-    {
-      title: dict.zard.nav.introduce,
-      background: "/media/images/1.jpg",
-      href: '/wezard/introduce'
-    },
-    {
-      title: dict.zard.nav.album,
-      background: "/media/images/zard002.jpg",
-      href: '/wezard/music'
-    },
-    {
-      title: dict.zard.nav.photo,
-      background: "/media/images/zard11.jpg",
-      href: '/wezard/photo'
-    },
-    {
-      title: dict.zard.nav.mv,
-      background: "/media/images/7.jpg",
-      href: '/wezard/video'
-    }
-  ], [dict])
+  const contentList = useMemo(
+    () => [
+      {
+        title: dict.zard.nav.introduce,
+        background: '/media/images/1.jpg',
+        href: '/wezard/introduce',
+      },
+      {
+        title: dict.zard.nav.album,
+        background: '/media/images/zard002.jpg',
+        href: '/wezard/music',
+      },
+      {
+        title: dict.zard.nav.photo,
+        background: '/media/images/zard11.jpg',
+        href: '/wezard/photo',
+      },
+      {
+        title: dict.zard.nav.mv,
+        background: '/media/images/7.jpg',
+        href: '/wezard/video',
+      },
+    ],
+    [dict]
+  )
 
   const { isMobile } = useWindowSize()
   const { currentPage, goToPage } = usePageScroll({
-    totalPages: contentList.length, 
+    totalPages: contentList.length,
     initialPage: 0,
     enableWheel: true,
-    enableSwipe: true 
+    enableSwipe: true,
   })
-  
-  const currentContent = useMemo(() => 
-    contentList.find((item, index) => index === currentPage), 
+
+  const currentContent = useMemo(
+    () => contentList.find((item, index) => index === currentPage),
     [currentPage, contentList]
   )
-  
-  const SideNav = useMemo(() => dynamic(() => import('./sidenav'), {
-    ssr: false
-  }), [])
+
+  const SideNav = useMemo(
+    () =>
+      dynamic(() => import('./sidenav'), {
+        ssr: false,
+      }),
+    []
+  )
 
   const prevPageRef = useRef(0)
 
@@ -62,18 +69,18 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
     enter: {
       opacity: 0.6,
       filter: 'blur(40px)',
-      scale: 1.2
+      scale: 1.2,
     },
     center: {
       opacity: 1,
       filter: 'blur(0px)',
-      scale: 1
+      scale: 1,
     },
     exit: {
       opacity: 0.6,
       filter: 'blur(40px)',
-      scale: 1.2
-    }
+      scale: 1.2,
+    },
   }
 
   // 字体动画变体
@@ -81,19 +88,19 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
     enter: (direction: string) => ({
       opacity: 0,
       scale: 1.2,
-      filter: 'blur(10px)'
+      filter: 'blur(10px)',
     }),
     center: {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)'
+      filter: 'blur(0px)',
     },
     exit: (direction: string) => ({
       opacity: 0,
       scale: 1.2,
-      filter: 'blur(10px)'
-    })
+      filter: 'blur(10px)',
+    }),
   }
 
   const direction = getAnimationDirection()
@@ -109,9 +116,9 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ 
+          transition={{
             duration: 0.8,
-            ease: "easeInOut"
+            ease: 'easeInOut',
           }}
         />
       </AnimatePresence>
@@ -127,12 +134,12 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
               animate="center"
               exit="exit"
               custom={direction}
-              transition={{ 
+              transition={{
                 duration: 0.8,
-                ease: "easeOut"
+                ease: 'easeOut',
               }}
             >
-              <Link 
+              <Link
                 href={currentContent.href}
                 className="transition-all duration-300 hover:scale-105 hover:text-white px-6 py-3 inline-block"
               >
@@ -142,8 +149,13 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
           )}
         </AnimatePresence>
       </div>
-      
-      <SideNav currentPage={currentPage} goToPage={goToPage} contentList={contentList} isMobile={isMobile} />
+
+      <SideNav
+        currentPage={currentPage}
+        goToPage={goToPage}
+        contentList={contentList}
+        isMobile={isMobile}
+      />
     </div>
   )
 }

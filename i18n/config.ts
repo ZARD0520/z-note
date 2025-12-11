@@ -1,6 +1,6 @@
 const i18n = {
   defaultLocale: 'zh',
-  locales: ['zh', 'en', 'ja']
+  locales: ['zh', 'en', 'ja'],
 } as const
 
 export default i18n

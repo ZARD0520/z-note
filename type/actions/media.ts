@@ -5,8 +5,8 @@ export interface getListParams {
 }
 
 export interface MediaFile {
-  url: string;
-  filename: string;
+  url: string
+  filename: string
   type: 'Photos' | 'Albums' | 'Videos'
   album?: string
   releaseDate?: string

@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import i18n, { Locale } from "@/i18n/config";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import i18n, { Locale } from '@/i18n/config'
 // import ClientSideMonitor from '@/components/monitor'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Z",
-  description: "wezard && ai assitant",
+  title: 'Z',
+  description: 'wezard && ai assitant',
   icons: {
-    icon: '/images/zard.jpg'
-  }
-};
+    icon: '/images/zard.jpg',
+  },
+}
 
 export async function generateStaticParams() {
   return i18n.locales.map((l) => ({ lang: l }))
@@ -20,9 +20,9 @@ export async function generateStaticParams() {
 
 export default async function RootLayout({
   children,
-  params
+  params,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
   params: { lang: Locale }
 }>) {
   return (
@@ -30,10 +30,15 @@ export default async function RootLayout({
       <head>
         <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_v54wb08x59b.css"></link>
       </head>
-      <body className={inter.className + ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'}>
+      <body
+        className={
+          inter.className +
+          ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'
+        }
+      >
         {children}
         {/* <ClientSideMonitor /> */}
       </body>
     </html>
-  );
+  )
 }

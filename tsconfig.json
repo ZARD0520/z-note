@@ -21,6 +21,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/chat/xunfei.js", "lib/monitor.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "utils/chat/xunfei.js",
+    "lib/monitor.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,10 +1,10 @@
 'use client'
 
-import { AlbumBoxProps, AlbumItem, AlbumType } from "@/type/wezard/albums";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { getAlbumDetail } from "@/api";
-import { formatSeconds, timestampToUTCString } from "@/utils/date";
+import { AlbumBoxProps, AlbumItem, AlbumType } from '@/type/wezard/albums'
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { getAlbumDetail } from '@/api'
+import { formatSeconds, timestampToUTCString } from '@/utils/date'
 
 export default function AlbumBox({
   album,
@@ -12,29 +12,31 @@ export default function AlbumBox({
   onClose,
   onSongPlay,
   onShowLyrics,
-  currentSong
+  currentSong,
 }: AlbumBoxProps) {
   const [songs, setSongs] = useState<AlbumItem[]>([])
-  useEffect(()=>{
-    getAlbumDetail({ type: AlbumType.MUSIC, id: album.id }).then((res)=>{
-      setSongs(res)
-      onSetPlayList(res)
-    }).catch((error) => {
-      console.error(error)
-    })
-  },[album.id, onSetPlayList])
+  useEffect(() => {
+    getAlbumDetail({ type: AlbumType.MUSIC, id: album.id })
+      .then((res) => {
+        setSongs(res)
+        onSetPlayList(res)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [album.id, onSetPlayList])
 
   const handlePlaySong = (song: AlbumItem, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if(currentSong?.id !== song.id) {
-      onSongPlay(song);
+    e.stopPropagation()
+    if (currentSong?.id !== song.id) {
+      onSongPlay(song)
     }
-  };
+  }
 
   const handleShowLyrics = (song: AlbumItem, e: React.MouseEvent) => {
-    e.stopPropagation();
-    onShowLyrics(song);
-  };
+    e.stopPropagation()
+    onShowLyrics(song)
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-49">
@@ -59,7 +61,9 @@ export default function AlbumBox({
 
             <div className="mt-12 text-center">
               <h2 className="text-2xl font-bold">{album.name}</h2>
-              <p className="text-sm text-gray-400 mt-4">{timestampToUTCString(album.releaseDate, 'date')}</p>
+              <p className="text-sm text-gray-400 mt-4">
+                {timestampToUTCString(album.releaseDate, 'date')}
+              </p>
             </div>
           </div>
 
@@ -68,9 +72,7 @@ export default function AlbumBox({
             <div className="flex justify-between items-center mb-6">
               <div className="cursor-pointer flex items-center">
                 <i className="iconfont icon-bofang mr-4 !text-2xl"></i>
-                <h3 className="text-xl font-bold">
-                  全部播放{`(${songs.length})`}
-                </h3>
+                <h3 className="text-xl font-bold">全部播放{`(${songs.length})`}</h3>
               </div>
               <button
                 onClick={onClose}
@@ -88,24 +90,35 @@ export default function AlbumBox({
                   onClick={(e) => handlePlaySong(song, e)}
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="w-8 text-center text-gray-400">
-                      {index + 1}
-                    </div>
-                    {currentSong?.id === song.id ? 
-                    (<div className="flex items-end space-x-1 h-5">
-                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0s'}}></div>
-                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-1 bg-white waveBar" style={{animationDelay: '0.3s'}}></div>
-                    </div>) : ''}
+                    <div className="w-8 text-center text-gray-400">{index + 1}</div>
+                    {currentSong?.id === song.id ? (
+                      <div className="flex items-end space-x-1 h-5">
+                        <div
+                          className="w-1 bg-white waveBar"
+                          style={{ animationDelay: '0s' }}
+                        ></div>
+                        <div
+                          className="w-1 bg-white waveBar"
+                          style={{ animationDelay: '0.1s' }}
+                        ></div>
+                        <div
+                          className="w-1 bg-white waveBar"
+                          style={{ animationDelay: '0.3s' }}
+                        ></div>
+                      </div>
+                    ) : (
+                      ''
+                    )}
                     <div>
                       <div className="font-medium">{song.name}</div>
                     </div>
                   </div>
 
-                  <div onClick={(e) => handlePlaySong(song, e)} className="flex items-center space-x-2">
-                    <div className="text-sm text-gray-400">
-                      {formatSeconds(song.duration)}
-                    </div>
+                  <div
+                    onClick={(e) => handlePlaySong(song, e)}
+                    className="flex items-center space-x-2"
+                  >
+                    <div className="text-sm text-gray-400">{formatSeconds(song.duration)}</div>
                     {/* <button
                       onClick={(e) => handleShowLyrics(song, e)}
                       className="bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
@@ -120,5 +133,5 @@ export default function AlbumBox({
         </div>
       </div>
     </div>
-  );
+  )
 }

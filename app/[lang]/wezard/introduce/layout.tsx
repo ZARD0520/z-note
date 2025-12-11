@@ -1,10 +1,7 @@
 export default async function WezardIntroduceLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
 }>) {
-
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>
 }

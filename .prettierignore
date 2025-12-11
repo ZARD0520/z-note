@@ -1,0 +1,40 @@
+# 依赖
+node_modules/
+.next/
+out/
+dist/
+
+# Next.js 相关
+.next/cache/
+.next/server/
+.next/static/
+
+# 构建产物
+build/
+coverage/
+*.min.js
+
+# 环境文件
+.env*
+.env.local
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 其他
+public/
+.next-env.d.ts
+next-env.d.ts

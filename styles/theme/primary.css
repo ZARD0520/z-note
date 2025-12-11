@@ -1,15 +1,15 @@
-:root[data-theme=primary] {
+:root[data-theme='primary'] {
   --primary-color: #409eff;
   --primary-text-color: #fff;
   --secondary-color: '';
   --secondary-text-color: '';
   --hover-color: #66b1ff;
-  --disabled-color: #98C4FA;
-  --background-base: #F5F7FA;
+  --disabled-color: #98c4fa;
+  --background-base: #f5f7fa;
   --background-white: #ffffff;
-  --border-color: #D9ECFF;
+  --border-color: #d9ecff;
 }
 
-.dark[data-theme=primary] {
-  --primary-color: black
+.dark[data-theme='primary'] {
+  --primary-color: black;
 }

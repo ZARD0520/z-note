@@ -1,6 +1,6 @@
-import { UseScrollType } from "@/type/common/hooks";
-import { throttle } from "@/utils/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { UseScrollType } from '@/type/common/hooks'
+import { throttle } from '@/utils/utils'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function usePageScroll({
   totalPages,
@@ -10,8 +10,8 @@ export function usePageScroll({
   enableKeyboard = true,
   enableWheel = true,
   enableSwipe = true,
-  throttleDelay = 400
-}:UseScrollType.useScrollProps):UseScrollType.useScrollReturn {
+  throttleDelay = 400,
+}: UseScrollType.useScrollProps): UseScrollType.useScrollReturn {
   const [[currentPage, direction], setPageState] = useState<[number, number]>([initialPage, 0])
   const touchStartRef = useRef<UseScrollType.touchPosition | null>(null)
   const lastWheelTimeRef = useRef<number>(0)
@@ -29,90 +29,102 @@ export function usePageScroll({
     }
   }, [currentPage])
 
-  const goToPage = useCallback((page: number): void => {
-    if (page >= 0 && page < totalPages) {
-      const newDirection = page > currentPage ? 1 : -1
-      setPageState([page, newDirection])
-    }
-  }, [currentPage, totalPages])
-
-  const handleWheel = useCallback((event: WheelEvent): void => {
-    if (!enableWheel || isScrollingRef.current) return
-
-    const now = Date.now()
-    if (now - lastWheelTimeRef.current < throttleDelay) return
-
-    const { deltaY } = event
-    
-    if (Math.abs(deltaY) > scrollThreshold) {
-      isScrollingRef.current = true
-      lastWheelTimeRef.current = now
-
-      if (deltaY > 0) {
-        goToNextPage()
-      } else {
-        goToPrevPage()
+  const goToPage = useCallback(
+    (page: number): void => {
+      if (page >= 0 && page < totalPages) {
+        const newDirection = page > currentPage ? 1 : -1
+        setPageState([page, newDirection])
       }
+    },
+    [currentPage, totalPages]
+  )
 
-      // 重置滚动锁定状态
-      setTimeout(() => {
-        isScrollingRef.current = false
-      }, throttleDelay)
-    }
-  }, [enableWheel, scrollThreshold, throttleDelay, goToNextPage, goToPrevPage])
-  
+  const handleWheel = useCallback(
+    (event: WheelEvent): void => {
+      if (!enableWheel || isScrollingRef.current) return
+
+      const now = Date.now()
+      if (now - lastWheelTimeRef.current < throttleDelay) return
+
+      const { deltaY } = event
+
+      if (Math.abs(deltaY) > scrollThreshold) {
+        isScrollingRef.current = true
+        lastWheelTimeRef.current = now
+
+        if (deltaY > 0) {
+          goToNextPage()
+        } else {
+          goToPrevPage()
+        }
+
+        // 重置滚动锁定状态
+        setTimeout(() => {
+          isScrollingRef.current = false
+        }, throttleDelay)
+      }
+    },
+    [enableWheel, scrollThreshold, throttleDelay, goToNextPage, goToPrevPage]
+  )
+
   const throttledWheelHandler = throttle(handleWheel, throttleDelay)
 
-  const handleTouchStart = useCallback((event: TouchEvent): void => {
-    if (!enableSwipe) return
-    
-    touchStartRef.current = {
-      x: event.touches[0].clientX,
-      y: event.touches[0].clientY,
-      time: Date.now()
-    }
-  }, [enableSwipe])
+  const handleTouchStart = useCallback(
+    (event: TouchEvent): void => {
+      if (!enableSwipe) return
 
-  const handleTouchEnd = useCallback((event: TouchEvent): void => {
-    if (!enableSwipe || !touchStartRef.current) return
+      touchStartRef.current = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+        time: Date.now(),
+      }
+    },
+    [enableSwipe]
+  )
 
-    const touchEnd = {
-      x: event.changedTouches[0].clientX,
-      y: event.changedTouches[0].clientY,
-      time: Date.now()
-    }
+  const handleTouchEnd = useCallback(
+    (event: TouchEvent): void => {
+      if (!enableSwipe || !touchStartRef.current) return
 
-    const diffX = touchStartRef.current.x - touchEnd.x
-    const diffY = touchStartRef.current.y - touchEnd.y
-    const timeDiff = touchEnd.time - touchStartRef.current.time
+      const touchEnd = {
+        x: event.changedTouches[0].clientX,
+        y: event.changedTouches[0].clientY,
+        time: Date.now(),
+      }
 
-    // 只处理快速滑动（小于300ms）
-    if (timeDiff < 300) {
-      const isVerticalSwipe = Math.abs(diffY) > Math.abs(diffX)
+      const diffX = touchStartRef.current.x - touchEnd.x
+      const diffY = touchStartRef.current.y - touchEnd.y
+      const timeDiff = touchEnd.time - touchStartRef.current.time
 
-      if (isVerticalSwipe && Math.abs(diffY) > swipeThreshold) {
-        if (diffY > 0) {
-          // 向上滑动 - 下一页
-          goToNextPage()
-        } else {
-          // 向下滑动 - 上一页
-          goToPrevPage()
-        }
-      } else if (!isVerticalSwipe && Math.abs(diffX) > swipeThreshold) {
-        if (diffX > 0) {
-          // 向左滑动 - 下一页
-          goToNextPage()
-        } else {
-          // 向右滑动 - 上一页
-          goToPrevPage()
+      // 只处理快速滑动（小于300ms）
+      if (timeDiff < 300) {
+        const isVerticalSwipe = Math.abs(diffY) > Math.abs(diffX)
+
+        if (isVerticalSwipe && Math.abs(diffY) > swipeThreshold) {
+          if (diffY > 0) {
+            // 向上滑动 - 下一页
+            goToNextPage()
+          } else {
+            // 向下滑动 - 上一页
+            goToPrevPage()
+          }
+        } else if (!isVerticalSwipe && Math.abs(diffX) > swipeThreshold) {
+          if (diffX > 0) {
+            // 向左滑动 - 下一页
+            goToNextPage()
+          } else {
+            // 向右滑动 - 上一页
+            goToPrevPage()
+          }
         }
       }
-    }
 
-    touchStartRef.current = null
-  }, [enableSwipe, swipeThreshold, goToNextPage, goToPrevPage])
+      touchStartRef.current = null
+    },
+    [enableSwipe, swipeThreshold, goToNextPage, goToPrevPage]
+  )
 
-  useEffect(()=>{
+  useEffect(() => {
     const passiveOptions = { passive: false } as EventListenerOptions
 
     if (enableWheel) {
@@ -133,7 +145,14 @@ export function usePageScroll({
         window.removeEventListener('touchend', handleTouchEnd)
       }
     }
-  },[enableWheel, enableSwipe, enableKeyboard, throttledWheelHandler, handleTouchStart, handleTouchEnd])
+  }, [
+    enableWheel,
+    enableSwipe,
+    enableKeyboard,
+    throttledWheelHandler,
+    handleTouchStart,
+    handleTouchEnd,
+  ])
 
   const progress = totalPages > 1 ? (currentPage / (totalPages - 1)) * 100 : 0
 
@@ -145,6 +164,6 @@ export function usePageScroll({
     goToPage,
     isFirstPage: currentPage === 0,
     isLastPage: currentPage === totalPages - 1,
-    progress
+    progress,
   }
 }

@@ -1,7 +1,7 @@
-:root[data-theme=hot]{
-  --primary-color:red
+:root[data-theme='hot'] {
+  --primary-color: red;
 }
 
-.dark[data-theme=hot]{
-  --primary-color:black
+.dark[data-theme='hot'] {
+  --primary-color: black;
 }
