@@ -26,7 +26,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "utils/chat/xunfei.js",
     "lib/monitor.js"
   ],
   "exclude": ["node_modules"]

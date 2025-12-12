@@ -1,4 +1,4 @@
-export const Footer = ({ dict }: any) => {
+export const Footer: React.FC<any> = ({ dict }) => {
   return (
     <footer className="py-12 border-t border-white/10 mt-16">
       <div className="container mx-auto px-4 text-center">

@@ -1,24 +1,11 @@
 'use client'
 
 import ZSearchInput from './searchInput'
-import { SetStateAction, useState } from 'react'
+import { SetStateAction } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useChatActions, useChatInput } from '@/store/useChatStore'
-import { onSelectRoleType } from '@/type/chat'
-
-interface searchChatProps {
-  lang?: string
-  placeholder?: string
-  isLoading?: boolean
-  input?: string
-  setInput?: Function
-  roleKey?: string
-  handleSelectRole?: onSelectRoleType
-  handleStop?: () => void
-  handleSubmit?: (e?: React.FormEvent) => void
-  className?: string
-}
+import { searchChatProps } from '@/type/chat'
 
 const SearchChat: React.FC<searchChatProps> = ({
   placeholder = '',

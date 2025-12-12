@@ -2,16 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { StaticImageData } from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Popover, Tooltip } from 'antd'
-
-interface SideNavProps {
-  className?: string
-  img: StaticImageData | HTMLImageElement
-  lang: string
-  children: Array<any>
-}
+import { SideNavProps } from '@/type/chat'
 
 const SideNav: React.FC<SideNavProps> = ({ className, img, lang, children }) => {
   const pathname = usePathname().replace('/' + lang, '/')

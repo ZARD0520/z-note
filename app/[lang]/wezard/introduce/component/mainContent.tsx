@@ -1,9 +1,7 @@
-interface InfoCardProps {
-  title: string
-  content: string[]
-}
+import { InfoCardProps } from '@/type/wezard/introduce'
+import React from 'react'
 
-const InfoCard = ({ title, content }: InfoCardProps) => {
+const InfoCard: React.FC<InfoCardProps> = ({ title, content }) => {
   return (
     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-slate-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/10">
       <h2 className="text-2xl font-semibold text-slate-400 mb-6 flex items-center">
@@ -21,7 +19,7 @@ const InfoCard = ({ title, content }: InfoCardProps) => {
   )
 }
 
-const Content = ({ dict }: any) => {
+const Content: React.FC<any> = ({ dict }) => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -37,7 +35,7 @@ const Content = ({ dict }: any) => {
   )
 }
 
-const StatsSection = ({ dict }: any) => {
+const StatsSection: React.FC<any> = ({ dict }) => {
   const stats = [
     { number: '45', label: dict.zard.content.singleState },
     { number: '17', label: dict.zard.content.albumState },
@@ -72,7 +70,7 @@ const StatsSection = ({ dict }: any) => {
   )
 }
 
-const LegacySection = ({ dict }: any) => {
+const LegacySection: React.FC<any> = ({ dict }) => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -98,7 +96,7 @@ const LegacySection = ({ dict }: any) => {
   )
 }
 
-export const MainContent = ({ dict }: any) => {
+export const MainContent: React.FC<any> = ({ dict }) => {
   return (
     <>
       <Content dict={dict} />

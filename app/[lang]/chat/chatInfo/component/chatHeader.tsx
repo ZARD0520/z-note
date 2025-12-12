@@ -5,14 +5,7 @@ import { DownOutlined, ClearOutlined, ArrowLeftOutlined } from '@ant-design/icon
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { modelList } from '@/constants/chat'
-
-interface chatHeaderProps {
-  clearText: string
-  backText: string
-  menuValue: string
-  handleClickModelItem: ({ key }: { key: string }) => void
-  handleClear: () => void
-}
+import { chatHeaderProps } from '@/type/chat'
 
 const ChatHeader: React.FC<chatHeaderProps> = ({
   clearText,

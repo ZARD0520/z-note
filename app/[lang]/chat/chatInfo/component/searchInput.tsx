@@ -1,16 +1,16 @@
 import React from 'react'
 import { Dropdown, Space } from 'antd'
 import ZInput from '../../../../../components/common/z-input'
-import { onSearchType, onSelectRoleType } from '@/type/chat'
+import { searchInputSuffixProps } from '@/type/chat'
 import { InputComponentProps } from '@/type/common/component'
 import { roleList } from '@/constants/chat'
 
-const suffixInput = (
-  valueKey: string = '1',
-  onSelect?: onSelectRoleType,
-  onSearch?: onSearchType,
-  loading?: boolean
-) => (
+const suffixInput: React.FC<searchInputSuffixProps> = ({
+  valueKey = '1',
+  onSelect,
+  onSearch,
+  loading,
+}) => (
   <div className="flex items-center ml-2">
     <div>
       {onSelect && (
@@ -60,7 +60,14 @@ const zSearchInput: React.FC<InputComponentProps> = ({
       isLoading={isLoading}
       onSearch={onSearch}
       placeholder={placeholder}
-      suffix={() => suffixInput(roleKey, onSelectRole, onSearch, isLoading)}
+      suffix={() =>
+        suffixInput({
+          valueKey: roleKey || '',
+          onSelect: onSelectRole,
+          onSearch,
+          loading: isLoading,
+        })
+      }
       className={'border-2 border-primary-border ' + className}
       {...restProps}
     />

@@ -1,10 +1,5 @@
+import { HeaderProps } from '@/type/chat'
 import { Popover } from 'antd'
-
-interface HeaderProps {
-  title: string
-  popContent: React.ReactNode
-  children: React.ReactNode
-}
 
 const Header: React.FC<HeaderProps> = ({ title, popContent, children }) => {
   return (

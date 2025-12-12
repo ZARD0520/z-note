@@ -1,4 +1,4 @@
-export const Header = ({ dict }: any) => {
+export const Header: React.FC<any> = ({ dict }) => {
   return (
     <header className="pt-16 pb-8 text-center">
       <div className="container mx-auto px-4">

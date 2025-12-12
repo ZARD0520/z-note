@@ -2,13 +2,8 @@
 
 import { CaretDownOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChatMessage } from '@/type/chat'
+import { chatContentProps } from '@/type/chat'
 import ZMarkdown from '@/components/common/z-mark-down'
-
-interface chatContentProps {
-  loading: boolean
-  messages: ChatMessage[]
-}
 
 const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
   const scrollRef = useRef<HTMLDivElement>(null)

@@ -3,7 +3,7 @@
 import React from 'react'
 import useDrag from '@/hooks/useDrag'
 
-const DraggableComponent: React.FC<any> = ({ children }) => {
+const DraggableComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const {
     position,
     dragging,
