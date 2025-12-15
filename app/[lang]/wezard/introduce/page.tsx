@@ -3,7 +3,7 @@ import { Header } from './component/header'
 import { MainContent } from './component/mainContent'
 import { Footer } from './component/footer'
 import { FloatingBackButton } from '../../../../components/wezard/back'
-import { Locale } from '@/i18n/config'
+import i18n, { Locale } from '@/i18n/config'
 
 export default async function WezardIntroduce({
   params: { lang },
@@ -22,4 +22,8 @@ export default async function WezardIntroduce({
       <Footer dict={dict} />
     </div>
   )
+}
+
+export async function generateStaticParams() {
+  return i18n.locales.map((lang) => ({ lang }))
 }
