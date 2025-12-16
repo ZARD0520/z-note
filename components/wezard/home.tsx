@@ -1,12 +1,13 @@
 'use client'
 
 import { WezardHomeProps } from '@/type/wezard/home'
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { usePageScroll } from '@/hooks/useScroll'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   const contentList = useMemo(
@@ -104,6 +105,19 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   }
 
   const direction = getAnimationDirection()
+
+  // 根据记录位置跳转
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  useEffect(() => {
+    const paramsKey = searchParams.get('key')
+    const toPage = Number(paramsKey) - 1
+    if (paramsKey) {
+      goToPage(toPage)
+      router.replace(pathname)
+    }
+  }, [goToPage, pathname, router, searchParams])
 
   return (
     <div className="min-h-screen flex flex-row relative overflow-hidden">
