@@ -65,3 +65,8 @@ export interface LyricsModalProps {
   onClose: () => void
   onPlay: (song: AlbumItem) => void
 }
+
+export interface AudioElementProps {
+  audioRef: any
+  currentSong: AlbumItem | null
+}

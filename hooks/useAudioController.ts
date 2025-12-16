@@ -10,13 +10,12 @@ export function useAudioController() {
     if (audioRef.current) {
       setAudioElement(audioRef.current)
     }
-  }, [setAudioElement])
+  }, [currentSong, setAudioElement])
 
   // 播放状态
   useEffect(() => {
     const audio = audioRef.current
     if (!audio || !currentSong) return
-
     if (isPlaying) {
       audio.play()
     } else {
@@ -75,7 +74,7 @@ export function useAudioController() {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
       audio.removeEventListener('error', handleError)
     }
-  }, [setProgress, next])
+  }, [setProgress, next, currentSong])
 
   // 清理播放器
   useEffect(() => {

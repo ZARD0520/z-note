@@ -12,10 +12,10 @@ import useWaterfallFlow from '@/hooks/useWaterfallFlow'
 import AudioElement from './audioElement'
 import MusicPlayer from './musicPlayer'
 import { useMusicPlayerStore } from '@/store/useMusicPlayerStore'
+import { useAudioController } from '@/hooks/useAudioController'
 
 export default function AlbumGrid({ dict, initialData, initialPagination }: AlbumGridProps) {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null)
-  const [currentSong, setCurrentSong] = useState<AlbumItem | null>(null)
   const [showLyrics, setShowLyrics] = useState(false)
   const [currentPagination, setCurrentPagination] = useState(initialPagination)
   const [albumsData, setAlbumsData] = useState<Album[]>(initialData)
@@ -23,6 +23,8 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   const [isClient, setIsClient] = useState(false)
 
   const { setCurrentPlay, setPlaylist } = useMusicPlayerStore()
+
+  const { audioRef, currentSong } = useAudioController()
 
   useEffect(() => {
     setIsClient(true)
@@ -83,7 +85,6 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   }
 
   const handleSongPlay = (song: AlbumItem) => {
-    setCurrentSong(song)
     setCurrentPlay(song)
   }
 
@@ -147,7 +148,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
 
   return (
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
-      <AudioElement />
+      <AudioElement audioRef={audioRef} currentSong={currentSong} />
       <MusicPlayer />
       <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">

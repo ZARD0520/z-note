@@ -12,7 +12,6 @@ export default function MusicPlayer() {
     prev,
     toggleExpand,
     seek,
-    setProgress,
   } = useMusicPlayerStore()
 
   // 进度条点击处理
@@ -41,11 +40,9 @@ export default function MusicPlayer() {
 
       percent = angle / (2 * Math.PI)
     }
-    const newProgress = percent * 100
     const audio = document.querySelector('audio')
     if (audio && audio.duration) {
       const newTime = percent * audio.duration
-      setProgress(newProgress)
       seek(newTime)
     }
   }
