@@ -25,4 +25,5 @@ export interface MusicPlayerActions {
   setAudioElement: (audio: HTMLAudioElement) => void
   seek: (time: number) => void
   clearPlayer: () => void
+  exitPlayer: () => void
 }

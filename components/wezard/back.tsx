@@ -1,11 +1,13 @@
 'use client'
 
 import { menuList } from '@/constants/wezard'
+import { useMusicPlayerStore } from '@/store/useMusicPlayerStore'
 import { usePathname, useRouter } from 'next/navigation'
 
 export const FloatingBackButton = () => {
   const router = useRouter()
   const pathname = usePathname()
+  const { exitPlayer } = useMusicPlayerStore()
 
   const handleNavigate = () => {
     const params = new URLSearchParams()
@@ -13,6 +15,9 @@ export const FloatingBackButton = () => {
     menuList.forEach((menu) => {
       if (pathname.includes(menu.label)) {
         params.set('key', menu.key as string)
+        if (menu.label === 'music') {
+          exitPlayer()
+        }
       }
     })
 

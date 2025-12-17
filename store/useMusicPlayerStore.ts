@@ -25,14 +25,14 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
         })
       },
       setCurrentPlay: (song: AlbumItem) => {
+        const { play } = get()
         set({
           currentSong: song,
           currentIndex: 0,
-          isPlaying: true,
           progress: 0,
+          isPlaying: true,
         })
-        const audioElement = get().audioElement
-        audioElement?.play().catch(console.error)
+        play()
       },
       play: () => {
         const { audioElement, currentSong } = get()
@@ -72,6 +72,7 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
 
         if (audioElement) {
           setTimeout(() => {
+            audioElement.currentTime = 0
             audioElement.play().catch(console.error)
           }, 0)
         }
@@ -91,6 +92,7 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
 
         if (audioElement) {
           setTimeout(() => {
+            audioElement.currentTime = 0
             audioElement.play().catch(console.error)
           }, 0)
         }
@@ -114,8 +116,11 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
         set({ volume })
       },
 
-      setAudioElement: (audioElement: HTMLAudioElement) => {
-        set({ audioElement })
+      setAudioElement: (audioElementSource: HTMLAudioElement) => {
+        const { audioElement } = get()
+        if (!audioElement) {
+          set({ audioElement: audioElementSource })
+        }
       },
 
       seek: (time: number) => {
@@ -133,6 +138,12 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
           audioElement.src = ''
         }
         set(initialState)
+      },
+
+      exitPlayer: () => {
+        const { clearPlayer } = get()
+        clearPlayer()
+        set({ audioElement: null })
       },
     }),
     {

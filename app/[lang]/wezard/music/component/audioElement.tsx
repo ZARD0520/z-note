@@ -1,12 +1,14 @@
 'use client'
 
 import { AudioElementProps } from '@/type/wezard/albums'
+import { useMemo } from 'react'
 
 export default function AudioElement({ audioRef, currentSong }: AudioElementProps) {
-  // 如果没有当前歌曲，不渲染音频元素
-  if (!currentSong) {
-    return null
-  }
-
-  return <audio ref={audioRef} src={currentSong.url} preload="metadata" className="hidden" />
+  const audioEle = useMemo(() => {
+    if (!currentSong) {
+      return null
+    }
+    return <audio ref={audioRef} src={currentSong.url} preload="metadata" className="hidden" />
+  }, [audioRef, currentSong])
+  return audioEle
 }
