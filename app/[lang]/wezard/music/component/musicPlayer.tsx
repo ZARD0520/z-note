@@ -53,71 +53,76 @@ export default function MusicPlayer() {
   if (isExpanded) {
     // 展开状态 - 完整播放器
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl z-50">
-        {/* 进度条 */}
-        <div
-          className="w-full bg-gray-200 dark:bg-gray-700 h-1 cursor-pointer"
-          onClick={handleProgressClick}
-        >
-          <div className="bg-blue-500 h-1 transition-all" style={{ width: `${progress}%` }} />
-        </div>
+      <div className="fixed h-full bottom-0 left-0 right-0 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl z-50">
+        <div>header</div>
+        <div>图片+播放中心+歌词</div>
+        <div>歌名、歌手</div>
+        <div className="absoluted bottom-0">
+          {/* 进度条 */}
+          <div
+            className="w-full bg-gray-200 dark:bg-gray-700 h-1 cursor-pointer"
+            onClick={handleProgressClick}
+          >
+            <div className="bg-blue-500 h-1 transition-all" style={{ width: `${progress}%` }} />
+          </div>
 
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            {/* 歌曲信息 */}
-            <div className="flex items-center space-x-4 flex-1 min-w-0">
-              <div className="relative rounded-lg w-16 h-16 flex-shrink-0">
-                <Image
-                  src={currentSong.cover}
-                  alt={currentSong.name}
-                  fill
-                  className="object-cover"
-                />
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              {/* 歌曲信息 */}
+              <div className="flex items-center space-x-4 flex-1 min-w-0">
+                <div className="relative rounded-lg w-16 h-16 flex-shrink-0">
+                  <Image
+                    src={currentSong.cover}
+                    alt={currentSong.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                    {currentSong.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                    {currentSong.artist}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 dark:text-white truncate">
-                  {currentSong.name}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-                  {currentSong.artist}
-                </p>
+
+              {/* 控制按钮 */}
+              <div className="flex items-center space-x-6 mx-8">
+                <button
+                  onClick={prev}
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
+                  title="上一首"
+                >
+                  ⏮
+                </button>
+                <button
+                  onClick={togglePlay}
+                  className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors text-lg w-12 h-12 flex items-center justify-center"
+                  title={isPlaying ? '暂停' : '播放'}
+                >
+                  {isPlaying ? '⏸' : '▶'}
+                </button>
+                <button
+                  onClick={next}
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
+                  title="下一首"
+                >
+                  ⏭
+                </button>
               </div>
-            </div>
 
-            {/* 控制按钮 */}
-            <div className="flex items-center space-x-6 mx-8">
-              <button
-                onClick={prev}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
-                title="上一首"
-              >
-                ⏮
-              </button>
-              <button
-                onClick={togglePlay}
-                className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors text-lg w-12 h-12 flex items-center justify-center"
-                title={isPlaying ? '暂停' : '播放'}
-              >
-                {isPlaying ? '⏸' : '▶'}
-              </button>
-              <button
-                onClick={next}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
-                title="下一首"
-              >
-                ⏭
-              </button>
-            </div>
-
-            {/* 右侧操作 */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleExpand}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                title="收起播放器"
-              >
-                ↓
-              </button>
+              {/* 右侧操作 */}
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={toggleExpand}
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  title="收起播放器"
+                >
+                  ↓
+                </button>
+              </div>
             </div>
           </div>
         </div>
