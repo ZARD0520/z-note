@@ -1,5 +1,7 @@
 import { useMusicPlayerStore } from '@/store/useMusicPlayerStore'
 import Image from 'next/image'
+import { formatSeconds } from '@/utils/date'
+import { useState, useEffect } from 'react'
 
 export default function MusicPlayer() {
   const {
@@ -13,6 +15,26 @@ export default function MusicPlayer() {
     toggleExpand,
     seek,
   } = useMusicPlayerStore()
+
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+
+  // 更新当前时间和总时长
+  useEffect(() => {
+    const audio = document.querySelector('audio')
+    if (audio) {
+      const updateTime = () => {
+        setCurrentTime(audio.currentTime)
+        setDuration(audio.duration || 0)
+      }
+      audio.addEventListener('timeupdate', updateTime)
+      audio.addEventListener('loadedmetadata', updateTime)
+      return () => {
+        audio.removeEventListener('timeupdate', updateTime)
+        audio.removeEventListener('loadedmetadata', updateTime)
+      }
+    }
+  }, [currentSong])
 
   // 进度条点击处理
   const handleProgressClick = (
@@ -53,77 +75,126 @@ export default function MusicPlayer() {
   if (isExpanded) {
     // 展开状态 - 完整播放器
     return (
-      <div className="absolute left-0 bottom-0 flex items-center justify-center w-full h-full bg-black/50 z-50">
-        <div className="relative bg-white w-[60%] h-[80%] rounded-md">
-          <div>
-            {/* 收起操作 */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleExpand}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                title="收起播放器"
-              >
-                ↓
-              </button>
+      <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-black/80 dark:bg-black/90 z-50">
+        <div className="relative bg-white dark:bg-gray-900 w-full h-full md:w-[80%] md:h-[85%] lg:w-[70%] lg:h-[80%] rounded-none md:rounded-lg flex flex-col overflow-hidden">
+          {/* 头部：收起按钮 */}
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center space-x-3 flex-1 min-w-0">
+              <div className="relative rounded-lg w-12 h-12 md:w-16 md:h-16 flex-shrink-0">
+                <Image
+                  src={currentSong.cover}
+                  alt={currentSong.name}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-gray-900 dark:text-white truncate text-sm md:text-base">
+                  {currentSong.name}
+                </h3>
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 truncate">
+                  {currentSong.artist}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={toggleExpand}
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl"
+              title="收起播放器"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* 主体内容区域 */}
+          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+            {/* 左侧：封面图片 */}
+            <div className="flex-shrink-0 w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+              <div className="relative w-full max-w-md aspect-square rounded-lg overflow-hidden shadow-2xl">
+                <Image
+                  src={currentSong.cover}
+                  alt={currentSong.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* 右侧：歌词区域 */}
+            <div className="flex-1 overflow-y-auto p-4 md:p-8">
+              <div className="max-w-2xl mx-auto">
+                <h4 className="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                  歌词
+                </h4>
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 md:p-6 min-h-[200px]">
+                  {currentSong.lyrics ? (
+                    <pre className="text-sm md:text-base leading-relaxed whitespace-pre-wrap text-gray-700 dark:text-gray-300 font-sans">
+                      {currentSong.lyrics}
+                    </pre>
+                  ) : (
+                    <p className="text-gray-500 dark:text-gray-400 text-center py-8">暂无歌词</p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-          <div>图片+播放中心+歌词</div>
-          <div>歌名、歌手</div>
-          <div className="absolute bottom-0">
+
+          {/* 底部：控制区域 */}
+          <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
             {/* 进度条 */}
             <div
-              className="w-full bg-gray-200 dark:bg-gray-700 h-1 cursor-pointer"
+              className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 md:h-2 cursor-pointer group"
               onClick={handleProgressClick}
             >
-              <div className="bg-blue-500 h-1 transition-all" style={{ width: `${progress}%` }} />
+              <div
+                className="bg-blue-500 dark:bg-blue-600 h-full transition-all relative"
+                style={{ width: `${progress}%` }}
+              >
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 md:w-4 md:h-4 bg-blue-500 dark:bg-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
             </div>
 
-            <div className="container mx-auto px-4 py-3">
-              <div className="flex items-center justify-between">
-                {/* 歌曲信息 */}
-                <div className="flex items-center space-x-4 flex-1 min-w-0">
-                  <div className="relative rounded-lg w-16 h-16 flex-shrink-0">
-                    <Image
-                      src={currentSong.cover}
-                      alt={currentSong.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 dark:text-white truncate">
-                      {currentSong.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-                      {currentSong.artist}
-                    </p>
-                  </div>
+            {/* 时间显示和控制按钮 */}
+            <div className="container mx-auto px-4 md:px-6 py-4 md:py-6">
+              <div className="flex items-center justify-between mb-4">
+                {/* 时间显示 */}
+                <div className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                  {formatSeconds(currentTime)} / {formatSeconds(duration)}
                 </div>
+              </div>
 
-                {/* 控制按钮 */}
-                <div className="flex items-center space-x-6 mx-8">
-                  <button
-                    onClick={prev}
-                    className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
-                    title="上一首"
-                  >
-                    ⏮
-                  </button>
-                  <button
-                    onClick={togglePlay}
-                    className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors text-lg w-12 h-12 flex items-center justify-center"
-                    title={isPlaying ? '暂停' : '播放'}
-                  >
-                    {isPlaying ? '⏸' : '▶'}
-                  </button>
-                  <button
-                    onClick={next}
-                    className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl"
-                    title="下一首"
-                  >
-                    ⏭
-                  </button>
-                </div>
+              <div className="flex items-center justify-center space-x-4 md:space-x-8">
+                {/* 上一首 */}
+                <button
+                  onClick={prev}
+                  className="p-2 md:p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
+                  title="上一首"
+                >
+                  ⏮
+                </button>
+
+                {/* 播放/暂停 */}
+                <button
+                  onClick={togglePlay}
+                  className="p-3 md:p-4 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-full transition-all text-lg md:text-xl w-14 h-14 md:w-16 md:h-16 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95"
+                  title={isPlaying ? '暂停' : '播放'}
+                >
+                  {isPlaying ? (
+                    <span className="text-xl md:text-2xl">⏸</span>
+                  ) : (
+                    <span className="text-xl md:text-2xl ml-0.5">▶</span>
+                  )}
+                </button>
+
+                {/* 下一首 */}
+                <button
+                  onClick={next}
+                  className="p-2 md:p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
+                  title="下一首"
+                >
+                  ⏭
+                </button>
               </div>
             </div>
           </div>
