@@ -52,12 +52,12 @@ export default function AlbumBox({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-40">
       <div className=" overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col md:flex-row">
           {/* CD 展示区域 */}
-          <div className="lg:w-1/2 lg:min-h-screen p-4 pt-12 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900">
+          <div className="md:w-1/2 md:min-h-screen p-4 pt-12 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900">
             <div className="relative">
               {/* CD 圆盘 */}
-              <div className="w-60 h-60 lg:w-80 lg:h-80 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 border-8 border-gray-700 flex items-center justify-center shadow-2xl animate-spin-slow">
+              <div className="w-60 h-60 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 border-8 border-gray-700 flex items-center justify-center shadow-2xl animate-spin-slow">
                 <div className="w-16 h-16 rounded-full bg-gray-900 border-4 border-gray-700"></div>
               </div>
 
@@ -79,7 +79,7 @@ export default function AlbumBox({
           </div>
 
           {/* 歌曲列表区域 */}
-          <div className="lg:w-1/2 p-6 flex flex-col">
+          <div className="md:w-1/2 p-6 flex flex-col">
             <div className="flex justify-between items-center mb-6">
               <div className="cursor-pointer flex items-center" onClick={handleSetPlayList}>
                 <i className="iconfont icon-bofang mr-4 !text-2xl"></i>
