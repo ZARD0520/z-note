@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'wezard.net',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i2.hdslb.com',
+        pathname: '**'
+      }
     ],
   },
 }

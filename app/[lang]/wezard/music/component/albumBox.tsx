@@ -33,9 +33,20 @@ export default function AlbumBox({
     }
   }
 
-  const handleShowLyrics = (song: AlbumItem, e: React.MouseEvent) => {
-    e.stopPropagation()
-    onShowLyrics(song)
+  const handleSetPlayList = () => {
+    getAlbumDetail({ type: AlbumType.MUSIC, id: album.id })
+      .then((res) => {
+        if (res.length) {
+          setSongs(res)
+          onSetPlayList(res)
+          if (currentSong?.id !== res[0].id) {
+            onSongPlay(res[0])
+          }
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return (
@@ -70,7 +81,7 @@ export default function AlbumBox({
           {/* 歌曲列表区域 */}
           <div className="lg:w-1/2 p-6 flex flex-col">
             <div className="flex justify-between items-center mb-6">
-              <div className="cursor-pointer flex items-center">
+              <div className="cursor-pointer flex items-center" onClick={handleSetPlayList}>
                 <i className="iconfont icon-bofang mr-4 !text-2xl"></i>
                 <h3 className="text-xl font-bold">全部播放{`(${songs.length})`}</h3>
               </div>
