@@ -18,6 +18,15 @@ const config: Config = {
           border: 'var(--border-color)',
         },
       },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+      },
+      keyframes: {
+        spin: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+      },
     },
   },
   plugins: [],

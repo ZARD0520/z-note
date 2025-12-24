@@ -1,5 +1,5 @@
 import { UseWindowSizeType } from '@/type/common/hooks'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export const defaultBreakpoints: UseWindowSizeType.breakpoints = {
   sm: 640,
@@ -50,13 +50,16 @@ export function useWindowSize(
   }, [])
 
   // 计算当前断点
-  const getBreakpoint = (width: number): UseWindowSizeType.useWindowSizeReturn['breakpoint'] => {
-    if (width >= breakpoints['2xl']) return '2xl'
-    if (width >= breakpoints.xl) return 'xl'
-    if (width >= breakpoints.lg) return 'lg'
-    if (width >= breakpoints.md) return 'md'
-    return 'sm'
-  }
+  const getBreakpoint = useCallback(
+    (width: number): UseWindowSizeType.useWindowSizeReturn['breakpoint'] => {
+      if (width >= breakpoints['2xl']) return '2xl'
+      if (width >= breakpoints.xl) return 'xl'
+      if (width >= breakpoints.lg) return 'lg'
+      if (width >= breakpoints.md) return 'md'
+      return 'sm'
+    },
+    [breakpoints]
+  )
 
   const breakpoint = getBreakpoint(windowSize.width)
 
