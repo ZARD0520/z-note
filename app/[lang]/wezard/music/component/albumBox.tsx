@@ -50,7 +50,7 @@ export default function AlbumBox({
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-49">
+    <div className="fixed inset-0 flex items-center justify-center z-40">
       <div className=" overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
         <div className="flex flex-col lg:flex-row">
           {/* CD 展示区域 */}

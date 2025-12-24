@@ -87,23 +87,21 @@ export default function MusicPlayer() {
   if (isExpanded) {
     // 展开状态 - 完整播放器
     return (
-      <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-black/80 dark:bg-black/90 z-50">
-        <div className="pb-8 relative bg-white dark:bg-gray-900 w-full h-full md:w-[80%] md:h-[85%] lg:w-[70%] lg:h-[80%] rounded-none md:rounded-lg flex flex-col overflow-hidden">
+      <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-black/80 bg-black/90 z-50">
+        <div className="pb-8 relative bg-gray-900 w-full h-full md:w-[80%] md:h-[85%] lg:w-[70%] lg:h-[80%] rounded-none md:rounded-lg flex flex-col overflow-hidden">
           {/* 头部：收起按钮 */}
           <div className="flex items-center justify-between p-8">
             <div className="flex items-center space-x-3 flex-1 min-w-0">
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 dark:text-white truncate text-sm md:text-base">
+                <h3 className="font-semibold text-white truncate text-sm md:text-base">
                   {currentSong.name}
                 </h3>
-                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 truncate">
-                  {currentSong.artist}
-                </p>
+                <p className="text-xs md:text-sm text-gray-400 truncate">{currentSong.artist}</p>
               </div>
             </div>
             <button
               onClick={toggleExpand}
-              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl"
+              className="p-2 text-gray-400 hover:text-white transition-colors text-xl md:text-2xl"
               title="收起播放器"
             >
               ✕
@@ -113,7 +111,7 @@ export default function MusicPlayer() {
           {/* 主体内容区域 */}
           <div
             onClick={() => handleShowLyrics(!isShowLyrics)}
-            className="sm:cursor-pointer md:cursor-auto flex-1 flex flex-col md:flex-row items-center justify-center overflow-hidden"
+            className="sm:cursor-pointer md:cursor-auto flex-1 flex flex-col md:flex-row items-center justify-center overflow-y-auto"
           >
             {/* 左侧：封面图片 */}
             {isShowLyrics && isSm ? (
@@ -146,11 +144,11 @@ export default function MusicPlayer() {
                 <div className="max-w-2xl mx-auto">
                   <div className="min-h-[200px]">
                     {currentSong.lyrics ? (
-                      <pre className="text-sm md:text-base leading-relaxed whitespace-pre-wrap text-gray-700 dark:text-gray-300 font-sans">
+                      <pre className="text-sm md:text-base leading-relaxed whitespace-pre-wrap text-gray-300 font-sans">
                         {currentSong.lyrics}
                       </pre>
                     ) : (
-                      <p className="text-gray-500 dark:text-gray-400 text-center py-8">暂无歌词</p>
+                      <p className="text-gray-400 text-center py-8">暂无歌词</p>
                     )}
                   </div>
                 </div>
@@ -161,10 +159,10 @@ export default function MusicPlayer() {
           </div>
 
           {/* 底部：控制区域 */}
-          <div className="w-[90%] mt-8 self-center bg-white dark:bg-gray-900">
+          <div className="w-[90%] mt-8 self-center bg-gray-900">
             {/* 进度条 */}
             <div
-              className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 md:h-2 cursor-pointer group"
+              className="w-full bg-gray-700 h-1.5 md:h-2 cursor-pointer group"
               onClick={handleProgressClick}
             >
               <div
@@ -179,7 +177,7 @@ export default function MusicPlayer() {
             <div className="container mx-auto px-4 md:px-6 py-4 md:py-6">
               <div className="flex items-center justify-between mb-4">
                 {/* 时间显示 */}
-                <div className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                <div className="text-xs md:text-sm text-gray-400">
                   {formatSeconds(currentTime)} / {formatSeconds(duration)}
                 </div>
               </div>
@@ -188,7 +186,7 @@ export default function MusicPlayer() {
                 {/* 上一首 */}
                 <button
                   onClick={prev}
-                  className="p-2 md:p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
+                  className="p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
                   title="上一首"
                 >
                   ⏮
@@ -210,7 +208,7 @@ export default function MusicPlayer() {
                 {/* 下一首 */}
                 <button
                   onClick={next}
-                  className="p-2 md:p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
+                  className="p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
                   title="下一首"
                 >
                   ⏭
@@ -226,7 +224,7 @@ export default function MusicPlayer() {
   // 收缩状态 - 只有一个小按钮
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 p-2">
+      <div className="flex items-center space-x-2 bg-gray-800 rounded-full shadow-lg border border-gray-700 p-2">
         {/* 环形进度条容器 */}
         <div className="relative w-14 h-14 mr-1">
           {/* 环形进度条 SVG */}
@@ -241,7 +239,7 @@ export default function MusicPlayer() {
               r="22" // 半径，根据封面大小调整
               strokeWidth="2"
               stroke="currentColor"
-              className="text-gray-200 dark:text-gray-700"
+              className="text-gray-700"
               fill="none"
             />
 
@@ -299,7 +297,7 @@ export default function MusicPlayer() {
         {/* 展开按钮 */}
         <button
           onClick={toggleExpand}
-          className="w-10 h-10 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 text-base"
+          className="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 text-base"
           title="展开播放器"
         >
           <span className="transform rotate-90">→</span>
