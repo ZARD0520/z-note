@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { formatSeconds } from '@/utils/date'
 import { useState, useEffect } from 'react'
 import { useWindowSize } from '@/hooks/useWindowSize'
+import DraggableComponent from '@/components/common/z-drag'
 
 export default function MusicPlayer() {
   const {
@@ -22,7 +23,7 @@ export default function MusicPlayer() {
 
   const [isShowLyrics, setIsShowLyrics] = useState(false)
 
-  const { isSm } = useWindowSize()
+  const { isSm, width, height } = useWindowSize()
 
   // 更新当前时间和总时长
   useEffect(() => {
@@ -88,7 +89,7 @@ export default function MusicPlayer() {
     // 展开状态 - 完整播放器
     return (
       <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-black/80 bg-black/90 z-50">
-        <div className="pb-8 relative bg-gray-900 w-full h-full md:w-[80%] md:h-[85%] lg:w-[70%] lg:h-[80%] rounded-none md:rounded-lg flex flex-col overflow-hidden">
+        <div className="pb-8 relative bg-gray-900 w-full h-full md:w-[80%] md:h-[85%] lg:w-[70%] lg:h-[80%] xl:w-[60%] 2xl:w-[50%] rounded-none md:rounded-lg flex flex-col overflow-hidden">
           {/* 头部：收起按钮 */}
           <div className="flex items-center justify-between p-8">
             <div className="flex items-center space-x-3 flex-1 min-w-0">
@@ -117,7 +118,7 @@ export default function MusicPlayer() {
             {isShowLyrics && isSm ? (
               ''
             ) : (
-              <div className="flex-shrink-0 w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-4 md:p-8">
+              <div className="flex-shrink-0 w-full md:w-1/2 h-1/2 md:h-full flex items-center md:items-start justify-center p-4 md:p-8">
                 <div className="relative w-[72%] md:w-[80%] max-w-md aspect-square">
                   <div className="absolute inset-0 rounded-full bg-black bg-opacity-60 shadow-2xl shadow-gray-900/50 border-[8px] md:border-[10px] border-gray-800">
                     <div className="absolute inset-0 rounded-full border-opacity-70"></div>
@@ -140,7 +141,7 @@ export default function MusicPlayer() {
 
             {/* 右侧：歌词区域 */}
             {isShowLyrics || !isSm ? (
-              <div className="md:self-start max-h-full flex-1 overflow-y-auto p-4 md:p-8">
+              <div className="md:self-start h-full flex-1 overflow-y-auto p-4 md:p-8 md:bg-gray-800 md:mr-8 md:rounded-lg">
                 <div className="max-w-2xl mx-auto">
                   <div className="min-h-[200px]">
                     {currentSong.lyrics ? (
@@ -223,7 +224,7 @@ export default function MusicPlayer() {
 
   // 收缩状态 - 只有一个小按钮
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <DraggableComponent initialPosition={{ x: width - 180, y: height - 100 }}>
       <div className="flex items-center space-x-2 bg-gray-800 rounded-full shadow-lg border border-gray-700 p-2">
         {/* 环形进度条容器 */}
         <div className="relative w-14 h-14 mr-1">
@@ -303,6 +304,6 @@ export default function MusicPlayer() {
           <span className="transform rotate-90">→</span>
         </button>
       </div>
-    </div>
+    </DraggableComponent>
   )
 }

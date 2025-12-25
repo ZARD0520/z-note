@@ -2,8 +2,9 @@
 
 import React from 'react'
 import useDrag from '@/hooks/useDrag'
+import { DraggableComponentProps } from '@/type/common/component'
 
-const DraggableComponent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const DraggableComponent: React.FC<DraggableComponentProps> = ({ children, initialPosition }) => {
   const {
     position,
     dragging,
@@ -12,7 +13,7 @@ const DraggableComponent: React.FC<{ children: React.ReactNode }> = ({ children 
     handleTouchStart,
     handleTouchEnd,
     handleTouchMove,
-  } = useDrag()
+  } = useDrag(initialPosition)
 
   const style: React.CSSProperties = {
     position: 'absolute',

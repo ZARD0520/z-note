@@ -25,3 +25,8 @@ export interface MarkdownRenderProps {
   content: string
   className?: string
 }
+
+export interface DraggableComponentProps {
+  children: React.ReactNode
+  initialPosition?: { x: number; y: number }
+}
