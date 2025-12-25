@@ -5,9 +5,9 @@ import { useEffect, useMemo, useRef } from 'react'
 import { usePageScroll } from '@/hooks/useScroll'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import SideNav from '@/components/wezard/sidenav'
 
 const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   const contentList = useMemo(
@@ -47,14 +47,6 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   const currentContent = useMemo(
     () => contentList.find((item, index) => index === currentPage),
     [currentPage, contentList]
-  )
-
-  const SideNav = useMemo(
-    () =>
-      dynamic(() => import('./sidenav'), {
-        ssr: false,
-      }),
-    []
   )
 
   const prevPageRef = useRef(0)

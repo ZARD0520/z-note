@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import i18n, { Locale } from '@/i18n/config'
-import { Suspense } from 'react'
-import { PageLoading } from '@/components/common/z-page-loading'
 // import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -38,7 +36,7 @@ export default async function RootLayout({
           ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'
         }
       >
-        <Suspense fallback={<PageLoading />}>{children}</Suspense>
+        {children}
         {/* <ClientSideMonitor /> */}
       </body>
     </html>
