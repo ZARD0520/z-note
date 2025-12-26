@@ -102,7 +102,7 @@ export function useChat(
             msg.id === assistantMessageId
               ? {
                   ...msg,
-                  content: dict?.errors.errorOccurred,
+                  content: dict?.errors.errorOccurred || '',
                 }
               : msg
           )
@@ -159,7 +159,7 @@ export function useChat(
         if (data.id === '1' && !data.data && data.finished) {
           setMessages((prev) =>
             prev.map((msg) =>
-              msg.id === messageId ? { ...msg, content: dict?.errors.cannotAnswer } : msg
+              msg.id === messageId ? { ...msg, content: dict?.errors.cannotAnswer || '' } : msg
             )
           )
           return
@@ -178,7 +178,7 @@ export function useChat(
       // 如果不是 JSON，直接作为文本显示
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === messageId ? { ...msg, content: dict?.errors.errorOccurredRetry } : msg
+          msg.id === messageId ? { ...msg, content: dict?.errors.errorOccurredRetry || '' } : msg
         )
       )
     }
@@ -192,7 +192,7 @@ export function useChat(
           msgIndex === prev.length - 1
             ? {
                 ...msg,
-                content: msg.content || dict?.errors.generationStopped,
+                content: msg.content || dict?.errors.generationStopped || '',
               }
             : msg
         )

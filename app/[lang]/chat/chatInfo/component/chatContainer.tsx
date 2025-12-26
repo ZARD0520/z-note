@@ -15,7 +15,7 @@ export default function ChatContainer({ dict }: { dict: any }) {
   const defaultInput = useChatInput()
   const chatActions = useChatActions()
   const { messages, isLoading, input, setInput, handleSubmit, stopGeneration, clearAllMessages } =
-    useChat(menuValue as string, roleKey as string, defaultInput ?? '', chatActions)
+    useChat(menuValue as string, roleKey as string, defaultInput ?? '', chatActions, dict)
 
   const clickModelItem = useCallback(({ key }: { key: string }) => {
     setMenuValue(key)
