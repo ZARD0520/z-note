@@ -4,10 +4,12 @@ import SearchChat from './searchChat'
 import ChatHeader from './chatHeader'
 import ChatContent from '../[id]/chatContent'
 import { useCallback, useState } from 'react'
-import { modelList, roleList } from '@/constants/chat'
+import { getModelList, getRoleList } from '@/constants/chat'
 import { useChatActions, useChatInput } from '@/store/useChatStore'
 
 export default function ChatContainer({ dict }: { dict: any }) {
+  const modelList = getModelList(dict)
+  const roleList = getRoleList(dict)
   const [menuValue, setMenuValue] = useState(modelList[0].key)
   const [roleKey, setRoleKey] = useState(roleList[0].key)
   const defaultInput = useChatInput()
@@ -31,12 +33,14 @@ export default function ChatContainer({ dict }: { dict: any }) {
         menuValue={menuValue as string}
         clearText={dict.base.clear}
         backText={dict.base.back}
+        dict={dict}
       ></ChatHeader>
       <div className="text-center flex-1 mt-2 overflow-hidden pb-8">
-        <ChatContent messages={messages} loading={isLoading} />
+        <ChatContent messages={messages} loading={isLoading} dict={dict} />
       </div>
       <SearchChat
-        placeholder={'请输入你想问的问题'}
+        dict={dict}
+        placeholder={dict.chat.input.placeholder}
         roleKey={String(roleKey)}
         handleSelectRole={clickRoleItem}
         handleSubmit={handleSubmit}

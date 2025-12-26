@@ -13,22 +13,22 @@ export default async function Chat({
   const dict = await getDictionary(lang)
   const tools = [
     {
-      title: '制定计划',
+      title: dict.chat.tools.plan,
       img: 'icon-jihua',
       href: '',
     },
     {
-      title: '财务规划',
+      title: dict.chat.tools.finance,
       img: 'icon-jisuanqi_o',
       href: '',
     },
     {
-      title: '简历制作',
+      title: dict.chat.tools.resume,
       img: 'icon-zhizuo',
       href: '',
     },
     {
-      title: '更多功能',
+      title: dict.chat.tools.more,
       img: 'icon-gengduo',
       href: '/tools',
     },
@@ -67,7 +67,7 @@ export default async function Chat({
         </div>
       </div>
       <div className="pb-2">
-        <SearchChat lang={lang} placeholder={dict.input.placeholder}></SearchChat>
+        <SearchChat lang={lang} dict={dict} placeholder={dict.input.placeholder}></SearchChat>
       </div>
     </div>
   )

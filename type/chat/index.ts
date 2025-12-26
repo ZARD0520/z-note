@@ -22,6 +22,7 @@ export interface chatHeaderProps {
   menuValue: string
   handleClickModelItem: ({ key }: { key: string }) => void
   handleClear: () => void
+  dict: Record<string, any>
 }
 
 export interface searchChatProps {
@@ -35,6 +36,7 @@ export interface searchChatProps {
   handleStop?: () => void
   handleSubmit?: (e?: React.FormEvent) => void
   className?: string
+  dict: Record<string, any>
 }
 
 export interface searchInputSuffixProps {
@@ -42,11 +44,13 @@ export interface searchInputSuffixProps {
   onSelect?: onSelectRoleType
   onSearch?: onSearchType
   loading?: boolean
+  dict: Record<string, any>
 }
 
 export interface chatContentProps {
   loading: boolean
   messages: ChatMessage[]
+  dict: Record<string, any>
 }
 
 export interface SideNavProps {

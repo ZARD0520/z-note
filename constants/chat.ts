@@ -1,37 +1,37 @@
 import { SelectItem } from '@/type/common/component'
 
-export const modelList: SelectItem[] = [
+export const getModelList = (dict: any): SelectItem[] => [
   {
     key: '1',
-    label: '讯飞Lite',
+    label: dict.chat.model.xunfeiLite,
   },
   {
     key: '2',
-    label: 'GPT4',
+    label: dict.chat.model.gpt4,
     disabled: true,
   },
   {
     key: '3',
-    label: '智谱GLM-4.5',
+    label: dict.chat.model.zhipuGlm,
   },
   {
     key: '999',
-    label: '更多模型，敬请期待',
+    label: dict.chat.model.moreModels,
     disabled: true,
   },
 ]
 
-export const roleList: SelectItem[] = [
+export const getRoleList = (dict: any): SelectItem[] => [
   {
     key: '1',
-    label: 'ZARDer',
+    label: dict.chat.role.zarder,
   },
   {
     key: '2',
-    label: '前端小Z',
+    label: dict.chat.role.frontendZ,
   },
   {
     key: '3',
-    label: '猫咪小秘',
+    label: dict.chat.role.catSecretary,
   },
 ]

@@ -31,21 +31,21 @@ export default async function ChatLayout({
   const popContent = (
     <div className="flex flex-row items-center justify-center cursor-pointer">
       <Image className="w-8 h-8 mr-2" src={zardImg} alt="zard-logo" />
-      <Link href="/wezard">点击进入ZARD空间</Link>
+      <Link href="/wezard">{dictionary.chat.layout.enterZard}</Link>
     </div>
   )
   const mineContent = (
     <>
-      <div>注册</div>
-      <div>登录</div>
-      <div>退出</div>
+      <div>{dictionary.chat.layout.register}</div>
+      <div>{dictionary.chat.layout.login}</div>
+      <div>{dictionary.chat.layout.logout}</div>
     </>
   )
 
   const payContent = (
     <div className="text-center">
       <Image className="h-36 w-36" src={payImg} alt="LikeAuthor" />
-      <p>感谢支持</p>
+      <p>{dictionary.chat.layout.thankSupport}</p>
     </div>
   )
   return (

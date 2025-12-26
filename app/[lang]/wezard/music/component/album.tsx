@@ -149,7 +149,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   return (
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
       <AudioElement audioRef={audioRef} currentSong={currentSong} />
-      <MusicPlayer />
+      <MusicPlayer dict={dict} />
       <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
         {columnData?.length

@@ -10,6 +10,7 @@ export interface InputComponentProps extends TextareaHTMLAttributes<HTMLTextArea
   className?: string
   suffix?: (onSearch?: onSearchType) => React.ReactNode
   isLoading?: boolean
+  dict: Record<string, any>
 }
 
 // 下拉选择框

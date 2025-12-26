@@ -53,6 +53,53 @@
     "footer": {
       "copyright": "© 1991 ZARD纪念网站 | 致敬永远的坂井泉水",
       "description": "音乐永恒，传奇不灭"
+    },
+    "player": {
+      "collapse": "收起播放器",
+      "expand": "展开播放器",
+      "prev": "上一首",
+      "next": "下一首",
+      "pause": "暂停",
+      "play": "播放",
+      "noLyrics": "暂无歌词"
+    },
+    "layout": {
+      "title": "ZARD空间",
+      "description": "wezard中国"
+    }
+  },
+  "chat": {
+    "model": {
+      "xunfeiLite": "讯飞Lite",
+      "gpt4": "GPT4",
+      "zhipuGlm": "智谱GLM-4.5",
+      "moreModels": "更多模型，敬请期待"
+    },
+    "role": {
+      "zarder": "ZARDer",
+      "frontendZ": "前端小Z",
+      "catSecretary": "猫咪小秘"
+    },
+    "tools": {
+      "plan": "制定计划",
+      "finance": "财务规划",
+      "resume": "简历制作",
+      "more": "更多功能"
+    },
+    "input": {
+      "placeholder": "请输入你想问的问题",
+      "askTarget": "提问对象："
+    },
+    "content": {
+      "thinking": "思考中...",
+      "retry": "请重新提问"
+    },
+    "layout": {
+      "enterZard": "点击进入ZARD空间",
+      "register": "注册",
+      "login": "登录",
+      "logout": "退出",
+      "thankSupport": "感谢支持"
     }
   }
 }

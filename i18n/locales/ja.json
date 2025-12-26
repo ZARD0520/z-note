@@ -53,6 +53,53 @@
     "footer": {
       "copyright": "© 1991 ZARDメモリアルサイト | 永遠の坂井泉水に敬意を込めて",
       "description": "音楽は永遠に、伝説は不滅に"
+    },
+    "player": {
+      "collapse": "プレイヤーを折りたたむ",
+      "expand": "プレイヤーを展開",
+      "prev": "前の曲",
+      "next": "次の曲",
+      "pause": "一時停止",
+      "play": "再生",
+      "noLyrics": "歌詞なし"
+    },
+    "layout": {
+      "title": "ZARD ZOOM",
+      "description": "wezard中国"
+    }
+  },
+  "chat": {
+    "model": {
+      "xunfeiLite": "Xunfei Lite",
+      "gpt4": "GPT4",
+      "zhipuGlm": "Zhipu GLM-4.5",
+      "moreModels": "さらに多くのモデル、お楽しみに"
+    },
+    "role": {
+      "zarder": "ZARDer",
+      "frontendZ": "フロントエンドZ",
+      "catSecretary": "猫秘書"
+    },
+    "tools": {
+      "plan": "計画を立てる",
+      "finance": "財務計画",
+      "resume": "履歴書作成",
+      "more": "さらに多くの機能"
+    },
+    "input": {
+      "placeholder": "質問を入力してください",
+      "askTarget": "質問対象："
+    },
+    "content": {
+      "thinking": "思考中...",
+      "retry": "再度質問してください"
+    },
+    "layout": {
+      "enterZard": "クリックしてZARD ZOOMに入る",
+      "register": "登録",
+      "login": "ログイン",
+      "logout": "ログアウト",
+      "thankSupport": "ご支援ありがとうございます"
     }
   }
 }

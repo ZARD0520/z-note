@@ -53,6 +53,53 @@
     "footer": {
       "copyright": "© 1991 ZARD Memorial Website | Honoring the Eternal Izumi Sakai",
       "description": "Music Eternal, Legend Immortal"
+    },
+    "player": {
+      "collapse": "Collapse Player",
+      "expand": "Expand Player",
+      "prev": "Previous",
+      "next": "Next",
+      "pause": "Pause",
+      "play": "Play",
+      "noLyrics": "No Lyrics"
+    },
+    "layout": {
+      "title": "ZARD ZOOM",
+      "description": "wezard China"
+    }
+  },
+  "chat": {
+    "model": {
+      "xunfeiLite": "Xunfei Lite",
+      "gpt4": "GPT4",
+      "zhipuGlm": "Zhipu GLM-4.5",
+      "moreModels": "More models coming soon"
+    },
+    "role": {
+      "zarder": "ZARDer",
+      "frontendZ": "Frontend Z",
+      "catSecretary": "Cat Secretary"
+    },
+    "tools": {
+      "plan": "Plan",
+      "finance": "Finance",
+      "resume": "Resume",
+      "more": "More Features"
+    },
+    "input": {
+      "placeholder": "Please enter your question",
+      "askTarget": "Ask Target: "
+    },
+    "content": {
+      "thinking": "Thinking...",
+      "retry": "Please ask again"
+    },
+    "layout": {
+      "enterZard": "Click to enter ZARD ZOOM",
+      "register": "Register",
+      "login": "Login",
+      "logout": "Logout",
+      "thankSupport": "Thank you for your support"
     }
   }
 }

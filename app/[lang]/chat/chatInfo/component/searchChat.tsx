@@ -17,6 +17,7 @@ const SearchChat: React.FC<searchChatProps> = ({
   handleSubmit,
   handleStop,
   className,
+  dict,
 }) => {
   const router = useRouter()
   const hasRouterParams = useSearchParams().size
@@ -57,6 +58,7 @@ const SearchChat: React.FC<searchChatProps> = ({
         onSearch={handleChat}
         placeholder={placeholder}
         isLoading={isLoading}
+        dict={dict}
       />
     </div>
   )

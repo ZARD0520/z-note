@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import DraggableComponent from '@/components/common/z-drag'
 
-export default function MusicPlayer() {
+export default function MusicPlayer({ dict }: { dict: Record<string, any> }) {
   const {
     currentSong,
     isPlaying,
@@ -149,7 +149,7 @@ export default function MusicPlayer() {
                         {currentSong.lyrics}
                       </pre>
                     ) : (
-                      <p className="text-gray-400 text-center py-8">暂无歌词</p>
+                      <p className="text-gray-400 text-center py-8">{dict.zard.player.noLyrics}</p>
                     )}
                   </div>
                 </div>
@@ -197,7 +197,7 @@ export default function MusicPlayer() {
                 <button
                   onClick={togglePlay}
                   className="p-3 md:p-4 text-white rounded-full transition-all text-2xl w-14 h-14 md:w-16 md:h-16 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95"
-                  title={isPlaying ? '暂停' : '播放'}
+                  title={isPlaying ? dict.zard.player.pause : dict.zard.player.play}
                 >
                   {isPlaying ? (
                     <span className="text-2xl">⏸</span>
@@ -210,7 +210,7 @@ export default function MusicPlayer() {
                 <button
                   onClick={next}
                   className="p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
-                  title="下一首"
+                  title={dict.zard.player.next}
                 >
                   ⏭
                 </button>
@@ -299,7 +299,7 @@ export default function MusicPlayer() {
         <button
           onClick={toggleExpand}
           className="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 text-base"
-          title="展开播放器"
+          title={dict.zard.player.expand}
         >
           <span className="transform rotate-90">→</span>
         </button>

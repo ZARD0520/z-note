@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { chatContentProps } from '@/type/chat'
 import ZMarkdown from '@/components/common/z-mark-down'
 
-const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
+const ChatContent: React.FC<chatContentProps> = ({ messages, loading, dict }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [showScroll, setShowScroll] = useState(false)
@@ -38,9 +38,9 @@ const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
             {msg.content ? (
               <ZMarkdown className="max-w-full" content={msg.content} />
             ) : loading ? (
-              '思考中...'
+              dict.chat.content.thinking
             ) : (
-              '请重新提问'
+              dict.chat.content.retry
             )}
           </div>
         </div>

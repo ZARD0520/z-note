@@ -2,9 +2,9 @@
 
 import { Dropdown, Space, Tooltip } from 'antd'
 import { DownOutlined, ClearOutlined, ArrowLeftOutlined } from '@ant-design/icons'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { modelList } from '@/constants/chat'
+import { getModelList } from '@/constants/chat'
 import { chatHeaderProps } from '@/type/chat'
 
 const ChatHeader: React.FC<chatHeaderProps> = ({
@@ -13,7 +13,9 @@ const ChatHeader: React.FC<chatHeaderProps> = ({
   handleClear,
   menuValue,
   handleClickModelItem,
+  dict,
 }) => {
+  const modelList = getModelList(dict)
   const router = useRouter()
 
   const clickModel = useCallback((e: any) => {
@@ -22,7 +24,7 @@ const ChatHeader: React.FC<chatHeaderProps> = ({
 
   const backHome = useCallback(() => {
     router.replace('/chat')
-  }, [])
+  }, [router])
 
   return (
     <header className="relative flex flex-row items-center justify-center h-12 w-full">

@@ -3,21 +3,26 @@ import { Dropdown, Space } from 'antd'
 import ZInput from '../../../../../components/common/z-input'
 import { searchInputSuffixProps } from '@/type/chat'
 import { InputComponentProps } from '@/type/common/component'
-import { roleList } from '@/constants/chat'
 
 const suffixInput: React.FC<searchInputSuffixProps> = ({
   valueKey = '1',
   onSelect,
   onSearch,
   loading,
+  dict,
 }) => (
   <div className="flex items-center ml-2">
     <div>
       {onSelect && (
-        <Dropdown menu={{ items: roleList, onClick: onSelect }} trigger={['click']} placement="top">
+        <Dropdown
+          menu={{ items: dict.roleList, onClick: onSelect }}
+          trigger={['click']}
+          placement="top"
+        >
           <div className="cursor-pointer">
             <Space className="mr-2">
-              提问对象：{roleList.find((item: any) => item.key === valueKey)?.label || ''}
+              {dict.chat.input.askTarget}
+              {dict.roleList.find((item: any) => item.key === valueKey)?.label || ''}
             </Space>
           </div>
         </Dropdown>
@@ -48,6 +53,7 @@ const zSearchInput: React.FC<InputComponentProps> = ({
   onSearch,
   onSelectRole,
   className = '',
+  dict,
   isLoading,
   ...restProps
 }) => {
@@ -60,12 +66,14 @@ const zSearchInput: React.FC<InputComponentProps> = ({
       isLoading={isLoading}
       onSearch={onSearch}
       placeholder={placeholder}
+      dict={dict}
       suffix={() =>
         suffixInput({
           valueKey: roleKey || '',
           onSelect: onSelectRole,
           onSearch,
           loading: isLoading,
+          dict,
         })
       }
       className={'border-2 border-primary-border ' + className}
