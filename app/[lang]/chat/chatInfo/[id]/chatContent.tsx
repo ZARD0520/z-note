@@ -27,7 +27,7 @@ const ChatContent: React.FC<chatContentProps> = ({ messages, loading, dict }) =>
       setShowScroll(scrollHeight < contentHeight)
       scrollBottom()
     }
-  }, [messages])
+  }, [messages, scrollBottom])
 
   const chatDiv = (msg: any, mIndex: number) => {
     if (msg.role !== 'user') {

@@ -46,8 +46,8 @@ export interface AlbumDetailParams {
 }
 
 export interface AlbumGridProps {
-  dict: any
-  initialData: any
+  dict: Record<string, any>
+  initialData: Album[]
   initialPagination: PaginationType
 }
 
@@ -67,6 +67,6 @@ export interface LyricsModalProps {
 }
 
 export interface AudioElementProps {
-  audioRef: any
+  audioRef: React.RefObject<HTMLAudioElement>
   currentSong: AlbumItem | null
 }

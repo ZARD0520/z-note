@@ -21,17 +21,19 @@ export const getModelList = (dict: any): SelectItem[] => [
   },
 ]
 
-export const getRoleList = (dict: any): SelectItem[] => [
-  {
-    key: '1',
-    label: dict.chat.role.zarder,
-  },
-  {
-    key: '2',
-    label: dict.chat.role.frontendZ,
-  },
-  {
-    key: '3',
-    label: dict.chat.role.catSecretary,
-  },
-]
+export const getRoleList = (dict: Record<string, any>): SelectItem[] => {
+  return [
+    {
+      key: '1',
+      label: dict.chat.role.zarder,
+    },
+    {
+      key: '2',
+      label: dict.chat.role.frontendZ,
+    },
+    {
+      key: '3',
+      label: dict.chat.role.catSecretary,
+    },
+  ]
+}
