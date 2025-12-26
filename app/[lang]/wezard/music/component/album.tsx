@@ -60,6 +60,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
     onLoadMore: handleLoadMore,
     hasMore,
     threshold: 50,
+    dict,
   })
 
   const handleRetry = useCallback(() => {
