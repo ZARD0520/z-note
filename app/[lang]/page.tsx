@@ -1,17 +1,11 @@
 import { getDictionary } from '@/i18n'
-import { Locale } from '@/i18n/config'
 import Link from 'next/link'
 import Image from 'next/image'
 import aiImg from '@/public/images/AI.png'
 import zardImg from '@/public/images/zard.jpg'
+import { DefaultPageProps } from '@/type/common/component'
 
-export default async function Home({
-  params: { lang },
-}: {
-  params: {
-    lang: Locale
-  }
-}) {
+export default async function Home({ params: { lang } }: DefaultPageProps) {
   const dict = await getDictionary(lang)
 
   return (

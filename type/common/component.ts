@@ -1,5 +1,12 @@
 import { TextareaHTMLAttributes } from 'react'
 import { onSearchType, onSelectRoleType } from '../chat'
+import { Locale } from '@/i18n/config'
+
+export interface DefaultPageProps {
+  params: {
+    lang: Locale
+  }
+}
 
 // 输入框
 export interface InputComponentProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {

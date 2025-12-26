@@ -19,7 +19,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, content }) => {
   )
 }
 
-const Content: React.FC<any> = ({ dict }) => {
+const Content: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -35,7 +35,7 @@ const Content: React.FC<any> = ({ dict }) => {
   )
 }
 
-const StatsSection: React.FC<any> = ({ dict }) => {
+const StatsSection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   const stats = [
     { number: '45', label: dict.zard.content.singleState },
     { number: '17', label: dict.zard.content.albumState },
@@ -70,7 +70,7 @@ const StatsSection: React.FC<any> = ({ dict }) => {
   )
 }
 
-const LegacySection: React.FC<any> = ({ dict }) => {
+const LegacySection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -96,7 +96,7 @@ const LegacySection: React.FC<any> = ({ dict }) => {
   )
 }
 
-export const MainContent: React.FC<any> = ({ dict }) => {
+export const MainContent: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   return (
     <>
       <Content dict={dict} />

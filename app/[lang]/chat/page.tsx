@@ -1,15 +1,9 @@
 import { getDictionary } from '@/i18n'
-import { Locale } from '@/i18n/config'
 import Link from 'next/link'
 import SearchChat from './chatInfo/component/searchChat'
+import { DefaultPageProps } from '@/type/common/component'
 
-export default async function Chat({
-  params: { lang },
-}: {
-  params: {
-    lang: Locale
-  }
-}) {
+export default async function Chat({ params: { lang } }: DefaultPageProps) {
   const dict = await getDictionary(lang)
   const tools = [
     {

@@ -3,15 +3,10 @@ import { Header } from './component/header'
 import { MainContent } from './component/mainContent'
 import { Footer } from './component/footer'
 import { FloatingBackButton } from '../../../../components/wezard/back'
-import i18n, { Locale } from '@/i18n/config'
+import i18n from '@/i18n/config'
+import { DefaultPageProps } from '@/type/common/component'
 
-export default async function WezardIntroduce({
-  params: { lang },
-}: {
-  params: {
-    lang: Locale
-  }
-}) {
+export default async function WezardIntroduce({ params: { lang } }: DefaultPageProps) {
   const dict = await getDictionary(lang)
 
   return (

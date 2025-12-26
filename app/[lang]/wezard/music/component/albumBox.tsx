@@ -11,7 +11,6 @@ export default function AlbumBox({
   onSetPlayList,
   onClose,
   onSongPlay,
-  onShowLyrics,
   currentSong,
 }: AlbumBoxProps) {
   const [songs, setSongs] = useState<AlbumItem[]>([])

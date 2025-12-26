@@ -1,17 +1,11 @@
 import { getDictionary } from '@/i18n'
-import { Locale } from '@/i18n/config'
 import AlbumGrid from './component/album'
 import { FloatingBackButton } from '@/components/wezard/back'
 import { getAlbumList } from '@/api'
 import { Album, AlbumType } from '@/type/wezard/albums'
+import { DefaultPageProps } from '@/type/common/component'
 
-export default async function WezardAlbums({
-  params: { lang },
-}: {
-  params: {
-    lang: Locale
-  }
-}) {
+export default async function WezardAlbums({ params: { lang } }: DefaultPageProps) {
   const dict = await getDictionary(lang)
   let initialAlbumData: Album[] = []
   let initialPagination = {

@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  TouchEventHandler,
-  MouseEventHandler,
-} from 'react'
+import { useState, useEffect, useCallback, TouchEventHandler, MouseEventHandler } from 'react'
 
 interface DragState {
   x: number

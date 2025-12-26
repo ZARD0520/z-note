@@ -1,7 +1,6 @@
 'use client'
 
 import { MarkdownRenderProps } from '@/type/common/component'
-import { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'

@@ -14,7 +14,7 @@ const dictionaries = {
     }),
   ja: () =>
     import('./locales/ja.json').then((module) => {
-      return { ...module.default, ...zhCN }
+      return { ...module.default, ...enUS }
     }),
 }
 
