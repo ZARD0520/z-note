@@ -8,6 +8,7 @@ const SideNav: React.FC<WezardSideNavProps> = ({
   isMobile,
   currentPage,
   goToPage,
+  dict,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
@@ -34,7 +35,7 @@ const SideNav: React.FC<WezardSideNavProps> = ({
       ))}
     </nav>
   ) : (
-    <div className="absolute right-2 top-2" aria-label="菜单">
+    <div className="absolute right-2 top-2" aria-label={dict.chat.tools.more}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative w-9 h-9 focus:outline-none z-50"

@@ -14,6 +14,44 @@
     "clear": "清空",
     "back": "返回"
   },
+  "loading": "加载中...",
+  "common": {
+    "clickToRetry": "点击重试",
+    "noMoreData": "没有更多数据了",
+    "noData": "暂无数据",
+    "clickToZoom": "点击放大",
+    "previous": "上一张",
+    "next": "下一张",
+    "close": "关闭",
+    "author": "作者:",
+    "introduction": "简介",
+    "play": "播放",
+    "pause": "暂停",
+    "clickToPlay": "点击播放",
+    "imagesCount": "张图片",
+    "videosCount": "个视频",
+    "playSong": "播放歌曲"
+  },
+  "errors": {
+    "audioLoadFailed": "音频加载失败:",
+    "loadFailed": "加载失败",
+    "infiniteScrollError": "无限滚动加载错误:",
+    "httpError": "HTTP ERROR：",
+    "cannotReadResponse": "无法读取响应流",
+    "errorOccurred": "抱歉，发生了错误，请稍后重试。",
+    "requestAborted": "请求中止",
+    "requestFailed": "请求失败：",
+    "cannotAnswer": "无法回答您的问题，请重新提问",
+    "parseJsonFailed": "解析 JSON 失败:",
+    "errorOccurredRetry": "出错了，请稍后重新提问",
+    "generationStopped": "已停止生成，请重新提问",
+    "readMetadataFailed": "读取元数据文件失败:",
+    "directoryNotExist": "目录不存在:",
+    "storageReadError": "Error reading localStorage key",
+    "storageSetError": "Error setting localStorage key",
+    "storageRemoveError": "Error removing localStorage key",
+    "storageClearError": "Error clearing localStorage:"
+  },
   "zard": {
     "nav": {
       "introduce": "介绍",
@@ -66,6 +104,17 @@
     "layout": {
       "title": "ZARD空间",
       "description": "wezard中国"
+    },
+    "photo": {
+      "title": "写真集"
+    },
+    "video": {
+      "title": "视频集",
+      "list": "视频列表"
+    },
+    "music": {
+      "title": "专辑&&单曲",
+      "playAll": "全部播放"
     }
   },
   "chat": {

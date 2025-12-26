@@ -1,7 +1,7 @@
 import { StaticImageData } from 'next/image'
 
 export interface WezardHomeProps {
-  dict: any
+  dict: Record<string, any>
 }
 
 export interface HomeContentListProps {
@@ -15,4 +15,5 @@ export interface WezardSideNavProps {
   isMobile: boolean
   currentPage: number
   goToPage: (page: number) => void
+  dict: Record<string, any>
 }

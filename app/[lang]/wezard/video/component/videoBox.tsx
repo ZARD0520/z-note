@@ -116,7 +116,7 @@ export default function VideoBox({ dict, initialData, initialPagination }: Album
                   <span className="text-2xl text-gray-900 ml-1">▶</span>
                 </div>
                 <p className="text-white text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  点击播放
+                  {dict.common.clickToPlay}
                 </p>
               </div>
             </div>
@@ -125,19 +125,21 @@ export default function VideoBox({ dict, initialData, initialPagination }: Album
           <div className="p-3 bg-gray-800">
             <h3 className="text-sm font-medium text-white truncate mb-1">{item.name}</h3>
             <div className="flex items-center justify-between text-xs text-gray-400">
-              <span>{item.mediaCount} 个视频</span>
+              <span>
+                {item.mediaCount} {dict.common.videosCount}
+              </span>
               {item.description && <span className="truncate max-w-[60%]">{item.description}</span>}
             </div>
           </div>
         </div>
       )
     },
-    [columnWidth, handleImageLoad]
+    [columnWidth, dict.common.clickToPlay, dict.common.videosCount, handleImageLoad]
   )
 
   return (
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
-      <h2 className="mb-6 text-2xl text-center">视频集</h2>
+      <h2 className="mb-6 text-2xl text-center">{dict.zard.video.title}</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
         {columnData?.length
           ? columnData?.map((column, columnIndex) => (
@@ -157,23 +159,29 @@ export default function VideoBox({ dict, initialData, initialPagination }: Album
       {/* 分页 */}
       {isClient && (
         <div className="text-center p-4" ref={triggerRef}>
-          {loading && <div className="loading-indicator">加载中...</div>}
+          {loading && <div className="loading-indicator">{dict.loading}</div>}
           {error && (
             <div className="error-message">
               {error}
               <button className="ml-2" onClick={handleRetry}>
-                点击重试
+                {dict.common.clickToRetry}
               </button>
             </div>
           )}
-          {!hasMore && videosData.length > 0 && <div className="no-more">没有更多数据了</div>}
+          {!hasMore && videosData.length > 0 && (
+            <div className="no-more">{dict.common.noMoreData}</div>
+          )}
 
-          {!hasMore && videosData.length === 0 && <div className="empty-state">暂无数据</div>}
+          {!hasMore && videosData.length === 0 && (
+            <div className="empty-state">{dict.common.noData}</div>
+          )}
         </div>
       )}
 
       {/* 详情 */}
-      {selectedVideo && <VideoDetail video={selectedVideo} onClose={handleCloseVideo} />}
+      {selectedVideo && (
+        <VideoDetail video={selectedVideo} onClose={handleCloseVideo} dict={dict} />
+      )}
     </div>
   )
 }

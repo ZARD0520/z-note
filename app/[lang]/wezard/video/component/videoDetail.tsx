@@ -9,9 +9,10 @@ import { timestampToUTCString, formatSeconds } from '@/utils/date'
 interface VideoDetailProps {
   video: Album
   onClose: () => void
+  dict: Record<string, any>
 }
 
-export default function VideoDetail({ video, onClose }: VideoDetailProps) {
+export default function VideoDetail({ video, onClose, dict }: VideoDetailProps) {
   const [videos, setVideos] = useState<AlbumItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -118,7 +119,8 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
               <p className="text-sm text-gray-400 mt-1 line-clamp-2">{video.description}</p>
             )}
             <p className="text-xs text-gray-500 mt-1">
-              {timestampToUTCString(video.releaseDate, 'date')} · {videos.length} 个视频
+              {timestampToUTCString(video.releaseDate, 'date')} · {videos.length}{' '}
+              {dict.common.videosCount}
             </p>
           </div>
           <button
@@ -149,7 +151,7 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
                   <button
                     onClick={handlePlayPause}
                     className="w-20 h-20 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 opacity-0 group-hover:opacity-100"
-                    aria-label={isPlaying ? '暂停' : '播放'}
+                    aria-label={isPlaying ? dict.common.pause : dict.common.play}
                   >
                     {isPlaying ? (
                       <span className="text-3xl text-gray-900">⏸</span>
@@ -192,11 +194,15 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
                   </div>
                 </div>
                 {currentVideo.artist && (
-                  <p className="text-sm text-gray-400 mb-2">作者: {currentVideo.artist}</p>
+                  <p className="text-sm text-gray-400 mb-2">
+                    {dict.common.author} {currentVideo.artist}
+                  </p>
                 )}
                 {currentVideo.lyrics && (
                   <div className="mt-4 p-4 bg-gray-800 rounded-lg">
-                    <h4 className="text-sm font-medium text-gray-300 mb-2">简介</h4>
+                    <h4 className="text-sm font-medium text-gray-300 mb-2">
+                      {dict.common.introduction}
+                    </h4>
                     <p className="text-sm text-gray-400 whitespace-pre-wrap leading-relaxed">
                       {currentVideo.lyrics}
                     </p>
@@ -217,7 +223,7 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
                     }`}
                   >
                     <span className="mr-2">◀</span>
-                    上一个
+                    {dict.common.previous}
                   </button>
                   <button
                     onClick={handleNext}
@@ -228,7 +234,7 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
                         : 'bg-gray-700 hover:bg-gray-600 text-white hover:scale-105'
                     }`}
                   >
-                    下一个
+                    {dict.common.next}
                     <span className="ml-2">▶</span>
                   </button>
                 </div>
@@ -237,7 +243,7 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
               {/* 视频列表缩略图 */}
               {videos.length > 1 && (
                 <div className="mt-8">
-                  <h4 className="text-sm font-medium text-gray-300 mb-3">视频列表</h4>
+                  <h4 className="text-sm font-medium text-gray-300 mb-3">{dict.zard.video.list}</h4>
                   <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                     {videos.map((item, index) => (
                       <div

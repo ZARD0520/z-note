@@ -50,6 +50,7 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
     onLoadMore: handleLoadMore,
     hasMore,
     threshold: 50,
+    dict,
   })
 
   const handleRetry = useCallback(() => {
@@ -116,7 +117,7 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
                 {item.name}
               </h3>
               <p className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 mt-2">
-                {item.mediaCount} 张图片
+                {item.mediaCount} {dict.common.imagesCount}
               </p>
             </div>
           </div>
@@ -127,12 +128,12 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
         </div>
       )
     },
-    [columnWidth, handleImageLoad]
+    [columnWidth, dict.common.imagesCount, handleImageLoad]
   )
 
   return (
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
-      <h2 className="mb-6 text-2xl text-center">写真集</h2>
+      <h2 className="mb-6 text-2xl text-center">{dict.zard.photo.title}</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
         {columnData?.length
           ? columnData?.map((column, columnIndex) => (
@@ -152,23 +153,29 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
       {/* 分页 */}
       {isClient && (
         <div className="text-center p-4" ref={triggerRef}>
-          {loading && <div className="loading-indicator">加载中...</div>}
+          {loading && <div className="loading-indicator">{dict.loading}</div>}
           {error && (
             <div className="error-message">
               {error}
               <button className="ml-2" onClick={handleRetry}>
-                点击重试
+                {dict.common.clickToRetry}
               </button>
             </div>
           )}
-          {!hasMore && photosData.length > 0 && <div className="no-more">没有更多数据了</div>}
+          {!hasMore && photosData.length > 0 && (
+            <div className="no-more">{dict.common.noMoreData}</div>
+          )}
 
-          {!hasMore && photosData.length === 0 && <div className="empty-state">暂无数据</div>}
+          {!hasMore && photosData.length === 0 && (
+            <div className="empty-state">{dict.common.noData}</div>
+          )}
         </div>
       )}
 
       {/* 详情 */}
-      {selectedPhoto && <PhotoDetail photo={selectedPhoto} onClose={handleClosePhoto} />}
+      {selectedPhoto && (
+        <PhotoDetail photo={selectedPhoto} onClose={handleClosePhoto} dict={dict} />
+      )}
     </div>
   )
 }

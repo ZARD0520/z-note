@@ -12,6 +12,7 @@ export default function AlbumBox({
   onClose,
   onSongPlay,
   currentSong,
+  dict,
 }: AlbumBoxProps) {
   const [songs, setSongs] = useState<AlbumItem[]>([])
   useEffect(() => {
@@ -82,7 +83,10 @@ export default function AlbumBox({
             <div className="flex justify-between items-center mb-6">
               <div className="cursor-pointer flex items-center" onClick={handleSetPlayList}>
                 <i className="iconfont icon-bofang mr-4 !text-2xl"></i>
-                <h3 className="text-xl font-bold">全部播放{`(${songs.length})`}</h3>
+                <h3 className="text-xl font-bold">
+                  {dict.zard.music.playAll}
+                  {`(${songs.length})`}
+                </h3>
               </div>
               <button
                 onClick={onClose}

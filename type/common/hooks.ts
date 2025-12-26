@@ -79,6 +79,7 @@ export namespace UseInfiniteScroll {
     hasMore: boolean
     threshold?: number
     retryCount?: number
+    dict: Record<string, any>
   }
 }
 

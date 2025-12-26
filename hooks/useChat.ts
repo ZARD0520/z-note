@@ -5,7 +5,8 @@ export function useChat(
   model: string,
   role: string = '1',
   defaultInput = '',
-  defaultActions?: any
+  defaultActions?: any,
+  dict?: Record<string, any>
 ) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
@@ -101,7 +102,7 @@ export function useChat(
             msg.id === assistantMessageId
               ? {
                   ...msg,
-                  content: '抱歉，发生了错误，请稍后重试。',
+                  content: dict?.errors.errorOccurred,
                 }
               : msg
           )
@@ -158,7 +159,7 @@ export function useChat(
         if (data.id === '1' && !data.data && data.finished) {
           setMessages((prev) =>
             prev.map((msg) =>
-              msg.id === messageId ? { ...msg, content: '无法回答您的问题，请重新提问' } : msg
+              msg.id === messageId ? { ...msg, content: dict?.errors.cannotAnswer } : msg
             )
           )
           return
@@ -177,7 +178,7 @@ export function useChat(
       // 如果不是 JSON，直接作为文本显示
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === messageId ? { ...msg, content: '出错了，请稍后重新提问' } : msg
+          msg.id === messageId ? { ...msg, content: dict?.errors.errorOccurredRetry } : msg
         )
       )
     }
@@ -191,7 +192,7 @@ export function useChat(
           msgIndex === prev.length - 1
             ? {
                 ...msg,
-                content: msg.content || '已停止生成，请重新提问',
+                content: msg.content || dict?.errors.generationStopped,
               }
             : msg
         )

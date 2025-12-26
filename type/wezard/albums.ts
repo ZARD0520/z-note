@@ -58,6 +58,7 @@ export interface AlbumBoxProps {
   onShowLyrics: (song: AlbumItem) => void
   onSetPlayList: (songs: AlbumItem[]) => void
   currentSong?: AlbumItem | null
+  dict: Record<string, any>
 }
 
 export interface LyricsModalProps {

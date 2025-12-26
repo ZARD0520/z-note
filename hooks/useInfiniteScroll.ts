@@ -6,6 +6,7 @@ const useInfiniteScroll = ({
   hasMore,
   threshold = 100,
   retryCount = 3,
+  dict,
 }: UseInfiniteScroll.UseInfiniteScrollProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -22,13 +23,13 @@ const useInfiniteScroll = ({
     try {
       await onLoadMore()
     } catch (err) {
-      setError(err instanceof Error ? err.message : '加载失败')
+      setError(err instanceof Error ? err.message : dict?.errors?.loadFailed || '加载失败')
       setFailCount(failCount + 1)
       console.error('无限滚动加载错误:', err)
     } finally {
       setLoading(false)
     }
-  }, [loading, hasMore, failCount, retryCount, onLoadMore])
+  }, [loading, hasMore, failCount, retryCount, onLoadMore, dict?.errors?.loadFailed])
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {

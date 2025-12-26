@@ -9,9 +9,10 @@ import { timestampToUTCString } from '@/utils/date'
 interface PhotoDetailProps {
   photo: Album
   onClose: () => void
+  dict: Record<string, any>
 }
 
-export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
+export default function PhotoDetail({ photo, onClose, dict }: PhotoDetailProps) {
   const [images, setImages] = useState<AlbumItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showZoomModal, setShowZoomModal] = useState(false)
@@ -68,7 +69,8 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
                 <p className="text-sm text-gray-400 mt-1">{photo.description}</p>
               )}
               <p className="text-xs text-gray-500 mt-1">
-                {timestampToUTCString(photo.releaseDate, 'date')} · {images.length} 张图片
+                {timestampToUTCString(photo.releaseDate, 'date')} · {images.length}{' '}
+                {dict.common.imagesCount}
               </p>
             </div>
             <button
@@ -99,7 +101,7 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
                     <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="text-4xl">🔍</span>
-                      <p className="text-sm mt-2">点击放大</p>
+                      <p className="text-sm mt-2">{dict.common.clickToZoom}</p>
                     </div>
                   </div>
                 </div>
@@ -110,14 +112,14 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
                     <button
                       onClick={handlePrevious}
                       className="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                      aria-label="上一张"
+                      aria-label={dict.common.previous}
                     >
                       <span className="text-xl">◀</span>
                     </button>
                     <button
                       onClick={handleNext}
                       className="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                      aria-label="下一张"
+                      aria-label={dict.common.next}
                     >
                       <span className="text-xl">▶</span>
                     </button>
@@ -175,7 +177,7 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
             <button
               onClick={handleCloseZoom}
               className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors text-3xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white hover:bg-opacity-10 z-10"
-              aria-label="关闭"
+              aria-label={dict.common.close}
             >
               ✕
             </button>
@@ -198,14 +200,14 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
                 <button
                   onClick={handleZoomPrevious}
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
-                  aria-label="上一张"
+                  aria-label={dict.common.previous}
                 >
                   <span className="text-2xl">◀</span>
                 </button>
                 <button
                   onClick={handleZoomNext}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
-                  aria-label="下一张"
+                  aria-label={dict.common.next}
                 >
                   <span className="text-2xl">▶</span>
                 </button>

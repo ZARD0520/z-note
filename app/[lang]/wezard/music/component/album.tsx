@@ -150,7 +150,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
       <AudioElement audioRef={audioRef} currentSong={currentSong} />
       <MusicPlayer dict={dict} />
-      <h2 className="mb-6 text-2xl text-center">专辑&&单曲</h2>
+      <h2 className="mb-6 text-2xl text-center">{dict.zard.music.title}</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
         {columnData?.length
           ? columnData?.map((column, columnIndex) => (
@@ -170,18 +170,22 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
       {/* 分页 */}
       {isClient && (
         <div className="text-center p-4" ref={triggerRef}>
-          {loading && <div className="loading-indicator">加载中...</div>}
+          {loading && <div className="loading-indicator">{dict.loading}</div>}
           {error && (
             <div className="error-message">
               {error}
               <button className="ml-2" onClick={handleRetry}>
-                点击重试
+                {dict.common.clickToRetry}
               </button>
             </div>
           )}
-          {!hasMore && albumsData.length > 0 && <div className="no-more">没有更多数据了</div>}
+          {!hasMore && albumsData.length > 0 && (
+            <div className="no-more">{dict.common.noMoreData}</div>
+          )}
 
-          {!hasMore && albumsData.length === 0 && <div className="empty-state">暂无数据</div>}
+          {!hasMore && albumsData.length === 0 && (
+            <div className="empty-state">{dict.common.noData}</div>
+          )}
         </div>
       )}
 
@@ -194,6 +198,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
           onSongPlay={handleSongPlay}
           onShowLyrics={handleShowLyrics}
           currentSong={currentSong}
+          dict={dict}
         />
       )}
 

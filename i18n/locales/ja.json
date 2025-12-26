@@ -14,6 +14,44 @@
     "clear": "clear",
     "back": "back"
   },
+  "loading": "読み込み中...",
+  "common": {
+    "clickToRetry": "クリックして再試行",
+    "noMoreData": "これ以上データがありません",
+    "noData": "データがありません",
+    "clickToZoom": "クリックして拡大",
+    "previous": "前へ",
+    "next": "次へ",
+    "close": "閉じる",
+    "author": "作者:",
+    "introduction": "紹介",
+    "play": "再生",
+    "pause": "一時停止",
+    "clickToPlay": "クリックして再生",
+    "imagesCount": "枚の画像",
+    "videosCount": "本の動画",
+    "playSong": "曲を再生"
+  },
+  "errors": {
+    "audioLoadFailed": "音声の読み込みに失敗しました:",
+    "loadFailed": "読み込みに失敗しました",
+    "infiniteScrollError": "無限スクロールエラー:",
+    "httpError": "HTTP ERROR:",
+    "cannotReadResponse": "レスポンスストリームを読み取れません",
+    "errorOccurred": "申し訳ありません、エラーが発生しました。後でもう一度お試しください。",
+    "requestAborted": "リクエストが中止されました",
+    "requestFailed": "リクエストに失敗しました:",
+    "cannotAnswer": "質問に回答できません。再度質問してください",
+    "parseJsonFailed": "JSONの解析に失敗しました:",
+    "errorOccurredRetry": "エラーが発生しました。後でもう一度質問してください",
+    "generationStopped": "生成が停止されました。再度質問してください",
+    "readMetadataFailed": "メタデータファイルの読み取りに失敗しました:",
+    "directoryNotExist": "ディレクトリが存在しません:",
+    "storageReadError": "Error reading localStorage key",
+    "storageSetError": "Error setting localStorage key",
+    "storageRemoveError": "Error removing localStorage key",
+    "storageClearError": "Error clearing localStorage:"
+  },
   "zard": {
     "nav": {
       "introduce": "Introduce",
@@ -66,6 +104,17 @@
     "layout": {
       "title": "ZARD ZOOM",
       "description": "wezard中国"
+    },
+    "photo": {
+      "title": "写真集"
+    },
+    "video": {
+      "title": "動画集",
+      "list": "動画リスト"
+    },
+    "music": {
+      "title": "アルバム&&シングル",
+      "playAll": "全曲再生"
     }
   },
   "chat": {

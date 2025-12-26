@@ -14,6 +14,44 @@
     "clear": "clear",
     "back": "back"
   },
+  "loading": "Loading...",
+  "common": {
+    "clickToRetry": "Click to retry",
+    "noMoreData": "No more data",
+    "noData": "No data available",
+    "clickToZoom": "Click to zoom",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "author": "Author:",
+    "introduction": "Introduction",
+    "play": "Play",
+    "pause": "Pause",
+    "clickToPlay": "Click to play",
+    "imagesCount": "images",
+    "videosCount": "videos",
+    "playSong": "Play song"
+  },
+  "errors": {
+    "audioLoadFailed": "Audio load failed:",
+    "loadFailed": "Load failed",
+    "infiniteScrollError": "Infinite scroll error:",
+    "httpError": "HTTP ERROR:",
+    "cannotReadResponse": "Cannot read response stream",
+    "errorOccurred": "Sorry, an error occurred. Please try again later.",
+    "requestAborted": "Request aborted",
+    "requestFailed": "Request failed:",
+    "cannotAnswer": "Cannot answer your question, please ask again",
+    "parseJsonFailed": "Failed to parse JSON:",
+    "errorOccurredRetry": "An error occurred, please ask again later",
+    "generationStopped": "Generation stopped, please ask again",
+    "readMetadataFailed": "Failed to read metadata file:",
+    "directoryNotExist": "Directory does not exist:",
+    "storageReadError": "Error reading localStorage key",
+    "storageSetError": "Error setting localStorage key",
+    "storageRemoveError": "Error removing localStorage key",
+    "storageClearError": "Error clearing localStorage:"
+  },
   "zard": {
     "nav": {
       "introduce": "Introduce",
@@ -66,6 +104,17 @@
     "layout": {
       "title": "ZARD ZOOM",
       "description": "wezard China"
+    },
+    "photo": {
+      "title": "Photo Gallery"
+    },
+    "video": {
+      "title": "Video Gallery",
+      "list": "Video List"
+    },
+    "music": {
+      "title": "Albums & Singles",
+      "playAll": "Play All"
     }
   },
   "chat": {

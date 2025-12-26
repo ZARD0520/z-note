@@ -161,6 +161,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
         goToPage={goToPage}
         contentList={contentList}
         isMobile={isMobile}
+        dict={dict}
       />
     </div>
   )
