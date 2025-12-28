@@ -1,18 +1,18 @@
 {
-  "home": "home",
-  "title": "assistant Z",
+  "home": "ホーム",
+  "title": "アシスタント Z",
   "titleZ": "ZARD ZOOM",
-  "description": "Use AI With Freedown",
-  "talkHistory": "talkHistory",
-  "tools": "tools",
-  "donation": "donation",
-  "root-welcome": "Hello, How may I assist you?",
+  "description": "AIを自由に使用",
+  "talkHistory": "会話履歴",
+  "tools": "ツール",
+  "donation": "寄付",
+  "root-welcome": "こんにちは、どのようにお手伝いできますか？",
   "input": {
-    "placeholder": "you can ask something"
+    "placeholder": "何か質問できます"
   },
   "base": {
-    "clear": "clear",
-    "back": "back"
+    "clear": "クリア",
+    "back": "戻る"
   },
   "loading": "読み込み中...",
   "common": {
@@ -47,16 +47,16 @@
     "generationStopped": "生成が停止されました。再度質問してください",
     "readMetadataFailed": "メタデータファイルの読み取りに失敗しました:",
     "directoryNotExist": "ディレクトリが存在しません:",
-    "storageReadError": "Error reading localStorage key",
-    "storageSetError": "Error setting localStorage key",
-    "storageRemoveError": "Error removing localStorage key",
-    "storageClearError": "Error clearing localStorage:"
+    "storageReadError": "localStorageキーの読み取りエラー",
+    "storageSetError": "localStorageキーの設定エラー",
+    "storageRemoveError": "localStorageキーの削除エラー",
+    "storageClearError": "localStorageのクリアエラー:"
   },
   "zard": {
     "nav": {
-      "introduce": "Introduce",
-      "album": "ALBUM",
-      "photo": "PHOTO",
+      "introduce": "紹介",
+      "album": "アルバム",
+      "photo": "写真",
       "mv": "MV"
     },
     "header": {
