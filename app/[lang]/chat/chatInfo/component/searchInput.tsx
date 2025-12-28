@@ -4,14 +4,15 @@ import ZInput from '../../../../../components/common/z-input'
 import { searchInputSuffixProps } from '@/type/chat'
 import { InputComponentProps } from '@/type/common/component'
 import { getRoleList } from '@/constants/chat'
+import { useI18n } from '@/i18n'
 
-const suffixInput: React.FC<searchInputSuffixProps> = ({
+const SuffixInput: React.FC<searchInputSuffixProps> = ({
   valueKey = '1',
   onSelect,
   onSearch,
   loading,
-  dict,
 }) => {
+  const { dict } = useI18n()
   const RoleList = getRoleList(dict) || []
   return (
     <div className="flex items-center ml-2">
@@ -46,7 +47,7 @@ const suffixInput: React.FC<searchInputSuffixProps> = ({
 }
 
 // 输入组件
-const zSearchInput: React.FC<InputComponentProps> = ({
+const zSearchInput: React.FC<Omit<InputComponentProps, 'dict'>> = ({
   type = 'text',
   rows,
   name,
@@ -57,7 +58,6 @@ const zSearchInput: React.FC<InputComponentProps> = ({
   onSearch,
   onSelectRole,
   className = '',
-  dict,
   isLoading,
   ...restProps
 }) => {
@@ -70,16 +70,14 @@ const zSearchInput: React.FC<InputComponentProps> = ({
       isLoading={isLoading}
       onSearch={onSearch}
       placeholder={placeholder}
-      dict={dict}
-      suffix={() =>
-        suffixInput({
-          valueKey: roleKey || '',
-          onSelect: onSelectRole,
-          onSearch,
-          loading: isLoading,
-          dict,
-        })
-      }
+      suffix={() => (
+        <SuffixInput
+          valueKey={roleKey || ''}
+          onSelect={onSelectRole}
+          onSearch={onSearch}
+          loading={isLoading}
+        />
+      )}
       className={'border-2 border-primary-border ' + className}
       {...restProps}
     />

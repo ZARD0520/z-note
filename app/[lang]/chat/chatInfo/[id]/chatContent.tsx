@@ -4,8 +4,10 @@ import { CaretDownOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { chatContentProps } from '@/type/chat'
 import ZMarkdown from '@/components/common/z-mark-down'
+import { useI18n } from '@/i18n'
 
-const ChatContent: React.FC<chatContentProps> = ({ messages, loading, dict }) => {
+const ChatContent: React.FC<chatContentProps> = ({ messages, loading }) => {
+  const { dict } = useI18n()
   const scrollRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [showScroll, setShowScroll] = useState(false)

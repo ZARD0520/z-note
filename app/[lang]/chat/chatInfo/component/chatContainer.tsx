@@ -6,8 +6,10 @@ import ChatContent from '../[id]/chatContent'
 import { useCallback, useState } from 'react'
 import { getModelList, getRoleList } from '@/constants/chat'
 import { useChatActions, useChatInput } from '@/store/useChatStore'
+import { useI18n } from '@/i18n'
 
-export default function ChatContainer({ dict }: { dict: any }) {
+export default function ChatContainer() {
+  const { dict } = useI18n()
   const modelList = getModelList(dict)
   const roleList = getRoleList(dict)
   const [menuValue, setMenuValue] = useState(modelList[0].key)
@@ -15,7 +17,7 @@ export default function ChatContainer({ dict }: { dict: any }) {
   const defaultInput = useChatInput()
   const chatActions = useChatActions()
   const { messages, isLoading, input, setInput, handleSubmit, stopGeneration, clearAllMessages } =
-    useChat(menuValue as string, roleKey as string, defaultInput ?? '', chatActions, dict)
+    useChat(menuValue as string, roleKey as string, defaultInput ?? '', chatActions)
 
   const clickModelItem = useCallback(({ key }: { key: string }) => {
     setMenuValue(key)
@@ -33,13 +35,11 @@ export default function ChatContainer({ dict }: { dict: any }) {
         menuValue={menuValue as string}
         clearText={dict.base.clear}
         backText={dict.base.back}
-        dict={dict}
       ></ChatHeader>
       <div className="text-center flex-1 mt-2 overflow-hidden pb-8">
-        <ChatContent messages={messages} loading={isLoading} dict={dict} />
+        <ChatContent messages={messages} loading={isLoading} />
       </div>
       <SearchChat
-        dict={dict}
         placeholder={dict.chat.input.placeholder}
         roleKey={String(roleKey)}
         handleSelectRole={clickRoleItem}
