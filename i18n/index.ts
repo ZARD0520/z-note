@@ -19,3 +19,7 @@ const dictionaries = {
 }
 
 export const getDictionary = async (locale: Locale) => dictionaries[locale]?.() ?? dictionaries.en()
+
+// 导出 Context 相关，供客户端组件使用
+export { I18nProvider, useI18n } from './context'
+export type { Dictionary } from './context'

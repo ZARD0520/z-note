@@ -1,13 +1,14 @@
 import { ChatMessage } from '@/type/chat'
 import React, { useEffect, useRef, useState } from 'react'
+import { useI18n } from '@/i18n'
 
 export function useChat(
   model: string,
   role: string = '1',
   defaultInput = '',
-  defaultActions?: any,
-  dict?: Record<string, any>
+  defaultActions?: any
 ) {
+  const { dict } = useI18n()
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)

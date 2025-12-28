@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import i18n, { Locale } from '@/i18n/config'
+import { getDictionary } from '@/i18n'
+import { I18nProvider } from '@/i18n/context'
 // import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,6 +27,8 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { lang: Locale }
 }>) {
+  const dict = await getDictionary(params.lang)
+
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
@@ -36,7 +40,9 @@ export default async function RootLayout({
           ' bg-primary-background min-h-screen max-h-screen flex flex-col overflow-x-hidden'
         }
       >
-        {children}
+        <I18nProvider dict={dict} locale={params.lang}>
+          {children}
+        </I18nProvider>
         {/* <ClientSideMonitor /> */}
       </body>
     </html>

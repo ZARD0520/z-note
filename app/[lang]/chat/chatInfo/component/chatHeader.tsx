@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { getModelList } from '@/constants/chat'
 import { chatHeaderProps } from '@/type/chat'
+import { useI18n } from '@/i18n'
 
 const ChatHeader: React.FC<chatHeaderProps> = ({
   clearText,
@@ -13,8 +14,8 @@ const ChatHeader: React.FC<chatHeaderProps> = ({
   handleClear,
   menuValue,
   handleClickModelItem,
-  dict,
 }) => {
+  const { dict } = useI18n()
   const modelList = getModelList(dict)
   const router = useRouter()
 
