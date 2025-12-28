@@ -1,7 +1,7 @@
 'use client'
 
 import { WezardHomeProps } from '@/type/wezard/home'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePageScroll } from '@/hooks/useScroll'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SideNav from '@/components/wezard/sidenav'
 
 const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
+  const [mounted, setMounted] = useState(false)
   const contentList = useMemo(
     () => [
       {
@@ -37,6 +38,11 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
   )
 
   const { isMobile } = useWindowSize()
+
+  // 确保在客户端 hydration 完成后再使用真实的 isMobile 值
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   const { currentPage, goToPage } = usePageScroll({
     totalPages: contentList.length,
     initialPage: 0,
@@ -160,7 +166,7 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
         currentPage={currentPage}
         goToPage={goToPage}
         contentList={contentList}
-        isMobile={isMobile}
+        isMobile={mounted ? isMobile : false}
         dict={dict}
       />
     </div>
