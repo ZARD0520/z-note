@@ -1,5 +1,8 @@
+'use client'
+
 import { InfoCardProps } from '@/type/wezard/introduce'
 import React from 'react'
+import { useI18n } from '@/i18n'
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, content }) => {
   return (
@@ -19,7 +22,8 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, content }) => {
   )
 }
 
-const Content: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
+const Content: React.FC = () => {
+  const { dict } = useI18n()
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -35,7 +39,8 @@ const Content: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   )
 }
 
-const StatsSection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
+const StatsSection: React.FC = () => {
+  const { dict } = useI18n()
   const stats = [
     { number: '45', label: dict.zard.content.singleState },
     { number: '17', label: dict.zard.content.albumState },
@@ -70,7 +75,8 @@ const StatsSection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   )
 }
 
-const LegacySection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
+const LegacySection: React.FC = () => {
+  const { dict } = useI18n()
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -96,12 +102,12 @@ const LegacySection: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
   )
 }
 
-export const MainContent: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
+export const MainContent: React.FC = () => {
   return (
     <>
-      <Content dict={dict} />
-      <StatsSection dict={dict} />
-      <LegacySection dict={dict} />
+      <Content />
+      <StatsSection />
+      <LegacySection />
     </>
   )
 }

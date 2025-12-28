@@ -8,8 +8,10 @@ import Image from 'next/image'
 import { getAlbumList } from '@/api'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import useWaterfallFlow from '@/hooks/useWaterfallFlow'
+import { useI18n } from '@/i18n'
 
-export default function VideoBox({ dict, initialData, initialPagination }: AlbumGridProps) {
+export default function VideoBox({ initialData, initialPagination }: AlbumGridProps) {
+  const { dict } = useI18n()
   const [selectedVideo, setSelectedVideo] = useState<Album | null>(null)
   const [currentPagination, setCurrentPagination] = useState(initialPagination)
   const [videosData, setVideosData] = useState<Album[]>(initialData)
@@ -179,9 +181,7 @@ export default function VideoBox({ dict, initialData, initialPagination }: Album
       )}
 
       {/* 详情 */}
-      {selectedVideo && (
-        <VideoDetail video={selectedVideo} onClose={handleCloseVideo} dict={dict} />
-      )}
+      {selectedVideo && <VideoDetail video={selectedVideo} onClose={handleCloseVideo} />}
     </div>
   )
 }

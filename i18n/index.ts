@@ -22,4 +22,5 @@ export const getDictionary = async (locale: Locale) => dictionaries[locale]?.() 
 
 // 导出 Context 相关，供客户端组件使用
 export { I18nProvider, useI18n } from './context'
-export type { Dictionary } from './context'
+// 导出类型定义
+export type { Dictionary, I18nContextType, I18nProviderProps } from '@/type/i18n'

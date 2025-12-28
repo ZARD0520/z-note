@@ -1,22 +1,9 @@
 'use client'
 
-import { createContext, useContext, type ReactNode } from 'react'
-
-// 定义字典类型（根据实际字典结构调整）
-export type Dictionary = Record<string, any>
-
-interface I18nContextType {
-  dict: Dictionary
-  locale: string
-}
+import { createContext, useContext } from 'react'
+import type { Dictionary, I18nContextType, I18nProviderProps } from '@/type/i18n'
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
-
-interface I18nProviderProps {
-  children: ReactNode
-  dict: Dictionary
-  locale: string
-}
 
 export function I18nProvider({ children, dict, locale }: I18nProviderProps) {
   return <I18nContext.Provider value={{ dict, locale }}>{children}</I18nContext.Provider>

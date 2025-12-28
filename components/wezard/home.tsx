@@ -1,6 +1,5 @@
 'use client'
 
-import { WezardHomeProps } from '@/type/wezard/home'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { usePageScroll } from '@/hooks/useScroll'
 import { useWindowSize } from '@/hooks/useWindowSize'
@@ -8,8 +7,10 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SideNav from '@/components/wezard/sidenav'
+import { useI18n } from '@/i18n'
 
-const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
+const WezardHome: React.FC = () => {
+  const { dict } = useI18n()
   const [mounted, setMounted] = useState(false)
   const contentList = useMemo(
     () => [
@@ -167,7 +168,6 @@ const WezardHome: React.FC<WezardHomeProps> = ({ dict }) => {
         goToPage={goToPage}
         contentList={contentList}
         isMobile={mounted ? isMobile : false}
-        dict={dict}
       />
     </div>
   )

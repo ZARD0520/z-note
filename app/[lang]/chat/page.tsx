@@ -61,7 +61,7 @@ export default async function Chat({ params: { lang } }: DefaultPageProps) {
         </div>
       </div>
       <div className="pb-2">
-        <SearchChat lang={lang} dict={dict} placeholder={dict.input.placeholder}></SearchChat>
+        <SearchChat lang={lang} placeholder={dict.input.placeholder}></SearchChat>
       </div>
     </div>
   )

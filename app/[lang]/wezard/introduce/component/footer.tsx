@@ -1,4 +1,9 @@
-export const Footer: React.FC<{ dict: Record<string, any> }> = ({ dict }) => {
+'use client'
+
+import { useI18n } from '@/i18n'
+
+export const Footer: React.FC = () => {
+  const { dict } = useI18n()
   return (
     <footer className="py-12 border-t border-white/10 mt-16">
       <div className="container mx-auto px-4 text-center">

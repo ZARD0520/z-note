@@ -1,4 +1,3 @@
-import { getDictionary } from '@/i18n'
 import PhotoBox from './component/photoBox'
 import { FloatingBackButton } from '@/components/wezard/back'
 import { getAlbumList } from '@/api'
@@ -6,7 +5,6 @@ import { Album, AlbumType } from '@/type/wezard/albums'
 import { DefaultPageProps } from '@/type/common/component'
 
 export default async function WezardPhoto({ params: { lang } }: DefaultPageProps) {
-  const dict = await getDictionary(lang)
   let initialPhotoData: Album[] = []
   let initialPagination = {
     current: 0,
@@ -28,7 +26,7 @@ export default async function WezardPhoto({ params: { lang } }: DefaultPageProps
   return (
     <div className="h-screen overflow-auto bg-gradient-to-br from-gray-800 via-slate-800 to-gray-900 text-white">
       <FloatingBackButton />
-      <PhotoBox dict={dict} initialData={initialPhotoData} initialPagination={initialPagination} />
+      <PhotoBox initialData={initialPhotoData} initialPagination={initialPagination} />
     </div>
   )
 }

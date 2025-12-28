@@ -1,15 +1,18 @@
 'use client'
 
-import { WezardSideNavProps } from '@/type/wezard/home'
 import { useEffect, useState } from 'react'
+import { useI18n } from '@/i18n'
+import { HomeContentListProps } from '@/type/wezard/home'
 
-const SideNav: React.FC<WezardSideNavProps> = ({
-  contentList,
-  isMobile,
-  currentPage,
-  goToPage,
-  dict,
-}) => {
+interface SideNavProps {
+  contentList: HomeContentListProps[]
+  isMobile: boolean
+  currentPage: number
+  goToPage: (page: number) => void
+}
+
+const SideNav: React.FC<SideNavProps> = ({ contentList, isMobile, currentPage, goToPage }) => {
+  const { dict } = useI18n()
   const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
     if (!isMobile) {

@@ -5,14 +5,15 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { getAlbumDetail } from '@/api'
 import { timestampToUTCString } from '@/utils/date'
+import { useI18n } from '@/i18n'
 
 interface PhotoDetailProps {
   photo: Album
   onClose: () => void
-  dict: Record<string, any>
 }
 
-export default function PhotoDetail({ photo, onClose, dict }: PhotoDetailProps) {
+export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
+  const { dict } = useI18n()
   const [images, setImages] = useState<AlbumItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showZoomModal, setShowZoomModal] = useState(false)

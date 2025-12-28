@@ -13,8 +13,10 @@ import AudioElement from './audioElement'
 import MusicPlayer from './musicPlayer'
 import { useMusicPlayerStore } from '@/store/useMusicPlayerStore'
 import { useAudioController } from '@/hooks/useAudioController'
+import { useI18n } from '@/i18n'
 
-export default function AlbumGrid({ dict, initialData, initialPagination }: AlbumGridProps) {
+export default function AlbumGrid({ initialData, initialPagination }: AlbumGridProps) {
+  const { dict } = useI18n()
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null)
   const [showLyrics, setShowLyrics] = useState(false)
   const [currentPagination, setCurrentPagination] = useState(initialPagination)
@@ -60,7 +62,6 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
     onLoadMore: handleLoadMore,
     hasMore,
     threshold: 50,
-    dict,
   })
 
   const handleRetry = useCallback(() => {
@@ -150,7 +151,7 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
   return (
     <div className="h-full overflow-y-scroll flex flex-col justify-between container mx-auto px-4 py-8">
       <AudioElement audioRef={audioRef} currentSong={currentSong} />
-      <MusicPlayer dict={dict} />
+      <MusicPlayer />
       <h2 className="mb-6 text-2xl text-center">{dict.zard.music.title}</h2>
       <div ref={containerRef} className="flex-1 gap-8 mb-8 flex justify-center">
         {columnData?.length
@@ -199,7 +200,6 @@ export default function AlbumGrid({ dict, initialData, initialPagination }: Albu
           onSongPlay={handleSongPlay}
           onShowLyrics={handleShowLyrics}
           currentSong={currentSong}
-          dict={dict}
         />
       )}
 

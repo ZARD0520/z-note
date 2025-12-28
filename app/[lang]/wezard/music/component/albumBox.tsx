@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { getAlbumDetail } from '@/api'
 import { formatSeconds, timestampToUTCString } from '@/utils/date'
+import { useI18n } from '@/i18n'
 
 export default function AlbumBox({
   album,
@@ -12,8 +13,8 @@ export default function AlbumBox({
   onClose,
   onSongPlay,
   currentSong,
-  dict,
 }: AlbumBoxProps) {
+  const { dict } = useI18n()
   const [songs, setSongs] = useState<AlbumItem[]>([])
   useEffect(() => {
     getAlbumDetail({ type: AlbumType.MUSIC, id: album.id })

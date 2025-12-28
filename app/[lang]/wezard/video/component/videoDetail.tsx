@@ -5,14 +5,15 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { getAlbumDetail } from '@/api'
 import { timestampToUTCString, formatSeconds } from '@/utils/date'
+import { useI18n } from '@/i18n'
 
 interface VideoDetailProps {
   video: Album
   onClose: () => void
-  dict: Record<string, any>
 }
 
-export default function VideoDetail({ video, onClose, dict }: VideoDetailProps) {
+export default function VideoDetail({ video, onClose }: VideoDetailProps) {
+  const { dict } = useI18n()
   const [videos, setVideos] = useState<AlbumItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)

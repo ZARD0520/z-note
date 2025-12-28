@@ -1,13 +1,14 @@
 import { UseInfiniteScroll } from '@/type/common/hooks'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useI18n } from '@/i18n'
 
 const useInfiniteScroll = ({
   onLoadMore,
   hasMore,
   threshold = 100,
   retryCount = 3,
-  dict,
 }: UseInfiniteScroll.UseInfiniteScrollProps) => {
+  const { dict } = useI18n()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [failCount, setFailCount] = useState(0)

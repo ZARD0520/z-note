@@ -8,8 +8,10 @@ import Image from 'next/image'
 import { getAlbumList } from '@/api'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import useWaterfallFlow from '@/hooks/useWaterfallFlow'
+import { useI18n } from '@/i18n'
 
-export default function PhotoBox({ dict, initialData, initialPagination }: AlbumGridProps) {
+export default function PhotoBox({ initialData, initialPagination }: AlbumGridProps) {
+  const { dict } = useI18n()
   const [selectedPhoto, setSelectedPhoto] = useState<Album | null>(null)
   const [currentPagination, setCurrentPagination] = useState(initialPagination)
   const [photosData, setPhotosData] = useState<Album[]>(initialData)
@@ -50,7 +52,6 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
     onLoadMore: handleLoadMore,
     hasMore,
     threshold: 50,
-    dict,
   })
 
   const handleRetry = useCallback(() => {
@@ -173,9 +174,7 @@ export default function PhotoBox({ dict, initialData, initialPagination }: Album
       )}
 
       {/* 详情 */}
-      {selectedPhoto && (
-        <PhotoDetail photo={selectedPhoto} onClose={handleClosePhoto} dict={dict} />
-      )}
+      {selectedPhoto && <PhotoDetail photo={selectedPhoto} onClose={handleClosePhoto} />}
     </div>
   )
 }

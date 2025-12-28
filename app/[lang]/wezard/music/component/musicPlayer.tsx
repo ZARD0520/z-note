@@ -4,8 +4,10 @@ import { formatSeconds } from '@/utils/date'
 import { useState, useEffect } from 'react'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import DraggableComponent from '@/components/common/z-drag'
+import { useI18n } from '@/i18n'
 
-export default function MusicPlayer({ dict }: { dict: Record<string, any> }) {
+export default function MusicPlayer() {
+  const { dict } = useI18n()
   const {
     currentSong,
     isPlaying,
