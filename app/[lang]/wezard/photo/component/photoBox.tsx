@@ -122,10 +122,6 @@ export default function PhotoBox({ initialData, initialPagination }: AlbumGridPr
               </p>
             </div>
           </div>
-          {/* 底部标题 */}
-          <div className="p-3 bg-gray-800">
-            <h3 className="text-sm font-medium text-white truncate">{item.name}</h3>
-          </div>
         </div>
       )
     },
