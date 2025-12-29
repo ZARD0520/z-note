@@ -111,17 +111,16 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-40">
-      <div className="overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
+      <div className="overflow-y-auto bg-gray-900 w-full h-full overflow-hidden flex flex-col">
         {/* 头部信息 */}
-        <div className="sticky top-0 z-10 bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-700 px-6 py-4 flex justify-between items-center">
+        <div className="sticky top-0 z-10 bg-gray-900 bg-opacity-95 backdrop-blur-sm px-6 py-4 flex justify-between items-center">
           <div className="flex-1 min-w-0">
             <h2 className="text-2xl font-bold truncate">{video.name}</h2>
             {video.description && (
               <p className="text-sm text-gray-400 mt-1 line-clamp-2">{video.description}</p>
             )}
             <p className="text-xs text-gray-500 mt-1">
-              {timestampToUTCString(video.releaseDate, 'date')} · {videos.length}{' '}
-              {dict.common.videosCount}
+              {timestampToUTCString(video.releaseDate, 'date')}
             </p>
           </div>
           <button
@@ -133,16 +132,16 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
         </div>
 
         {/* 视频播放区域 */}
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] p-6">
+        <div className="flex flex-col items-center justify-center flex-1 p-6 pt-0">
           {currentVideo && (
-            <div className="w-full max-w-5xl">
+            <div className="aspect-video w-full max-w-4xl mx-auto">
               {/* 视频播放器 */}
-              <div className="relative w-full bg-black rounded-lg overflow-hidden shadow-2xl">
+              <div className="w-full h-full relative bg-black rounded-lg overflow-hidden shadow-2xl">
                 <video
                   ref={videoRef}
                   src={currentVideo.url}
                   poster={currentVideo.cover}
-                  className="w-full h-auto max-h-[70vh]"
+                  className="w-full h-full"
                   playsInline
                 />
 
@@ -180,99 +179,6 @@ export default function VideoDetail({ video, onClose }: VideoDetailProps) {
                   {formatSeconds(currentTime)} / {formatSeconds(duration)}
                 </div>
               </div>
-
-              {/* 视频信息 */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-semibold text-white">{currentVideo.name}</h3>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-400">
-                      {formatSeconds(currentVideo.duration)}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      {currentIndex + 1} / {videos.length}
-                    </span>
-                  </div>
-                </div>
-                {currentVideo.artist && (
-                  <p className="text-sm text-gray-400 mb-2">
-                    {dict.common.author} {currentVideo.artist}
-                  </p>
-                )}
-                {currentVideo.lyrics && (
-                  <div className="mt-4 p-4 bg-gray-800 rounded-lg">
-                    <h4 className="text-sm font-medium text-gray-300 mb-2">
-                      {dict.common.introduction}
-                    </h4>
-                    <p className="text-sm text-gray-400 whitespace-pre-wrap leading-relaxed">
-                      {currentVideo.lyrics}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* 导航按钮 */}
-              {videos.length > 1 && (
-                <div className="flex items-center justify-center gap-4 mt-6">
-                  <button
-                    onClick={handlePrevious}
-                    disabled={currentIndex === 0}
-                    className={`px-6 py-2 rounded-lg transition-all duration-200 ${
-                      currentIndex === 0
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-gray-700 hover:bg-gray-600 text-white hover:scale-105'
-                    }`}
-                  >
-                    <span className="mr-2">◀</span>
-                    {dict.common.previous}
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    disabled={currentIndex === videos.length - 1}
-                    className={`px-6 py-2 rounded-lg transition-all duration-200 ${
-                      currentIndex === videos.length - 1
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-gray-700 hover:bg-gray-600 text-white hover:scale-105'
-                    }`}
-                  >
-                    {dict.common.next}
-                    <span className="ml-2">▶</span>
-                  </button>
-                </div>
-              )}
-
-              {/* 视频列表缩略图 */}
-              {videos.length > 1 && (
-                <div className="mt-8">
-                  <h4 className="text-sm font-medium text-gray-300 mb-3">{dict.zard.video.list}</h4>
-                  <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                    {videos.map((item, index) => (
-                      <div
-                        key={item.id}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-200 ${
-                          index === currentIndex
-                            ? 'border-blue-500 scale-105'
-                            : 'border-transparent hover:border-gray-500 opacity-70 hover:opacity-100'
-                        }`}
-                      >
-                        <Image
-                          src={item.cover}
-                          alt={item.name}
-                          width={128}
-                          height={80}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all flex items-center justify-center">
-                          <span className="text-white opacity-0 hover:opacity-100 transition-opacity">
-                            ▶
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>

@@ -61,9 +61,9 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center z-40">
-        <div className="overflow-y-auto bg-gray-900 w-full h-full overflow-hidden">
+        <div className="overflow-y-auto bg-gray-900 w-full h-full overflow-hidden flex flex-col">
           {/* 头部信息 */}
-          <div className="sticky top-0 z-10 bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-700 px-6 py-4 flex justify-between items-center">
+          <div className="sticky top-0 z-10 bg-gray-900 bg-opacity-95 backdrop-blur-sm border-gray-700 px-6 py-4 flex justify-between items-center">
             <div>
               <h2 className="text-2xl font-bold">{photo.name}</h2>
               {photo.description && (
@@ -83,28 +83,21 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
           </div>
 
           {/* 图片展示区域 */}
-          <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] p-6">
+          <div className="flex flex-col items-center justify-center flex-1 p-6">
             {currentImage && (
-              <div className="relative max-w-4xl w-full">
+              <div className="relative max-w-4xl w-full h-full">
                 {/* 主图片 */}
-                <div className="relative w-full cursor-pointer group" onClick={handleImageClick}>
-                  <div className="relative aspect-auto bg-gray-800 rounded-lg overflow-hidden shadow-2xl">
-                    <Image
-                      src={currentImage.url}
-                      alt={currentImage.name}
-                      width={1200}
-                      height={800}
-                      className="w-full h-auto object-contain"
-                      priority
-                    />
-                  </div>
-                  {/* 悬停提示 */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                    <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-4xl">🔍</span>
-                      <p className="text-sm mt-2">{dict.common.clickToZoom}</p>
-                    </div>
-                  </div>
+                <div
+                  className="relative h-[90%] w-full cursor-pointer group"
+                  onClick={handleImageClick}
+                >
+                  <Image
+                    src={currentImage.url}
+                    alt={currentImage.name}
+                    fill
+                    className="h-full w-auto object-contain rounded-lg"
+                    priority
+                  />
                 </div>
 
                 {/* 导航按钮 */}
@@ -129,7 +122,6 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
 
                 {/* 图片信息 */}
                 <div className="mt-4 text-center">
-                  <p className="text-lg font-medium text-white">{currentImage.name}</p>
                   <p className="text-sm text-gray-400 mt-1">
                     {currentIndex + 1} / {images.length}
                   </p>
@@ -217,7 +209,6 @@ export default function PhotoDetail({ photo, onClose }: PhotoDetailProps) {
 
             {/* 图片信息 */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white px-6 py-3 rounded-lg text-center z-10">
-              <p className="text-lg font-medium">{currentImage.name}</p>
               <p className="text-sm text-gray-300 mt-1">
                 {currentIndex + 1} / {images.length}
               </p>

@@ -61,7 +61,7 @@ export default function VideoBox({ initialData, initialPagination }: AlbumGridPr
   const { columnData, containerRef, columnWidth, registerItemHeight } = useWaterfallFlow(
     videosData,
     {
-      minColumnWidth: 280,
+      minColumnWidth: 200,
       gap: 16,
       responsive: true,
     }
@@ -84,7 +84,7 @@ export default function VideoBox({ initialData, initialPagination }: AlbumGridPr
 
       // 视频卡片通常是16:9的比例
       const displayHeight = (naturalHeight / naturalWidth) * columnWidth || (columnWidth * 9) / 16
-      const contentHeight = 80 // 标题和播放按钮区域高度
+      const contentHeight = 100 // 标题和播放按钮区域高度
       const totalHeight = displayHeight + contentHeight
 
       // 注册实际高度
@@ -124,19 +124,13 @@ export default function VideoBox({ initialData, initialPagination }: AlbumGridPr
             </div>
           </div>
           {/* 底部信息 */}
-          <div className="p-3 bg-gray-800">
-            <h3 className="text-sm font-medium text-white truncate mb-1">{item.name}</h3>
-            <div className="flex items-center justify-between text-xs text-gray-400">
-              <span>
-                {item.mediaCount} {dict.common.videosCount}
-              </span>
-              {item.description && <span className="truncate max-w-[60%]">{item.description}</span>}
-            </div>
+          <div className="p-3 bg-gray-200">
+            <h3 className="text-sm font-medium text-gray-900 truncate mb-1">{item.name}</h3>
           </div>
         </div>
       )
     },
-    [columnWidth, dict.common.clickToPlay, dict.common.videosCount, handleImageLoad]
+    [columnWidth, dict.common.clickToPlay, handleImageLoad]
   )
 
   return (
