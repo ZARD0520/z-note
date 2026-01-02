@@ -32,7 +32,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} data-theme="primary">
       <head>
-        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_v54wb08x59b.css"></link>
+        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4575924_20h7lwxwn5c.css"></link>
       </head>
       <body
         className={

@@ -18,6 +18,8 @@ export default function MusicPlayer() {
     prev,
     toggleExpand,
     seek,
+    playMode,
+    togglePlayMode,
   } = useMusicPlayerStore()
 
   const [currentTime, setCurrentTime] = useState(0)
@@ -186,11 +188,21 @@ export default function MusicPlayer() {
               </div>
 
               <div className="flex items-center justify-center space-x-12">
+                {/* 播放模式切换 */}
+                <button
+                  onClick={togglePlayMode}
+                  className="pr-10 p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-lg md:text-xl hover:scale-110 active:scale-95"
+                  title={dict.zard.player.playMode[playMode]}
+                >
+                  {playMode === 'sequential' && <i className="iconfont icon-shunxubofang"></i>}
+                  {playMode === 'random' && <i className="iconfont icon-suijibofang"></i>}
+                  {playMode === 'single' && <i className="iconfont icon-a-25px"></i>}
+                </button>
                 {/* 上一首 */}
                 <button
                   onClick={prev}
                   className="p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-xl md:text-2xl hover:scale-110 active:scale-95"
-                  title="上一首"
+                  title={dict.zard.player.prev}
                 >
                   ⏮
                 </button>
@@ -215,6 +227,13 @@ export default function MusicPlayer() {
                   title={dict.zard.player.next}
                 >
                   ⏭
+                </button>
+                {/* 播放列表 */}
+                <button
+                  className="pl-10 p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-lg md:text-xl hover:scale-110 active:scale-95"
+                  title={dict.zard.player.playlist}
+                >
+                  <i className="iconfont icon-bofangliebiao"></i>
                 </button>
               </div>
             </div>

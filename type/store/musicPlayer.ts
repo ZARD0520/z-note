@@ -1,5 +1,7 @@
 import { AlbumItem } from '../wezard/albums'
 
+export type PlayMode = 'sequential' | 'random' | 'single'
+
 export interface MusicPlayerState {
   currentSong: null | AlbumItem
   playlist: AlbumItem[]
@@ -8,6 +10,7 @@ export interface MusicPlayerState {
   progress: number
   volume: number
   isExpanded: boolean
+  playMode: PlayMode
   audioElement: HTMLAudioElement | null
 }
 
@@ -26,4 +29,6 @@ export interface MusicPlayerActions {
   seek: (time: number) => void
   clearPlayer: () => void
   exitPlayer: () => void
+  togglePlayMode: () => void
+  setPlayMode: (mode: PlayMode) => void
 }

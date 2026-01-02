@@ -1,5 +1,5 @@
 import { STORAGE_KEYS } from '@/constants/store'
-import { MusicPlayerActions, MusicPlayerState } from '@/type/store/musicPlayer'
+import { MusicPlayerActions, MusicPlayerState, PlayMode } from '@/type/store/musicPlayer'
 import { AlbumItem } from '@/type/wezard/albums'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -12,6 +12,7 @@ const initialState: Omit<MusicPlayerState, 'audioElement'> = {
   progress: 0,
   volume: 1,
   isExpanded: false,
+  playMode: 'sequential',
 }
 
 export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>()(
@@ -59,10 +60,29 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
       },
 
       next: () => {
-        const { playlist, currentIndex, audioElement } = get()
+        const { playlist, currentIndex, audioElement, playMode } = get()
         if (playlist.length === 0) return
 
-        const nextIndex = (currentIndex + 1) % playlist.length
+        let nextIndex: number
+        if (playMode === 'single') {
+          // 单曲循环：保持当前索引
+          nextIndex = currentIndex
+        } else if (playMode === 'random') {
+          // 随机播放：随机选择一个不同的索引
+          if (playlist.length === 1) {
+            nextIndex = 0
+          } else {
+            let randomIndex
+            do {
+              randomIndex = Math.floor(Math.random() * playlist.length)
+            } while (randomIndex === currentIndex && playlist.length > 1)
+            nextIndex = randomIndex
+          }
+        } else {
+          // 顺序播放：下一首，循环到第一首
+          nextIndex = (currentIndex + 1) % playlist.length
+        }
+
         set({
           currentIndex: nextIndex,
           currentSong: playlist[nextIndex],
@@ -79,10 +99,29 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
       },
 
       prev: () => {
-        const { playlist, currentIndex, audioElement } = get()
+        const { playlist, currentIndex, audioElement, playMode } = get()
         if (playlist.length === 0) return
 
-        const prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1
+        let prevIndex: number
+        if (playMode === 'single') {
+          // 单曲循环：保持当前索引
+          prevIndex = currentIndex
+        } else if (playMode === 'random') {
+          // 随机播放：随机选择一个不同的索引
+          if (playlist.length === 1) {
+            prevIndex = 0
+          } else {
+            let randomIndex
+            do {
+              randomIndex = Math.floor(Math.random() * playlist.length)
+            } while (randomIndex === currentIndex && playlist.length > 1)
+            prevIndex = randomIndex
+          }
+        } else {
+          // 顺序播放：上一首，循环到最后一首
+          prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1
+        }
+
         set({
           currentIndex: prevIndex,
           currentSong: playlist[prevIndex],
@@ -145,12 +184,25 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
         clearPlayer()
         set({ audioElement: null })
       },
+
+      togglePlayMode: () => {
+        const { playMode } = get()
+        const modes: PlayMode[] = ['sequential', 'random', 'single']
+        const currentModeIndex = modes.indexOf(playMode)
+        const nextModeIndex = (currentModeIndex + 1) % modes.length
+        set({ playMode: modes[nextModeIndex] })
+      },
+
+      setPlayMode: (mode: PlayMode) => {
+        set({ playMode: mode })
+      },
     }),
     {
       name: STORAGE_KEYS.MUSIC_PLAYER_STORE,
       partialize: (state) => ({
         volume: state.volume,
         isExpanded: state.isExpanded,
+        playMode: state.playMode,
       }),
     }
   )

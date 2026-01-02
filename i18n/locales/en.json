@@ -99,7 +99,12 @@
       "next": "Next",
       "pause": "Pause",
       "play": "Play",
-      "noLyrics": "No Lyrics"
+      "noLyrics": "No Lyrics",
+      "playMode": {
+        "sequential": "Sequential",
+        "random": "Random",
+        "single": "Single"
+      }
     },
     "layout": {
       "title": "ZARD ZOOM",
