@@ -100,6 +100,10 @@
       "pause": "暂停",
       "play": "播放",
       "noLyrics": "暂无歌词",
+      "playlist": "播放列表",
+      "playlistEmpty": "播放列表为空",
+      "clearPlaylist": "清空列表",
+      "totalSongs": "共 {count} 首",
       "playMode": {
         "sequential": "顺序播放",
         "random": "随机播放",

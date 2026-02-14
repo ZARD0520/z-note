@@ -1,7 +1,7 @@
 import { useMusicPlayerStore } from '@/store/useMusicPlayerStore'
 import Image from 'next/image'
 import { formatSeconds } from '@/utils/date'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useWindowSize } from '@/hooks/useWindowSize'
 import DraggableComponent from '@/components/common/z-drag'
 import { useI18n } from '@/i18n'
@@ -20,12 +20,19 @@ export default function MusicPlayer() {
     seek,
     playMode,
     togglePlayMode,
+    playlist,
+    currentIndex,
+    playSongAtIndex,
+    removeSongFromPlaylist,
+    clearPlaylist,
   } = useMusicPlayerStore()
 
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
   const [isShowLyrics, setIsShowLyrics] = useState(false)
+  const [isShowPlaylist, setIsShowPlaylist] = useState(false)
+  const playlistRef = useRef<HTMLDivElement>(null)
 
   const { isSm, width, height } = useWindowSize()
 
@@ -45,6 +52,19 @@ export default function MusicPlayer() {
       }
     }
   }, [currentSong])
+
+  // 当显示播放列表时，滚动到当前播放的歌曲
+  useEffect(() => {
+    if (isShowPlaylist && playlistRef.current && currentIndex >= 0) {
+      const currentSongElement = playlistRef.current.children[currentIndex] as HTMLElement
+      if (currentSongElement) {
+        currentSongElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+      }
+    }
+  }, [isShowPlaylist, currentIndex])
 
   // 进度条点击处理
   const handleProgressClick = (
@@ -114,54 +134,137 @@ export default function MusicPlayer() {
           </div>
 
           {/* 主体内容区域 */}
-          <div
-            onClick={() => handleShowLyrics(!isShowLyrics)}
-            className="sm:cursor-pointer md:cursor-auto flex-1 flex flex-col md:flex-row items-center justify-center overflow-y-auto"
-          >
-            {/* 左侧：封面图片 */}
-            {isShowLyrics && isSm ? (
-              ''
-            ) : (
-              <div className="flex-shrink-0 w-full md:w-1/2 h-1/2 md:h-full flex items-center md:items-start justify-center p-4 md:p-8">
-                <div className="relative w-[72%] md:w-[80%] max-w-md aspect-square">
-                  <div className="absolute inset-0 rounded-full bg-black bg-opacity-60 shadow-2xl shadow-gray-900/50 border-[8px] md:border-[10px] border-gray-800">
-                    <div className="absolute inset-0 rounded-full border-opacity-70"></div>
-                    <div className="absolute inset-8 rounded-full border-black border-[8px]"></div>
-                  </div>
-                  <div className="absolute inset-12 md:inset-6 rounded-full overflow-hidden z-5">
-                    <Image
-                      key={currentSong.id}
-                      src={currentSong.cover}
-                      alt={currentSong.name}
-                      fill
-                      className="object-cover animate-spin-slow"
-                      style={{ animationPlayState: isPlaying ? 'running' : 'paused' }}
-                      priority
-                    />
-                  </div>
+          {isShowPlaylist ? (
+            /* 播放列表面板 */
+            <div className="flex-1 overflow-y-auto p-4 md:p-8">
+              <div className="max-w-4xl mx-auto">
+                {/* 播放列表头部 */}
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl md:text-2xl font-semibold text-white">
+                    {dict.zard.player.playlist} ({playlist.length})
+                  </h3>
+                  {playlist.length > 0 && (
+                    <button
+                      onClick={clearPlaylist}
+                      className="px-4 py-2 text-sm text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                    >
+                      {dict.zard.player.clearPlaylist}
+                    </button>
+                  )}
                 </div>
-              </div>
-            )}
 
-            {/* 右侧：歌词区域 */}
-            {isShowLyrics || !isSm ? (
-              <div className="md:self-start h-full flex-1 overflow-y-auto p-4 md:p-8 md:bg-gray-800 md:mr-8 md:rounded-lg">
-                <div className="max-w-2xl mx-auto">
-                  <div className="min-h-[200px]">
-                    {currentSong.lyrics ? (
-                      <pre className="text-sm md:text-base leading-relaxed whitespace-pre-wrap text-gray-300 font-sans">
-                        {currentSong.lyrics}
-                      </pre>
-                    ) : (
-                      <p className="text-gray-400 text-center py-8">{dict.zard.player.noLyrics}</p>
-                    )}
+                {/* 播放列表内容 */}
+                {playlist.length === 0 ? (
+                  <div className="text-center py-16">
+                    <p className="text-gray-400 text-lg">{dict.zard.player.playlistEmpty}</p>
+                  </div>
+                ) : (
+                  <div ref={playlistRef} className="space-y-2">
+                    {playlist.map((song, index) => (
+                      <div
+                        key={`${song.id}-${index}`}
+                        className={`flex items-center space-x-4 p-3 md:p-4 rounded-lg transition-all cursor-pointer group ${
+                          index === currentIndex
+                            ? 'bg-blue-600/30 border border-blue-500/50'
+                            : 'bg-gray-800/50 hover:bg-gray-800 border border-transparent'
+                        }`}
+                        onClick={() => playSongAtIndex(index)}
+                      >
+                        {/* 封面缩略图 */}
+                        <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded overflow-hidden">
+                          <Image
+                            src={song.cover}
+                            alt={song.name}
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+
+                        {/* 歌曲信息 */}
+                        <div className="flex-1 min-w-0">
+                          <h4
+                            className={`text-sm md:text-base font-medium truncate ${
+                              index === currentIndex ? 'text-blue-300' : 'text-white'
+                            }`}
+                          >
+                            {song.name}
+                            {index === currentIndex && (
+                              <span className="ml-2 text-xs text-blue-400">●</span>
+                            )}
+                          </h4>
+                          <p className="text-xs md:text-sm text-gray-400 truncate">{song.artist}</p>
+                        </div>
+
+                        {/* 删除按钮 */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeSongFromPlaylist(index)
+                          }}
+                          className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity rounded-full hover:bg-red-500/20"
+                          title="删除"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div
+              onClick={() => handleShowLyrics(!isShowLyrics)}
+              className="sm:cursor-pointer md:cursor-auto flex-1 flex flex-col md:flex-row items-center justify-center overflow-y-auto"
+            >
+              {/* 左侧：封面图片 */}
+              {isShowLyrics && isSm ? (
+                ''
+              ) : (
+                <div className="flex-shrink-0 w-full md:w-1/2 h-1/2 md:h-full flex items-center md:items-start justify-center p-4 md:p-8">
+                  <div className="relative w-[72%] md:w-[80%] max-w-md aspect-square">
+                    <div className="absolute inset-0 rounded-full bg-black bg-opacity-60 shadow-2xl shadow-gray-900/50 border-[8px] md:border-[10px] border-gray-800">
+                      <div className="absolute inset-0 rounded-full border-opacity-70"></div>
+                      <div className="absolute inset-8 rounded-full border-black border-[8px]"></div>
+                    </div>
+                    <div className="absolute inset-12 md:inset-6 rounded-full overflow-hidden z-5">
+                      <Image
+                        key={currentSong.id}
+                        src={currentSong.cover}
+                        alt={currentSong.name}
+                        fill
+                        className="object-cover animate-spin-slow"
+                        style={{ animationPlayState: isPlaying ? 'running' : 'paused' }}
+                        priority
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
+              )}
+
+              {/* 右侧：歌词区域 */}
+              {isShowLyrics || !isSm ? (
+                <div className="md:self-start h-full flex-1 overflow-y-auto p-4 md:p-8 md:bg-gray-800 md:mr-8 md:rounded-lg">
+                  <div className="max-w-2xl mx-auto">
+                    <div className="min-h-[200px]">
+                      {currentSong.lyrics ? (
+                        <pre className="text-sm md:text-base leading-relaxed whitespace-pre-wrap text-gray-300 font-sans">
+                          {currentSong.lyrics}
+                        </pre>
+                      ) : (
+                        <p className="text-gray-400 text-center py-8">
+                          {dict.zard.player.noLyrics}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+          )}
 
           {/* 底部：控制区域 */}
           <div className="w-[90%] mt-8 self-center bg-gray-900">
@@ -230,7 +333,12 @@ export default function MusicPlayer() {
                 </button>
                 {/* 播放列表 */}
                 <button
-                  className="pl-10 p-2 md:p-3 text-gray-400 hover:text-white transition-colors text-lg md:text-xl hover:scale-110 active:scale-95"
+                  onClick={() => setIsShowPlaylist(!isShowPlaylist)}
+                  className={`pl-10 p-2 md:p-3 transition-colors text-lg md:text-xl hover:scale-110 active:scale-95 ${
+                    isShowPlaylist
+                      ? 'text-blue-400 hover:text-blue-300'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
                   title={dict.zard.player.playlist}
                 >
                   <i className="iconfont icon-bofangliebiao"></i>

@@ -31,4 +31,9 @@ export interface MusicPlayerActions {
   exitPlayer: () => void
   togglePlayMode: () => void
   setPlayMode: (mode: PlayMode) => void
+  playSongAtIndex: (index: number) => void
+  removeSongFromPlaylist: (index: number) => void
+  clearPlaylist: () => void
+  addSongToPlaylist: (song: AlbumItem) => number
+  setPlaylistAndPlay: (songs: AlbumItem[], playFirst?: boolean) => void
 }

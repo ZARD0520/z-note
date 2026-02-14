@@ -25,15 +25,42 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
           playlist: songs,
         })
       },
+
+      setPlaylistAndPlay: (songs: AlbumItem[], playFirst: boolean = true) => {
+        const { setCurrentPlay } = get()
+        set({
+          playlist: songs,
+        })
+        // 如果列表不为空且需要播放第一首，则播放第一首
+        if (playFirst && songs.length > 0) {
+          setCurrentPlay(songs[0])
+        }
+      },
       setCurrentPlay: (song: AlbumItem) => {
-        const { play } = get()
+        const { playlist, play, audioElement, addSongToPlaylist } = get()
+        // 查找歌曲在播放列表中的索引
+        let index = playlist.findIndex((s) => s.id === song.id)
+
+        // 如果歌曲不在播放列表中，添加到列表末尾
+        if (index === -1) {
+          index = addSongToPlaylist(song)
+        }
+
         set({
           currentSong: song,
-          currentIndex: 0,
+          currentIndex: index,
           progress: 0,
           isPlaying: true,
         })
-        play()
+
+        if (audioElement) {
+          setTimeout(() => {
+            audioElement.currentTime = 0
+            audioElement.play().catch(console.error)
+          }, 0)
+        } else {
+          play()
+        }
       },
       play: () => {
         const { audioElement, currentSong } = get()
@@ -195,6 +222,109 @@ export const useMusicPlayerStore = create<MusicPlayerState & MusicPlayerActions>
 
       setPlayMode: (mode: PlayMode) => {
         set({ playMode: mode })
+      },
+
+      playSongAtIndex: (index: number) => {
+        const { playlist, audioElement, play } = get()
+        if (index < 0 || index >= playlist.length) return
+
+        set({
+          currentIndex: index,
+          currentSong: playlist[index],
+          progress: 0,
+          isPlaying: true,
+        })
+
+        if (audioElement) {
+          setTimeout(() => {
+            audioElement.currentTime = 0
+            audioElement.play().catch(console.error)
+          }, 0)
+        } else {
+          play()
+        }
+      },
+
+      removeSongFromPlaylist: (index: number) => {
+        const { playlist, currentIndex, currentSong, audioElement } = get()
+        if (index < 0 || index >= playlist.length) return
+
+        const newPlaylist = playlist.filter((_, i) => i !== index)
+        let newIndex = currentIndex
+
+        // 如果删除的是当前播放的歌曲
+        if (index === currentIndex) {
+          if (newPlaylist.length === 0) {
+            // 列表为空，清空播放器
+            if (audioElement) {
+              audioElement.pause()
+              audioElement.src = ''
+            }
+            set({
+              playlist: [],
+              currentSong: null,
+              currentIndex: -1,
+              isPlaying: false,
+              progress: 0,
+            })
+            return
+          } else {
+            // 播放下一首，如果删除的是最后一首，播放第一首
+            newIndex = currentIndex >= newPlaylist.length ? 0 : currentIndex
+            set({
+              playlist: newPlaylist,
+              currentIndex: newIndex,
+              currentSong: newPlaylist[newIndex],
+              progress: 0,
+            })
+            if (audioElement) {
+              setTimeout(() => {
+                audioElement.currentTime = 0
+                audioElement.play().catch(console.error)
+              }, 0)
+            }
+            return
+          }
+        }
+
+        // 如果删除的歌曲在当前歌曲之前，需要调整索引
+        if (index < currentIndex) {
+          newIndex = currentIndex - 1
+        }
+
+        set({
+          playlist: newPlaylist,
+          currentIndex: newIndex,
+        })
+      },
+
+      clearPlaylist: () => {
+        const { audioElement } = get()
+        if (audioElement) {
+          audioElement.pause()
+          audioElement.src = ''
+        }
+        set({
+          playlist: [],
+          currentSong: null,
+          currentIndex: -1,
+          isPlaying: false,
+          progress: 0,
+        })
+      },
+
+      addSongToPlaylist: (song: AlbumItem) => {
+        const { playlist } = get()
+        // 检查歌曲是否已在播放列表中
+        const existingIndex = playlist.findIndex((s) => s.id === song.id)
+        if (existingIndex >= 0) {
+          return existingIndex
+        }
+        // 如果不在列表中，添加到末尾
+        const newPlaylist = [...playlist, song]
+        const newIndex = newPlaylist.length - 1
+        set({ playlist: newPlaylist })
+        return newIndex
       },
     }),
     {

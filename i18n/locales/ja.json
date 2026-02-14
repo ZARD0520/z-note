@@ -100,6 +100,10 @@
       "pause": "一時停止",
       "play": "再生",
       "noLyrics": "歌詞なし",
+      "playlist": "プレイリスト",
+      "playlistEmpty": "プレイリストが空です",
+      "clearPlaylist": "リストをクリア",
+      "totalSongs": "全 {count} 曲",
       "playMode": {
         "sequential": "順番再生",
         "random": "ランダム再生",
