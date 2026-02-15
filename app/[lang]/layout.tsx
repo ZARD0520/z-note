@@ -4,7 +4,7 @@ import './globals.css'
 import i18n, { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n'
 import { I18nProvider } from '@/i18n/context'
-// import ClientSideMonitor from '@/components/monitor'
+import ClientSideMonitor from '@/components/monitor'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,7 +43,7 @@ export default async function RootLayout({
         <I18nProvider dict={dict} locale={params.lang}>
           {children}
         </I18nProvider>
-        {/* <ClientSideMonitor /> */}
+        <ClientSideMonitor />
       </body>
     </html>
   )

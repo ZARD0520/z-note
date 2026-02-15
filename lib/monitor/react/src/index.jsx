@@ -1,0 +1,139 @@
+import { defaultPluginConfig, Monitor } from '../../core/src/index.js'
+import { usePlatform } from './platform/index.js'
+import {
+  CLICK,
+  ERROR,
+  REJECT_ERROR,
+  AJAX,
+  USERINFO,
+  COUNT,
+  VIDEO_RECORD,
+} from '../../core/src/plugins/index.js'
+import { DEFAULT_TRACK_URL } from '../../core/src/constant/config.js'
+
+const DEFAULT_CONFIG = {
+  url: DEFAULT_TRACK_URL,
+  platform: 'react',
+  key: 'z-app',
+  trackList: ['userInfo'],
+}
+
+const CORE_PLUGINS = {
+  click: CLICK,
+  ERROR: ERROR,
+  reject_error: REJECT_ERROR,
+  count: COUNT,
+}
+
+const OPTIONAL_PLUGINS = {
+  ajax: AJAX,
+  videoRecord: VIDEO_RECORD,
+  userInfo: USERINFO,
+  pagePerformance: null,
+}
+
+export default function useMonitor(
+  React,
+  { history, pathname } = {},
+  configs = {},
+  pluginConfig = {}
+) {
+  // SSR 兼容：服务端返回空实现
+  // pathname: Next.js App Router 下由 usePathname() 传入的当前路径
+  const isClient = typeof window !== 'undefined'
+  const monitor = React.useRef(null)
+  const MonitorWrapper = React.useRef(({ children }) => <>{children}</>)
+
+  // 合并配置
+  const options = {
+    ...DEFAULT_CONFIG,
+    ...configs,
+  }
+
+  const {
+    register,
+    ERROR: REACT_ERROR,
+    RouterMonitorPlugin,
+    useRouterMonitor,
+    PerformanceMonitorPlugin,
+  } = usePlatform(options.platform)
+
+  // 未存在实例且为客户端环境，初始化
+  if (isClient && !monitor.current) {
+    // 初始化监控系统
+    try {
+      const mergePluginConfig = {}
+      for (const key in defaultPluginConfig) {
+        mergePluginConfig[key] = {
+          ...defaultPluginConfig[key],
+          ...pluginConfig[key],
+        }
+      }
+
+      // 性能监控配置
+      const performanceConfig =
+        options.trackList?.includes('pagePerformance') && mergePluginConfig?.pagePerformance
+          ? {
+              enabled: true,
+              entryTypes: mergePluginConfig.pagePerformance.entryTypes,
+            }
+          : null
+
+      const mergeConfig = {
+        url: options.url,
+        key: options.key,
+        plugins: {
+          http: mergePluginConfig.http,
+          log: mergePluginConfig.log,
+          click: mergePluginConfig.click,
+        },
+      }
+
+      const monitorInstance = new Monitor(mergeConfig)
+
+      const withMt = register(React, monitorInstance)
+
+      // 注册核心插件
+      Object.entries(CORE_PLUGINS).forEach(([name, plugin]) => {
+        monitorInstance.pluginCall(name, plugin)
+      })
+
+      // 注册平台错误处理插件
+      monitorInstance.pluginCall('platform_error', REACT_ERROR)
+      // 注册可选插件
+      options.trackList?.forEach((pluginName) => {
+        if (OPTIONAL_PLUGINS[pluginName] && mergePluginConfig[pluginName]) {
+          mergeConfig.plugins[pluginName] = mergePluginConfig[pluginName]
+          monitorInstance.pluginCall(pluginName, OPTIONAL_PLUGINS[pluginName])
+        }
+      })
+
+      // 注册路由插件（但不立即启用）- 支持 history 或 pathname（Next.js App Router）
+      if (React && (history || pathname !== undefined)) {
+        monitorInstance.pluginCall('routerChange', RouterMonitorPlugin)
+      }
+
+      // 注册性能监控插件（但不立即启用）
+      if (performanceConfig) {
+        monitorInstance.pluginCall('pagePerformance', PerformanceMonitorPlugin)
+      }
+
+      MonitorWrapper.current = withMt(({ children }) => <>{children}</>)
+      monitor.current = monitorInstance
+    } catch (e) {
+      console.error('[Z-Monitor] Initialization failed:', {
+        error: e,
+        config: { ...options, trackList: options.trackList },
+        platform: options.platform,
+      })
+    }
+  }
+
+  // 处理路由插件的启用/禁用
+  useRouterMonitor(monitor.current, React, history, pathname)
+
+  return {
+    MonitorWrapper: MonitorWrapper.current,
+    mt: monitor.current,
+  }
+}
