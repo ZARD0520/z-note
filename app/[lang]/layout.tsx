@@ -41,9 +41,8 @@ export default async function RootLayout({
         }
       >
         <I18nProvider dict={dict} locale={params.lang}>
-          {children}
+          <ClientSideMonitor>{children}</ClientSideMonitor>
         </I18nProvider>
-        <ClientSideMonitor />
       </body>
     </html>
   )

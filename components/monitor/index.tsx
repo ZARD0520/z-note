@@ -3,10 +3,12 @@
 import createMonitor from '../../lib/monitor'
 import React from 'react'
 import { usePathname } from 'next/navigation'
+import { MonitorContext } from './context'
+import MonitorTestPanel from './MonitorTestPanel'
 
-export default function ClientSideMonitor() {
+export default function ClientSideMonitor({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  createMonitor(
+  const { mt, MonitorWrapper } = createMonitor(
     React,
     { pathname },
     {
@@ -23,9 +25,23 @@ export default function ClientSideMonitor() {
         ],
       },
       userInfo: {
-        getData: null,
+        getData: () => ({
+          userId: 'test-user-001',
+          userName: '测试用户',
+          env: process.env.NODE_ENV,
+        }),
       },
     }
   )
-  return null
+
+  return (
+    <MonitorContext.Provider value={{ mt }}>
+      <MonitorWrapper>
+        {children}
+        <MonitorTestPanel />
+      </MonitorWrapper>
+    </MonitorContext.Provider>
+  )
 }
+
+export { useMonitor } from './context'
