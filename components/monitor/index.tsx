@@ -10,6 +10,7 @@ export default function ClientSideMonitor() {
     React,
     { pathname },
     {
+      url: process.env.NEXT_PUBLIC_SERVER_URL,
       platform: 'react',
       key: 'z-app',
       trackList: ['ajax', 'userInfo'],
