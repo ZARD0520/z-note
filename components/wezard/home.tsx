@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SideNav from '@/components/wezard/sidenav'
 import { useI18n } from '@/i18n'
+import { useMonitor } from '../monitor/context'
 
 const WezardHome: React.FC = () => {
   const { dict } = useI18n()
@@ -39,10 +40,12 @@ const WezardHome: React.FC = () => {
   )
 
   const { isMobile } = useWindowSize()
+  const mt = useMonitor()
 
   // 确保在客户端 hydration 完成后再使用真实的 isMobile 值
   useEffect(() => {
     setMounted(true)
+    mt?.startRecord('testTT1', { page: 'wezard/home' })
   }, [])
   const { currentPage, goToPage } = usePageScroll({
     totalPages: contentList.length,
