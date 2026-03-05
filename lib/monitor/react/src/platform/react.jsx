@@ -204,9 +204,7 @@ export class PerformanceMonitorPlugin extends Plugin {
 
   stopRouteMonitoring(routePath) {
     const observer = this.observers.get(routePath)
-    console.log(routePath, this.observers)
     if (observer) {
-      console.log('this is stop2')
       observer.disconnect()
       this.observers.delete(routePath)
     }
